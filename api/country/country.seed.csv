@@ -1,0 +1,247 @@
+active,geometry.coordinates.latitude,geometry.coordinates.longitude,geometry.location,geometry.viewport.northeast.latitude,geometry.viewport.northeast.longitude,geometry.viewport.southwest.latitude,geometry.viewport.southwest.longitude,image,iso.code,iso.domain,iso.number,iso.phone,name
+true,,,,,,,,country_afg.svg,AFG,AF,4,T93,Afganistán
+true,,,,,,,,country_ala.svg,ALA,AX,248,T358 18,Aland
+true,,,,,,,,country_alb.svg,ALB,AL,8,T355,Albania
+true,,,,,,,,country_deu.svg,DEU,DE,276,T49,Alemania
+true,,,,,,,,country_and.svg,AND,AD,20,T376,Andorra
+true,,,,,,,,country_ago.svg,AGO,AO,24,T244,Angola
+true,,,,,,,,country_aia.svg,AIA,AI,660,T1 264,Anguila
+true,,,,,,,,country_ata.svg,ATA,AQ,10,T672,Antártida
+true,,,,,,,,country_atg.svg,ATG,AG,28,T1 268,Antigua y Barbuda
+true,,,,,,,,country_sau.svg,SAU,SA,682,T966,Arabia Saudita
+true,,,,,,,,country_dza.svg,DZA,DZ,12,T213,Argelia
+true,,,,,,,,country_arg.svg,ARG,AR,32,T54,Argentina
+true,,,,,,,,country_arm.svg,ARM,AM,51,T374,Armenia
+true,,,,,,,,country_abw.svg,ABW,AW,533,T297,Aruba
+true,,,,,,,,country_aus.svg,AUS,AU,36,T61,Australia
+true,,,,,,,,country_aut.svg,AUT,AT,40,T43,Austria
+true,,,,,,,,country_aze.svg,AZE,AZ,31,T994,Azerbaiyán
+true,,,,,,,,country_bhs.svg,BHS,BS,44,T1,Bahamas
+true,,,,,,,,country_bhr.svg,BHR,BH,48,T973,Bahréin
+true,,,,,,,,country_bgd.svg,BGD,BD,50,T880,Bangladesh
+true,,,,,,,,country_brb.svg,BRB,BB,52,T1,Barbados
+true,,,,,,,,country_bel.svg,BEL,BE,56,T32,Bélgica
+true,,,,,,,,country_blz.svg,BLZ,BZ,84,T501,Belice
+true,,,,,,,,country_ben.svg,BEN,BJ,204,T229,Benín
+true,,,,,,,,country_bmu.svg,BMU,BM,60,T1,Bermudas
+true,,,,,,,,country_blr.svg,BLR,BY,112,T375,Bielorrusia
+true,,,,,,,,country_mmr.svg,MMR,MM,104,T95,Birmania (Myanmar)
+true,,,,,,,,country_bol.svg,BOL,BO,68,T591,Bolivia
+true,,,,,,,,country_bih.svg,BIH,BA,70,T387,Bosnia-Herzegovina
+true,,,,,,,,country_bwa.svg,BWA,BW,72,T267,Botsuana
+true,,,,,,,,country_bra.svg,BRA,BR,76,T55,Brasil
+true,,,,,,,,country_brn.svg,BRN,BN,96,T673,Brunéi
+true,,,,,,,,country_bgr.svg,BGR,BG,100,T359,Bulgaria
+true,,,,,,,,country_bfa.svg,BFA,BF,854,T226,Burkina Faso
+true,,,,,,,,country_bdi.svg,BDI,BI,108,T257,Burundi
+true,,,,,,,,country_btn.svg,BTN,BT,64,T975,Bután
+true,,,,,,,,country_cpv.svg,CPV,CV,132,T238,Cabo Verde
+true,,,,,,,,country_khm.svg,KHM,KH,116,T855,Camboya
+true,,,,,,,,country_cmr.svg,CMR,CM,120,T237,Camerún
+true,,,,,,,,country_can.svg,CAN,CA,124,T1,Canadá
+true,,,,,,,,country_tcd.svg,TCD,TD,148,T235,Chad
+true,,,,,,,,country_chl.svg,CHL,CL,152,T56,Chile
+true,,,,,,,,country_chn.svg,CHN,CN,156,T86,China
+true,,,,,,,,country_cyp.svg,CYP,CY,196,T357,Chipre
+true,,,,,,,,country_col.svg,COL,CO,170,T57,Colombia
+true,,,,,,,,country_com.svg,COM,KM,174,T269,Comoras
+true,,,,,,,,country_prk.svg,PRK,KP,408,T850,Corea del Norte
+true,,,,,,,,country_kor.svg,KOR,KR,410,T82,Corea del Sur
+true,,,,,,,,country_civ.svg,CIV,CI,384,T225,Costa de Marfil
+true,,,,,,,,country_cri.svg,CRI,CR,188,T506,Costa Rica
+true,,,,,,,,country_hrv.svg,HRV,HR,191,T385,Croacia
+true,,,,,,,,country_cub.svg,CUB,CU,192,T53,Cuba
+true,,,,,,,,country_cuw.svg,CUW,CW,531,T599,Curazao
+true,,,,,,,,country_dnk.svg,DNK,DK,208,T45,Dinamarca
+true,,,,,,,,country_dma.svg,DMA,DM,212,T1,Dominica
+true,,,,,,,,country_ecu.svg,ECU,EC,218,T593,Ecuador
+true,,,,,,,,country_egy.svg,EGY,EG,818,T20,Egipto
+true,,,,,,,,country_slv.svg,SLV,SV,222,T503,El Salvador
+true,,,,,,,,country_vat.svg,VAT,VA,336,T39,El Vaticano
+true,,,,,,,,country_are.svg,ARE,AE,784,T971,Emiratos Árabes Unidos
+true,,,,,,,,country_eri.svg,ERI,ER,232,T291,Eritrea
+true,,,,,,,,country_svk.svg,SVK,SK,703,T421,Eslovaquia
+true,,,,,,,,country_svn.svg,SVN,SI,705,T386,Eslovenia
+true,,,,,,,,country_esp.svg,ESP,ES,724,T34,España
+true,,,,,,,,country_usa.svg,USA,US,840,T1,Estados Unidos
+true,,,,,,,,country_est.svg,EST,EE,233,T372,Estonia
+true,,,,,,,,country_eth.svg,ETH,ET,231,T251,Etiopía
+true,,,,,,,,country_phl.svg,PHL,PH,608,T63,Filipinas
+true,,,,,,,,country_fin.svg,FIN,FI,246,T358,Finlandia
+true,,,,,,,,country_fji.svg,FJI,FJ,242,T679,Fiyi
+true,,,,,,,,country_fra.svg,FRA,FR,250,T33,Francia
+true,,,,,,,,country_gab.svg,GAB,GA,266,T241,Gabón
+true,,,,,,,,country_gmb.svg,GMB,GM,270,T220,Gambia
+true,,,,,,,,country_geo.svg,GEO,GE,268,T995,Georgia
+true,,,,,,,,country_gha.svg,GHA,GH,288,T233,Ghana
+true,,,,,,,,country_gib.svg,GIB,GI,292,T350,Gibraltar
+true,,,,,,,,country_grd.svg,GRD,GD,308,T1 473,Granada
+true,,,,,,,,country_grc.svg,GRC,GR,300,T30,Grecia
+true,,,,,,,,country_grl.svg,GRL,GL,304,T299,Groenlandia
+true,,,,,,,,country_glp.svg,GLP,GP,312,T590,Guadalupe
+true,,,,,,,,country_gum.svg,GUM,GU,316,T1 671,Guam
+true,,,,,,,,country_gtm.svg,GTM,GT,320,T502,Guatemala
+true,,,,,,,,country_guf.svg,GUF,GF,254,T594,Guayana Francesa
+true,,,,,,,,country_ggy.svg,GGY,GG,831,T44 1481,Guernsey
+true,,,,,,,,country_gin.svg,GIN,GN,324,T224,Guinea
+true,,,,,,,,country_gnq.svg,GNQ,GQ,226,T240,Guinea Ecuatorial
+true,,,,,,,,country_gnb.svg,GNB,GW,624,T245,Guinea-Bissáu
+true,,,,,,,,country_guy.svg,GUY,GY,328,T592,Guyana
+true,,,,,,,,country_hti.svg,HTI,HT,332,T509,Haití
+true,,,,,,,,country_nld.svg,NLD,NL,528,T31,Holanda
+true,,,,,,,,country_hnd.svg,HND,HN,340,T504,Honduras
+true,,,,,,,,country_hkg.svg,HKG,HK,344,T852,Hong Kong
+true,,,,,,,,country_hun.svg,HUN,HU,348,T36,Hungría
+true,,,,,,,,country_ind.svg,IND,IN,356,T91,India
+true,,,,,,,,country_idn.svg,IDN,ID,360,T62,Indonesia
+true,,,,,,,,country_irq.svg,IRQ,IQ,368,T964,Irak
+true,,,,,,,,country_irn.svg,IRN,IR,364,T98,Irán
+true,,,,,,,,country_irl.svg,IRL,IE,372,T353,Irlanda
+true,,,,,,,,country_imn.svg,IMN,IM,833,T44,Isla de Man
+true,,,,,,,,country_nfk.svg,NFK,NF,162,T672,Isla Norfolk
+true,,,,,,,,country_isl.svg,ISL,IS,352,T354,Islandia
+true,,,,,,,,country_cym.svg,CYM,KY,136,T1 345,Islas Caimán
+true,,,,,,,,country_cck.svg,CCK,CC,166,T61 891,Islas Cocos
+true,,,,,,,,country_cok.svg,COK,CK,184,T682,Islas Cook
+true,,,,,,,,country_fro.svg,FRO,FO,234,T298,Islas Feroe
+true,,,,,,,,country_sgs.svg,SGS,GS,239,T44,Islas Georgias del Sur y Sandwich del Sur
+true,,,,,,,,country_hmd.svg,HMD,HM,334,T61,Islas Heard y McDonald
+true,,,,,,,,country_flk.svg,FLK,FK,238,T500,Islas Malvinas
+true,,,,,,,,country_mnp.svg,MNP,MP,580,T1 670,Islas Marianas del Norte
+true,,,,,,,,country_mhl.svg,MHL,MH,584,T692,Islas Marshall
+true,,,,,,,,country_pcn.svg,PCN,PN,612,T870,Islas Pitcairn
+true,,,,,,,,country_slb.svg,SLB,SB,90,T677,Islas Salomón
+true,,,,,,,,country_tca.svg,TCA,TC,796,T1 649,Islas Turcas y Caicos
+true,,,,,,,,country_vgb.svg,VGB,VG,92,T1 284,Islas Vírgenes Británicas
+true,,,,,,,,country_vir.svg,VIR,VI,850,T1,Islas Vírgenes de los Estados Unidos
+true,,,,,,,,country_isr.svg,ISR,IL,376,T972,Israel
+true,,,,,,,,country_ita.svg,ITA,IT,380,T39,Italia
+true,,,,,,,,country_jam.svg,JAM,JM,388,T1,Jamaica
+true,,,,,,,,country_jpn.svg,JPN,JP,392,T81,Japón
+true,,,,,,,,country_jey.svg,JEY,JE,832,T1 534,Jersey
+true,,,,,,,,country_jor.svg,JOR,JO,400,T962,Jordania
+true,,,,,,,,country_kaz.svg,KAZ,KZ,398,T7,Kazajistán
+true,,,,,,,,country_ken.svg,KEN,KE,404,T254,Kenia
+true,,,,,,,,country_kgz.svg,KGZ,KG,417,T996,Kirgizistán
+true,,,,,,,,country_kir.svg,KIR,KI,296,T686,Kiribati
+true,,,,,,,,country_xkx.svg,XKX,XK,0,T381,Kosovo
+true,,,,,,,,country_kwt.svg,KWT,KW,414,T965,Kuwait
+true,,,,,,,,country_lao.svg,LAO,LA,418,T856,Laos
+true,,,,,,,,country_lso.svg,LSO,LS,426,T266,Lesoto
+true,,,,,,,,country_lva.svg,LVA,LV,428,T371,Letonia
+true,,,,,,,,country_lbn.svg,LBN,LB,422,T961,Líbano
+true,,,,,,,,country_lbr.svg,LBR,LR,430,T231,Liberia
+true,,,,,,,,country_lby.svg,LBY,LY,434,T218,Libia
+true,,,,,,,,country_lie.svg,LIE,LI,438,T423,Liechtenstein
+true,,,,,,,,country_ltu.svg,LTU,LT,440,T370,Lituania
+true,,,,,,,,country_lux.svg,LUX,LU,442,T352,Luxemburgo
+true,,,,,,,,country_mac.svg,MAC,MO,446,T853,Macao
+true,,,,,,,,country_mkd.svg,MKD,MK,807,T389,Macedonia
+true,,,,,,,,country_mdg.svg,MDG,MG,450,T261,Madagascar
+true,,,,,,,,country_mys.svg,MYS,MY,458,T60,Malasia
+true,,,,,,,,country_mwi.svg,MWI,MW,454,T265,Malaui
+true,,,,,,,,country_mdv.svg,MDV,MV,462,T960,Maldivas
+true,,,,,,,,country_mli.svg,MLI,ML,466,T223,Mali
+true,,,,,,,,country_mlt.svg,MLT,MT,470,T356,Malta
+true,,,,,,,,country_mar.svg,MAR,MA,504,T212,Marruecos
+true,,,,,,,,country_mtq.svg,MTQ,MQ,474,T596,Martinica
+true,,,,,,,,country_mus.svg,MUS,MU,480,T230,Mauricio
+true,,,,,,,,country_mrt.svg,MRT,MR,478,T222,Mauritania
+true,,,,,,,,country_myt.svg,MYT,YT,175,T33,Mayotte
+true,,,,,,,,country_mex.svg,MEX,MX,484,T52,México
+true,,,,,,,,country_fsm.svg,FSM,FM,583,T691,Micronesia
+true,,,,,,,,country_mda.svg,MDA,MD,498,T373,Moldavia
+true,,,,,,,,country_mco.svg,MCO,MC,492,T377,Mónaco
+true,,,,,,,,country_mng.svg,MNG,MN,496,T976,Mongolia
+true,,,,,,,,country_mne.svg,MNE,ME,499,T382,Montenegro
+true,,,,,,,,country_msr.svg,MSR,MS,500,T1 664,Montserrat
+true,,,,,,,,country_moz.svg,MOZ,MZ,508,T258,Mozambique
+true,,,,,,,,country_nam.svg,NAM,NA,516,T264,Namibia
+true,,,,,,,,country_nru.svg,NRU,NR,520,T674,Nauru
+true,,,,,,,,country_npl.svg,NPL,NP,524,T977,Nepal
+true,,,,,,,,country_nic.svg,NIC,NI,558,T505,Nicaragua
+true,,,,,,,,country_ner.svg,NER,NE,562,T227,Níger
+true,,,,,,,,country_nga.svg,NGA,NG,566,T234,Nigeria
+true,,,,,,,,country_niu.svg,NIU,NU,570,T683,Niue
+true,,,,,,,,country_nor.svg,NOR,NO,578,T47,Noruega
+true,,,,,,,,country_ncl.svg,NCL,NC,540,T687,Nueva Caledonia
+true,,,,,,,,country_nzl.svg,NZL,NZ,554,T64,Nueva Zelanda
+true,,,,,,,,country_omn.svg,OMN,OM,512,T968,Omán
+true,,,,,,,,country_pak.svg,PAK,PK,586,T92,Pakistán
+true,,,,,,,,country_plw.svg,PLW,PW,585,T680,Palau
+true,,,,,,,,country_pse.svg,PSE,PS,275,T970,Palestina
+true,,,,,,,,country_pan.svg,PAN,PA,591,T507,Panamá
+true,,,,,,,,country_png.svg,PNG,PG,598,T675,Papúa Nueva Guinea
+true,,,,,,,,country_pry.svg,PRY,PY,600,T595,Paraguay
+true,,,,,,,,country_per.svg,PER,PE,604,T51,Perú
+true,,,,,,,,country_pyf.svg,PYF,PF,258,T689,Polinesia Francesa
+true,,,,,,,,country_pol.svg,POL,PL,616,T48,Polonia
+true,,,,,,,,country_prt.svg,PRT,PT,620,T351,Portugal
+true,,,,,,,,country_pri.svg,PRI,PR,630,T1,Puerto Rico
+true,,,,,,,,country_qat.svg,QAT,QA,634,T974,Qatar
+true,,,,,,,,country_gbr.svg,GBR,GB,826,T44,Reino Unido
+true,,,,,,,,country_esh.svg,ESH,EH,732,T212,República Árabe Saharaui Democrática
+true,,,,,,,,country_caf.svg,CAF,CF,140,T236,República Centroafricana
+true,,,,,,,,country_cze.svg,CZE,CZ,203,T420,República Checa
+true,,,,,,,,country_ssd.svg,SSD,SS,728,T211,República de Sudán del Sur
+true,,,,,,,,country_cog.svg,COG,CG,178,T242,República del Congo
+true,,,,,,,,country_cod.svg,COD,CD,180,T243,República Democrática del Congo
+true,,,,,,,,country_dom.svg,DOM,DO,214,T1,República Dominicana
+true,,,,,,,,country_reu.svg,REU,RE,638,T262,Reunión
+true,,,,,,,,country_rwa.svg,RWA,RW,646,T250,Ruanda
+true,,,,,,,,country_rou.svg,ROU,RO,642,T40,Rumanía
+true,,,,,,,,country_rus.svg,RUS,RU,643,T7,Rusia
+true,,,,,,,,country_wsm.svg,WSM,WS,882,T685,Samoa
+true,,,,,,,,country_asm.svg,ASM,AS,16,T1 684,Samoa Americana
+true,,,,,,,,country_blm.svg,BLM,BL,652,T590,San Bartolomé
+true,,,,,,,,country_kna.svg,KNA,KN,659,T1,San Cristóbal y Nevis
+true,,,,,,,,country_smr.svg,SMR,SM,674,T378,San Marino
+true,,,,,,,,country_maf.svg,MAF,MF,663,T1 599,San Martín
+true,,,,,,,,country_spm.svg,SPM,PM,666,T508,San Pedro y Miquelón
+true,,,,,,,,country_vct.svg,VCT,VC,670,T1,San Vicente y las Granadinas
+true,,,,,,,,country_shn.svg,SHN,SH,654,T290,Santa Elena
+true,,,,,,,,country_lca.svg,LCA,LC,662,T1,Santa Lucía
+true,,,,,,,,country_stp.svg,STP,ST,678,T239,Santo Tomé y Príncipe
+true,,,,,,,,country_sen.svg,SEN,SN,686,T221,Senegal
+true,,,,,,,,country_srb.svg,SRB,RS,688,T381,Serbia
+true,,,,,,,,country_syc.svg,SYC,SC,690,T248,Seychelles
+true,,,,,,,,country_sle.svg,SLE,SL,694,T232,Sierra Leona
+true,,,,,,,,country_sgp.svg,SGP,SG,702,T65,Singapur
+true,,,,,,,,country_sxm.svg,SXM,SX,534,T1 721,Sint Maarten
+true,,,,,,,,country_syr.svg,SYR,SY,760,T963,Siria
+true,,,,,,,,country_som.svg,SOM,SO,706,T252,Somalia
+true,,,,,,,,country_lka.svg,LKA,LK,144,T94,Sri Lanka
+true,,,,,,,,country_swz.svg,SWZ,SZ,748,T268,Suazilandia
+true,,,,,,,,country_zaf.svg,ZAF,ZA,710,T27,Sudáfrica
+true,,,,,,,,country_sdn.svg,SDN,SD,729,T249,Sudán
+true,,,,,,,,country_swe.svg,SWE,SE,752,T46,Suecia
+true,,,,,,,,country_che.svg,CHE,CH,756,T41,Suiza
+true,,,,,,,,country_sur.svg,SUR,SR,740,T597,Surinam
+true,,,,,,,,country_sjm.svg,SJM,SJ,744,T47,Svalbard y Jan Mayen
+true,,,,,,,,country_tha.svg,THA,TH,764,T66,Tailandia
+true,,,,,,,,country_twn.svg,TWN,TW,158,T886,Taiwán
+true,,,,,,,,country_tza.svg,TZA,TZ,834,T255,Tanzania
+true,,,,,,,,country_tjk.svg,TJK,TJ,762,T992,Tayikistán
+true,,,,,,,,country_iot.svg,IOT,IO,86,T246,Territorio Británico del Océano Índico
+true,,,,,,,,country_atf.svg,ATF,TF,260,T33,Tierras Australes y Antárticas Francesas
+true,,,,,,,,country_tls.svg,TLS,TL,626,T670,Timor Oriental
+true,,,,,,,,country_tgo.svg,TGO,TG,768,T228,Togo
+true,,,,,,,,country_tkl.svg,TKL,TK,772,T690,Tokelau
+true,,,,,,,,country_ton.svg,TON,TO,776,T676,Tonga
+true,,,,,,,,country_tto.svg,TTO,TT,780,T1,Trinidad y Tobago
+true,,,,,,,,country_tun.svg,TUN,TN,788,T216,Túnez
+true,,,,,,,,country_tkm.svg,TKM,TM,795,T993,Turkmenistán
+true,,,,,,,,country_tur.svg,TUR,TR,792,T90,Turquía
+true,,,,,,,,country_tuv.svg,TUV,TV,798,T688,Tuvalu
+true,,,,,,,,country_ukr.svg,UKR,UA,804,T380,Ucrania
+true,,,,,,,,country_uga.svg,UGA,UG,800,T256,Uganda
+true,,,,,,,,country_ury.svg,URY,UY,858,T598,Uruguay
+true,,,,,,,,country_uzb.svg,UZB,UZ,860,T998,Uzbekistán
+true,,,,,,,,country_vut.svg,VUT,VU,548,T678,Vanuatu
+true,,,,,,,,country_ven.svg,VEN,VE,862,T58,Venezuela
+true,,,,,,,,country_vnm.svg,VNM,VN,704,T84,Vietnam
+true,,,,,,,,country_wlf.svg,WLF,WF,876,T681,Wallis y Futuna
+true,,,,,,,,country_yem.svg,YEM,YE,887,T967,Yemen
+true,,,,,,,,country_dji.svg,DJI,DJ,262,T253,Yibuti
+true,,,,,,,,country_zmb.svg,ZMB,ZM,894,T260,Zambia
+true,,,,,,,,country_zwe.svg,ZWE,ZW,716,T263,Zimbabue

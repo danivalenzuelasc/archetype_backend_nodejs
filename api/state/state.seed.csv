@@ -1,0 +1,16 @@
+active,code,geometry.coordinates.latitude,geometry.coordinates.longitude,geometry.country_code,geometry.location,geometry.viewport.northeast.latitude,geometry.viewport.northeast.longitude,geometry.viewport.southwest.latitude,geometry.viewport.southwest.longitude,name
+true,CHL_REGIONDEARICAYPARINACOTA,,,CHL,,,,,,Arica y Parinacota
+true,CHL_REGIONDETARAPACA,,,CHL,,,,,,Tarapacá
+true,CHL_REGIONDEANTOFAGASTA,,,CHL,,,,,,Antofagasta
+true,CHL_REGIONDEATACAMA,,,CHL,,,,,,Atacama
+true,CHL_REGIONDECOQUIMBO,,,CHL,,,,,,Coquimbo
+true,CHL_REGIONDEVALPARAISO,,,CHL,,,,,,Valparaíso
+true,CHL_REGIONDELLIBERTADORGENERALBERNARDOOHIGGINS,,,CHL,,,,,,Libertador General Bernardo O'Higgins
+true,CHL_REGIONDELMAULE,,,CHL,,,,,,Maule
+true,CHL_REGIONDELBIOBIO,,,CHL,,,,,,Biobío
+true,CHL_REGIONDELAARAUCANIA,,,CHL,,,,,,La Araucanía
+true,CHL_REGIONDELOSRIOS,,,CHL,,,,,,Los Ríos
+true,CHL_REGIONDELOSLAGOS,,,CHL,,,,,,Los Lagos
+true,CHL_REGIONDEAYSENDELGENERALCARLOSIBANEZDELCAMPO,,,CHL,,,,,,Aysén del General Carlos Ibáñez del Campo
+true,CHL_REGIONDEMAGALLANESYANTARTICACHILENA,,,CHL,,,,,,Magallanes y Antártica Chilena
+true,CHL_REGIONMETROPOLITANADESANTIAGO,,,CHL,,,,,,Metropolitana de Santiago

@@ -1,0 +1,118 @@
+html {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+body {
+  background-color: #fff;
+  color: #3d464d;
+  font-family: 'Raleway', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+* {
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+}
+
+.scTemplate-header {
+  background-color: #262626;
+  box-sizing: border-box;
+  height: 60px;
+  padding: 15px 30px;
+  position: fixed;
+  width: 100%;
+}
+.scTemplate-header-logo {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.scTemplate-header-logo img {
+  height: 100%;
+}
+.scTemplate-notFound {
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  min-height: 550px;
+  max-width: 1200px;
+  position: relative;
+  top: 60px;
+}
+.scTemplate-notFound-content {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  width: 100%;
+}
+.scTemplate-notFound-image {
+  margin: 0;
+  order: 2;
+  text-align: right;
+  width: 50%;
+}
+.scTemplate-notFound-image-background {
+  background: url("./not_found.gif") no-repeat right center / cover;
+  height: 400px;
+  margin: 0 auto;
+  max-width: 365px;
+}
+.scTemplate-notFound-message {
+  margin: 0;
+  order: 1;
+  padding: 15px 15px 15px 50px;
+  width: 50%;
+}
+.scTemplate-notFound-message-content {
+  width: 80%;
+}
+.scTemplate-notFound-message-content a {
+  text-decoration: none;
+  color: #0085B6;
+}
+.scTemplate-notFound-message-content h1 {
+  color: #444444;
+  font-size: 36px;
+  line-height: 44px;
+  margin-bottom: 20px;
+}
+.scTemplate-notFound-message-content p {
+  color: #666666;
+  font-size: 16px;
+  line-height: 24px;
+}
+@media (max-width: 1024px) {
+  .scTemplate-notFound-content {
+    flex-direction: column;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .scTemplate-notFound-image {
+    margin: 0 auto;
+    padding: 0 0 50px;
+    width: 75%;
+  }
+  .scTemplate-notFound-image-background {
+    height: 335px;
+    max-width: 300px;
+  }
+  .scTemplate-notFound-message {
+    margin: 0 auto;
+    padding: 20px 0 30px;
+    width: 70%;
+  }
+  .scTemplate-notFound-message-content {
+    width: 100%;
+  }
+}

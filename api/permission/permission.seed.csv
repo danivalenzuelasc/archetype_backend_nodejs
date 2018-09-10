@@ -1,0 +1,18 @@
+active,code,name,privileges.create,privileges.delete,privileges.execute,privileges.read,privileges.update
+true,'admin','Permisos para Administrador',true,true,true,true,true
+true,'city','Permisos para Ciudades',true,true,true,true,true
+true,'contact','Permisos para Contactos',true,true,true,true,true
+true,'country','Permisos para Países',true,true,true,true,true
+true,'currency','Permisos para Monedas',true,true,true,true,true
+true,'email','Permisos para Correos Electrónicos',true,true,true,true,true
+true,'language','Permisos para Idiomas',true,true,true,true,true
+true,'mailing','Permisos para Correos Masivos',true,true,true,true,true
+true,'minister','Permisos para Ministros',true,true,true,true,true
+true,'neighborhood','Permisos para Barrios',true,true,true,true,true
+true,'parish','Permisos para Parroquias',true,true,true,true,true
+true,'permission','Permisos para Permisos',true,true,true,true,true
+true,'phone','Permisos para Teléfonos',true,true,true,true,true
+true,'social_network','Permisos para Redes Sociales',true,true,true,true,true
+true,'state','Permisos para Estados',true,true,true,true,true
+true,'timezone','Permisos para Zonas Horarias',true,true,true,true,true
+true,'user','Permisos para Usuarios',true,true,true,true,true

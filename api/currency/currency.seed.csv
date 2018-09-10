@@ -1,0 +1,169 @@
+active,code.alphabetic,code.numeric,decimal,name
+true,AED,784,2,UAE Dirham
+true,AFN,971,2,Afghani
+true,ALL,8,2,Lek
+true,AMD,51,2,Armenian Dram
+true,ANG,532,2,Netherlands Antillean Guilder
+true,AOA,973,2,Kwanza
+true,ARS,32,2,Argentine Peso
+true,AUD,36,2,Australian Dollar
+true,AWG,533,2,Aruban Florin
+true,AZN,944,2,Azerbaijanian Manat
+true,BAM,977,2,Convertible Mark
+true,BBD,52,2,Barbados Dollar
+true,BDT,50,2,Taka
+true,BGN,975,2,Bulgarian Lev
+true,BHD,48,3,Bahraini Dinar
+true,BIF,108,0,Burundi Franc
+true,BMD,60,2,Bermudian Dollar
+true,BND,96,2,Brunei Dollar
+true,BOB,68,2,Boliviano
+true,BOV,984,2,Mvdol
+true,BRL,986,2,Brazilian Real
+true,BSD,44,2,Bahamian Dollar
+true,BTN,64,2,Ngultrum
+true,BWP,72,2,Pula
+true,BYN,933,2,Belarusian Ruble
+true,BZD,84,2,Belize Dollar
+true,CAD,124,2,Canadian Dollar
+true,CDF,976,2,Congolese Franc
+true,CHE,947,2,WIR Euro
+true,CHF,756,2,Swiss Franc
+true,CHW,948,2,WIR Franc
+true,CLF,990,4,Unidad de Fomento
+true,CLP,152,0,Chilean Peso
+true,CNY,156,2,Yuan Renminbi
+true,COP,170,2,Colombian Peso
+true,COU,970,2,Unidad de Valor Real
+true,CRC,188,2,Costa Rican Colon
+true,CUC,931,2,Peso Convertible
+true,CUP,192,2,Cuban Peso
+true,CVE,132,2,Cabo Verde Escudo
+true,CZK,203,2,Czech Koruna
+true,DJF,262,0,Djibouti Franc
+true,DKK,208,2,Danish Krone
+true,DOP,214,2,Dominican Peso
+true,DZD,12,2,Algerian Dinar
+true,EGP,818,2,Egyptian Pound
+true,ERN,232,2,Nakfa
+true,ETB,230,2,Ethiopian Birr
+true,EUR,978,2,Euro
+true,FJD,242,2,Fiji Dollar
+true,FKP,238,2,Falkland Islands Pound
+true,GBP,826,2,Pound Sterling
+true,GEL,981,2,Lari
+true,GHS,936,2,Ghana Cedi
+true,GIP,292,2,Gibraltar Pound
+true,GMD,270,2,Dalasi
+true,GNF,324,0,Guinea Franc
+true,GTQ,320,2,Quetzal
+true,GYD,328,2,Guyana Dollar
+true,HKD,344,2,Hong Kong Dollar
+true,HNL,340,2,Lempira
+true,HRK,191,2,Kuna
+true,HTG,332,2,Gourde
+true,HUF,348,2,Forint
+true,IDR,360,2,Rupiah
+true,ILS,376,2,New Israeli Sheqel
+true,INR,356,2,Indian Rupee
+true,IQD,368,3,Iraqi Dinar
+true,IRR,364,2,Iranian Rial
+true,ISK,352,0,Iceland Krona
+true,JMD,388,2,Jamaican Dollar
+true,JOD,400,3,Jordanian Dinar
+true,JPY,392,0,Yen
+true,KES,404,2,Kenyan Shilling
+true,KGS,417,2,Som
+true,KHR,116,2,Riel
+true,KMF,174,0,Comoro Franc
+true,KPW,408,2,North Korean Won
+true,KRW,410,0,Won
+true,KWD,414,3,Kuwaiti Dinar
+true,KYD,136,2,Cayman Islands Dollar
+true,KZT,398,2,Tenge
+true,LAK,418,2,Kip
+true,LBP,422,2,Lebanese Pound
+true,LKR,144,2,Sri Lanka Rupee
+true,LRD,430,2,Liberian Dollar
+true,LSL,426,2,Loti
+true,LYD,434,3,Libyan Dinar
+true,MAD,504,2,Moroccan Dirham
+true,MDL,498,2,Moldovan Leu
+true,MGA,969,2,Malagasy Ariary
+true,MKD,807,2,Denar
+true,MMK,104,2,Kyat
+true,MNT,496,2,Tugrik
+true,MOP,446,2,Pataca
+true,MRO,478,2,Ouguiya
+true,MUR,480,2,Mauritius Rupee
+true,MVR,462,2,Rufiyaa
+true,MWK,454,2,Malawi Kwacha
+true,MXN,484,2,Mexican Peso
+true,MXV,979,2,Mexican Unidad de Inversion (UDI)
+true,MYR,458,2,Malaysian Ringgit
+true,MZN,943,2,Mozambique Metical
+true,NAD,516,2,Namibia Dollar
+true,NGN,566,2,Naira
+true,NIO,558,2,Cordoba Oro
+true,NOK,578,2,Norwegian Krone
+true,NPR,524,2,Nepalese Rupee
+true,NZD,554,2,New Zealand Dollar
+true,OMR,512,3,Rial Omani
+true,PAB,590,2,Balboa
+true,PEN,604,2,Sol
+true,PGK,598,2,Kina
+true,PHP,608,2,Philippine Peso
+true,PKR,586,2,Pakistan Rupee
+true,PLN,985,2,Zloty
+true,PYG,600,0,Guarani
+true,QAR,634,2,Qatari Rial
+true,RON,946,2,Romanian Leu
+true,RSD,941,2,Serbian Dinar
+true,RUB,643,2,Russian Ruble
+true,RWF,646,0,Rwanda Franc
+true,SAR,682,2,Saudi Riyal
+true,SBD,90,2,Solomon Islands Dollar
+true,SCR,690,2,Seychelles Rupee
+true,SDG,938,2,Sudanese Pound
+true,SEK,752,2,Swedish Krona
+true,SGD,702,2,Singapore Dollar
+true,SHP,654,2,Saint Helena Pound
+true,SLL,694,2,Leone
+true,SOS,706,2,Somali Shilling
+true,SRD,968,2,Surinam Dollar
+true,SSP,728,2,South Sudanese Pound
+true,STD,678,2,Dobra
+true,SVC,222,2,El Salvador Colon
+true,SYP,760,2,Syrian Pound
+true,SZL,748,2,Lilangeni
+true,THB,764,2,Baht
+true,TJS,972,2,Somoni
+true,TMT,934,2,Turkmenistan New Manat
+true,TND,788,3,Tunisian Dinar
+true,TOP,776,2,Pa’anga
+true,TRY,949,2,Turkish Lira
+true,TTD,780,2,Trinidad and Tobago Dollar
+true,TWD,901,2,New Taiwan Dollar
+true,TZS,834,2,Tanzanian Shilling
+true,UAH,980,2,Hryvnia
+true,UGX,800,0,Uganda Shilling
+true,USD,840,2,US Dollar
+true,USN,997,2,US Dollar (Next day)
+true,UYI,940,0,Uruguay Peso en Unidades Indexadas (URUIURUI)
+true,UYU,858,2,Peso Uruguayo
+true,UZS,860,2,Uzbekistan Sum
+true,VEF,937,2,Bolívar
+true,VND,704,0,Dong
+true,VUV,548,0,Vatu
+true,WST,882,2,Tala
+true,XAF,950,0,CFA Franc BEAC
+true,XCD,951,2,East Caribbean Dollar
+true,XDR,960,0,SDR (Special Drawing Right)
+true,XOF,952,0,CFA Franc BCEAO
+true,XPF,953,0,CFP Franc
+true,XSU,994,0,Sucre
+true,XUA,965,0,ADB Unit of Account
+true,YER,886,2,Yemeni Rial
+true,ZAR,710,2,Rand
+true,ZMW,967,2,Zambian Kwacha
+true,ZWL,932,2,Zimbabwe Dollar

@@ -1,0 +1,22 @@
+# Gitignore
+
+# Dependencies
+/node_modules
+
+# Testing
+/coverage
+
+# Production
+/bin
+/build
+
+# Misc
+.DS_Store
+.env.development.local
+.env.local
+.env.production.local
+.env.test.local
+npm-debug.log*
+package-lock.json
+yarn-debug.log*
+yarn-error.log*
