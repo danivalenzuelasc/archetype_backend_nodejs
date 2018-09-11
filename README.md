@@ -1,9 +1,9 @@
 # SoftcrumCorp API (NodeJS)
 
-[![Travis branch](https://img.shields.io/travis/softcrumcorp/softcrum-corp-api/master.svg?style=for-the-badge)](https://travis-ci.org/softcrumcorp/softcrum-corp-api)
-[![David](https://img.shields.io/david/softcrumcorp/softcrum-corp-api.svg?style=for-the-badge)](http://david-dm.org/softcrumcorp/softcrum-corp-api)
-[![David](https://img.shields.io/david/dev/softcrumcorp/softcrum-corp-api.svg?style=for-the-badge)](http://david-dm.org/softcrumcorp/softcrum-corp-api?type=dev)
-[![Codecov branch](https://img.shields.io/codecov/c/github/softcrumcorp/softcrum-corp-api/master.svg?style=for-the-badge)](https://codecov.io/github/softcrumcorp/softcrum-corp-api?branch=master)
+[![Travis branch](https://img.shields.io/travis/softcrumcorp/backend-softcrum-api/master.svg?style=for-the-badge)](https://travis-ci.org/softcrumcorp/backend-softcrum-api)
+[![David](https://img.shields.io/david/softcrumcorp/backend-softcrum-api.svg?style=for-the-badge)](http://david-dm.org/softcrumcorp/backend-softcrum-api)
+[![David](https://img.shields.io/david/dev/softcrumcorp/backend-softcrum-api.svg?style=for-the-badge)](http://david-dm.org/softcrumcorp/backend-softcrum-api?type=dev)
+[![Codecov branch](https://img.shields.io/codecov/c/github/softcrumcorp/backend-softcrum-api/master.svg?style=for-the-badge)](https://codecov.io/github/softcrumcorp/backend-softcrum-api?branch=master)
 
 ## Configuración inicial del proyecto
 
