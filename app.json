@@ -16,7 +16,7 @@
     }
   },
   "image": "heroku/nodejs",
-  "name": "softcrum-backend-corp",
-  "repository": "https://github.com/softcrumcorp/softcrum-backend-corp",
-  "website": "https://api.softcrum.com/"
+  "name": "integraciones_backend_cl",
+  "repository": "https://github.com/nubox-spa/integraciones_backend_cl",
+  "website": "https://integraciones.nubox.com/"
 }

@@ -1,7 +1,7 @@
 {
-  "name": "backend-softcrum-api",
+  "name": "integraciones_backend_cl",
   "version": "1.0.0",
-  "description": "API Restful (NodeJS)",
+  "description": "API Restful de integraciones para Chile (NodeJS)",
   "keywords": [
     "API",
     "Restfull",
@@ -12,24 +12,24 @@
     "SocketIO"
   ],
   "author": {
-    "email": "tech@softcrum.com",
-    "name": "Softcrum Corp SpA",
-    "url": "https://www.softcrum.com"
+    "email": "daniel.valenzuela@nubox.com",
+    "name": "Nubox SpA",
+    "url": "https://www.nubox.com"
   },
   "contributors": [
-    "Daniel Valenzuela <daniel.valenzuela@softcrum.com>"
+    "Daniel Valenzuela <daniel.valenzuela@nubox.com>"
   ],
   "license": "Apache-2.0",
   "private": true,
-  "homepage": "https://www.softcrum.com",
+  "homepage": "https://www.nubox.com",
   "main": "app.js",
   "repository": {
     "type": "GIT",
-    "url": "https://github.com/softcrumcorp/backend-softcrum-api"
+    "url": "https://github.com/nubox-spa/integraciones_backend_cl"
   },
   "bugs": {
-    "email": "tech@softcrum.com",
-    "url": "https://github.com/softcrumcorp/backend-softcrum-api/issues"
+    "email": "daniel.valenzuela@nubox.com",
+    "url": "https://github.com/nubox-spa/integraciones_backend_cl/issues"
   },
   "engines": {
     "node": ">=10.1.0",
@@ -64,53 +64,47 @@
     "preprod": "npm run lint & npm run test",
     "prestart": "pkill -f node",
     "pretest": "cross-env NODE_ENV=pretest node task/pretest.js",
-    "pretest:dev": "cross-env NODE_ENV=pretest MONGO_URI=mongodb://localhost/backend-softcrum-api node task/pretest.js",
+    "pretest:dev": "cross-env NODE_ENV=pretest MONGO_URI=mongodb://localhost/integraciones_backend_cl node task/pretest.js",
     "prod": "cross-env NODE_ENV=production node app.js",
     "seed": "cross-env NODE_ENV=seed node task/seed.js",
-    "seed:dev": "cross-env NODE_ENV=seed MONGO_URI=mongodb://localhost/backend-softcrum-api node task/seed.js",
-    "start": "cross-env NODE_ENV=development MONGO_URI=mongodb://localhost/backend-softcrum-api nodemon app.js & npm run lint:watch",
+    "seed:dev": "cross-env NODE_ENV=seed MONGO_URI=mongodb://localhost/integraciones_backend_cl node task/seed.js",
+    "start": "cross-env NODE_ENV=development MONGO_URI=mongodb://localhost/integraciones_backend_cl nodemon app.js & npm run lint:watch",
     "test": "cross-env NODE_ENV=testing jest --detectOpenHandles --verbose --forceExit",
-    "test:dev": "cross-env NODE_ENV=testing MONGO_URI=mongodb://localhost/backend-softcrum-api jest --detectOpenHandles --verbose --forceExit"
+    "test:dev": "cross-env NODE_ENV=testing MONGO_URI=mongodb://localhost/integraciones_backend_cl jest --detectOpenHandles --verbose --forceExit"
   },
   "pre-commit": [
     "message:commit",
-    "lint",
-    "test:dev"
+    "lint"
   ],
   "dependencies": {
-    "@sendgrid/mail": "6.3.1",
-    "bluebird": "3.5.2",
-    "body-parser": "1.18.3",
+    "bluebird": "3.5.4",
+    "body-parser": "1.19.0",
     "cross-env": "5.2.0",
     "csvjson": "5.1.0",
     "deep-extend": "0.6.0",
-    "express": "4.16.3",
-    "express-prettify": "0.1.0",
-    "forever": "0.15.3",
-    "jsonwebtoken": "8.3.0",
+    "express": "4.17.0",
+    "express-prettify": "0.1.1",
+    "forever": "1.0.0",
     "method-override": "3.0.0",
-    "moment": "2.22.2",
-    "mongoose": "5.2.13",
-    "node-schedule": "1.3.0",
-    "passport": "0.4.0",
-    "passport-jwt": "4.0.0",
-    "passport-local": "1.0.0",
+    "moment": "2.24.0",
+    "mongoose": "5.5.9",
+    "node-schedule": "1.3.2",
     "raven": "2.6.4",
     "request": "2.88.0",
-    "request-promise": "4.2.2",
-    "socket.io": "2.1.1",
-    "supertest": "3.3.0",
+    "request-promise": "4.2.4",
+    "socket.io": "2.2.0",
+    "supertest": "4.0.2",
     "uuid": "3.3.2"
   },
   "devDependencies": {
-    "eslint": "5.5.0",
+    "eslint": "5.16.0",
     "eslint-config-airbnb": "17.1.0",
-    "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-jsx-a11y": "6.1.1",
-    "eslint-plugin-react": "7.11.1",
-    "eslint-watch": "4.0.2",
-    "jest": "23.5.0",
-    "nodemon": "1.18.4",
+    "eslint-plugin-import": "2.17.2",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-react": "7.13.0",
+    "eslint-watch": "5.1.2",
+    "jest": "24.8.0",
+    "nodemon": "1.19.0",
     "parallelshell": "3.0.2",
     "pre-commit": "1.2.2"
   }
