@@ -52,7 +52,8 @@
       "task/pretest.js",
       "task/seed.js",
       "utils/google.js"
-    ]
+    ],
+    "testEnvironment": "node"
   },
   "scripts": {
     "lint": "eslint app.js api/*.js config/*.js public/*.js utils/*.js api/**/*.js",

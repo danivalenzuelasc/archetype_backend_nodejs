@@ -27,6 +27,7 @@ if (process.env.NODE_ENV === 'production') {
 // Connect to database MongoDB
 mongoose.connect(credentials.mongodb, {
   autoIndex: false,
+  useFindAndModify: false,
   useNewUrlParser: true,
 });
 mongoose.connection.on('error', (error) => {

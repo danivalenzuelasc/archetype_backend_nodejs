@@ -65,7 +65,7 @@ exports.list = (req, res) => {
       }
     });
   }
-  Address.count({
+  Address.countDocuments({
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   })
@@ -171,7 +171,7 @@ exports.search = (req, res) => {
       }
     });
   }
-  Address.count({
+  Address.countDocuments({
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
     $text: {

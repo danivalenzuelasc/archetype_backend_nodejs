@@ -7,7 +7,7 @@ const { errorTraceRaven } = require('./../utils/general');
 // Export Schedules
 exports.init = () => {
   // Run schedule [30 seconds]
-  nodeSchedule.scheduleJob('*/30 * * * * *', () => {
+  nodeSchedule.scheduleJob('*30 * * * * *', () => {
     // Send mailing
     const listingMailing = `${settings.url.api}/mailing/listing`;
     request(listingMailing, (errorListing, responseListing, dataListing) => {
