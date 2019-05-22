@@ -1,9 +1,9 @@
 // Declare dependencies
-const { request } = require('./../testing');
+const { request } = require('./../../testing');
 
 // Declare mocks spec
-const mocks = require('./address.mocks');
-const { errorResponse } = require('./../../utils/errors');
+const mocks = require('./sii_queue.mocks');
+const { errorResponse } = require('./../../../utils/errors');
 
 // Setting counter
 let counter = 0;
@@ -13,13 +13,13 @@ function getCounter() {
 }
 
 /*  Testing method Create
-  *  URI: /address
+  *  URI: /sii/queue
   *  Method: POST
   */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /address (POST) [address.create]`, async () => {
+  await test(`Testing ${getCounter()} - Method /sii/queue (POST) [siiQueue.create]`, async () => {
     counter += 1;
-    await request().post('/address').send(row)
+    await request().post('/sii/queue').send(row)
       .then((response) => {
         if (response.statusCode === 201) {
           expect(response.body).toBeDefined();
@@ -66,12 +66,12 @@ mocks.forEach(async (row) => {
 });
 
 /*  Testing method View
-  *  URI: /address/:id
+  *  URI: /sii/queue/:id
   *  Method: VIEW
   */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /address/:id (GET) [address.view]`, async () => {
-    await request().get(`/address/${row._id}`)
+  await test(`Testing ${getCounter()} - Method /sii/queue/:id (GET) [siiQueue.view]`, async () => {
+    await request().get(`/sii/queue/${row._id}`)
       .then((response) => {
         if (response.statusCode === 200) {
           expect(response.body).toBeDefined();
@@ -118,14 +118,14 @@ mocks.forEach(async (row) => {
 });
 
 /*  Testing method Update
-  *  URI: /address/:id
+  *  URI: /sii/queue/:id
   *  Method: PUT
   */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /address/:id (PUT) [address.update]`, async () => {
+  await test(`Testing ${getCounter()} - Method /sii/queue/:id (PUT) [siiQueue.update]`, async () => {
     const data = row;
     data.name += ' - Update';
-    await request().put(`/address/${row._id}`).send(data)
+    await request().put(`/sii/queue/${row._id}`).send(data)
       .then((response) => {
         if (response.statusCode === 200) {
           expect(response.body).toBeDefined();
@@ -173,12 +173,12 @@ mocks.forEach(async (row) => {
 });
 
 /*  Testing method Remove
-  *  URI: /address/:id
+  *  URI: /sii/queue/:id
   *  Method: DELETE
   */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /address/:id (DELETE) [address.remove]`, async () => {
-    await request().delete(`/address/${row._id}`)
+  await test(`Testing ${getCounter()} - Method /sii/queue/:id (DELETE) [siiQueue.remove]`, async () => {
+    await request().delete(`/sii/queue/${row._id}`)
       .then((response) => {
         if (response.statusCode === 200) {
           expect(response.body).toBeDefined();
@@ -226,11 +226,11 @@ mocks.forEach(async (row) => {
 });
 
 /*  Testing method List
-  *  URI: /address
+  *  URI: /sii/queue
   *  Method: GET
   */
-test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async () => {
-  await request().get('/address?limit=3&page=1&order=desc&logs=d,t')
+test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+  await request().get('/sii/queue?limit=3&page=1&order=desc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -248,8 +248,8 @@ test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async ()
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async () => {
-  await request().get('/address?limit=5&page=2&order=asc&logs=c,d,t')
+test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+  await request().get('/sii/queue?limit=5&page=2&order=asc&logs=c,d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -267,8 +267,8 @@ test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async ()
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async () => {
-  await request().get('/address?short&limit=5&order=asc&logs=a,d,t')
+test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+  await request().get('/sii/queue?short&limit=5&order=asc&logs=a,d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -286,8 +286,8 @@ test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async ()
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async () => {
-  await request().get('/address?short&order=asc')
+test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+  await request().get('/sii/queue?short&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -305,109 +305,14 @@ test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async ()
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /address (LIST) [address.list]`, async () => {
-  await request().get('/address?limit=-1&page=-1&order=asc')
+test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+  await request().get('/sii/queue?limit=-1&page=-1&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toBeDefined();
         expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.order).toEqual('asc');
-        expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toBeDefined();
-        expect(response.body.results).toBeDefined();
-      } else if (response.statusCode === 400) {
-        const error = errorResponse('list').response;
-        expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
-      }
-    });
-}, 10000);
-
-/*  Testing method Search
-  *  URI: /address/search
-  *  Method: GET
-  */
-test(`Testing ${getCounter()} - Method /address/search (SEARCH) [address.search]`, async () => {
-  await request().get('/address/search?text=Street&limit=3&page=1&logs=d,t')
-    .then((response) => {
-      if (response.statusCode === 200) {
-        expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toEqual(3);
-        expect(response.body.paging.limit).toEqual(3);
-        expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(6);
-        expect(response.body.results.length).toEqual(3);
-      } else if (response.statusCode === 400) {
-        const error = errorResponse('list').response;
-        expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
-      }
-    });
-}, 10000);
-test(`Testing ${getCounter()} - Method /address/search (SEARCH) [address.search]`, async () => {
-  await request().get('/address/search?limit=-1&page=-1&logs=d,t')
-    .then((response) => {
-      if (response.statusCode === 200) {
-        expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toEqual(0);
-        expect(response.body.paging.limit).toEqual(500);
-        expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(0);
-        expect(response.body.results.length).toEqual(0);
-      } else if (response.statusCode === 400) {
-        const error = errorResponse('list').response;
-        expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
-      }
-    });
-}, 10000);
-test(`Testing ${getCounter()} - Method /address/search (SEARCH) [address.search]`, async () => {
-  await request().get('/address/search?text=Street&limit=4&logs=a,d,t')
-    .then((response) => {
-      if (response.statusCode === 200) {
-        expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toEqual(4);
-        expect(response.body.paging.limit).toEqual(4);
-        expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(6);
-        expect(response.body.results.length).toEqual(4);
-      } else if (response.statusCode === 400) {
-        const error = errorResponse('list').response;
-        expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
-      }
-    });
-}, 10000);
-test(`Testing ${getCounter()} - Method /address/search (SEARCH) [address.search]`, async () => {
-  await request().get('/address/search?text=Street 01')
-    .then((response) => {
-      if (response.statusCode === 200) {
-        expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toBeDefined();
-        expect(response.body.paging.limit).toEqual(500);
-        expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toBeDefined();
-        expect(response.body.results).toBeDefined();
-      } else if (response.statusCode === 400) {
-        const error = errorResponse('list').response;
-        expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
-      }
-    });
-}, 10000);
-test(`Testing ${getCounter()} - Method /address/search (SEARCH) [address.search]`, async () => {
-  await request().get('/address/search?text=01&logs=c,d,t')
-    .then((response) => {
-      if (response.statusCode === 200) {
-        expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toBeDefined();
-        expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toBeDefined();
         expect(response.body.results).toBeDefined();

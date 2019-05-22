@@ -3,45 +3,15 @@ module.exports = [
   {
     _id: '5a67434ec4cf05caeb5820d0',
     active: true,
-    description: null,
-    floor: null,
-    geometry: {
-      city_code: 'City 01',
-      coordinates: {
-        latitude: 123,
-        longitude: 321,
-      },
-      country_code: 'Country 01',
-      location: null,
-      neighborhood_code: 'Neighborhood 01',
-      state_code: 'State 01',
-      viewport: {
-        northeast: {
-          latitude: 123,
-          longitude: 321,
-        },
-        southwest: {
-          latitude: 123,
-          longitude: 321,
-        },
-      },
-    },
     logs: {
       isDeleted: false,
       test: true,
     },
-    number: 'Number 01',
-    postal_code: null,
-    room: null,
-    street: 'Street 01',
-    tax: {
-      role: null,
-      valuation: {
-        currency: null,
-        value: 0,
-      },
+    synchronize: {
+      period: null,
+      type: 'Manual',
     },
-    type: 'Street',
+    user: '12.345.678-9',
   }, {
     _id: '5a67434ec4cf05caeb5820d1',
     active: true,

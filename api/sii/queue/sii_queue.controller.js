@@ -1,19 +1,19 @@
 // Declare dependencies
 const mongoose = require('mongoose');
-const settings = require('./../../config/settings');
-const { errorResponse } = require('./../../utils/errors');
-const { errorTraceRaven, responseValue } = require('./../../utils/general');
+const settings = require('./../../../config/settings');
+const { errorResponse } = require('./../../../utils/errors');
+const { errorTraceRaven, responseValue } = require('./../../../utils/general');
 
 // Declare model
-const Address = mongoose.model('Address');
+const SiiQueue = mongoose.model('SiiQueue');
 
 /*  Method Create
- *  URI: /address
+ *  URI: /sii/queue
  *  Method: POST
  */
 exports.create = (req, res) => {
-  const newAddress = new Address(req.body);
-  newAddress.save()
+  const newSiiQueue = new SiiQueue(req.body);
+  newSiiQueue.save()
     .then((response) => {
       res.status(201).json(response);
     })
@@ -24,7 +24,7 @@ exports.create = (req, res) => {
 };
 
 /*  Method List
- *  URI: /address
+ *  URI: /sii/queue
  *  Method: GET
  */
 exports.list = (req, res) => {
@@ -42,7 +42,7 @@ exports.list = (req, res) => {
       : filters.limit * (parseInt(req.query.page, 10) - 1)
     : 0;
   filters.query = Object.prototype.hasOwnProperty.call(req.query, 'short')
-    ? '_id geometry number street'
+    ? '_id synchronize user'
     : '';
   filters.sort = req.query.order && req.query.order === 'desc'
     ? -1
@@ -65,12 +65,12 @@ exports.list = (req, res) => {
       }
     });
   }
-  Address.countDocuments({
+  SiiQueue.countDocuments({
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   })
     .then((responseCount) => {
-      return Address.find({
+      return SiiQueue.find({
         'logs.isDeleted': filters.isDeleted,
         'logs.test': filters.test,
       }, filters.query, {
@@ -104,11 +104,11 @@ exports.list = (req, res) => {
 };
 
 /*  Method Remove
- *  URI: /address/:id
+ *  URI: /sii/queue/:id
  *  Method: DELETE
  */
 exports.remove = (req, res) => {
-  Address.findById(req.params.id)
+  SiiQueue.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();
@@ -116,7 +116,7 @@ exports.remove = (req, res) => {
       const body = responseFind;
       body.logs.isDeleted = true;
       body.logs.updatedAt = new Date();
-      return Address.findOneAndUpdate({
+      return SiiQueue.findOneAndUpdate({
         _id: req.params.id,
       }, body, {
         new: true,
@@ -131,100 +131,12 @@ exports.remove = (req, res) => {
     });
 };
 
-/*  Method Search
- *  URI: /address/search
- *  Method: GET
- */
-exports.search = (req, res) => {
-  // Settings filters
-  const filters = {};
-  filters.isDeleted = false;
-  filters.limit = req.query.limit && req.query.limit ?
-    (parseInt(req.query.limit, 10) < 1 || parseInt(req.query.limit, 10) > settings.endpoint.limit)
-      ? settings.endpoint.limit
-      : parseInt(req.query.limit, 10)
-    : settings.endpoint.limit;
-  filters.page = req.query.page && req.query.page ?
-    parseInt(req.query.page, 10) < 1
-      ? 0
-      : filters.limit * (parseInt(req.query.page, 10) - 1)
-    : 0;
-  filters.test = false;
-  filters.text = Object.prototype.hasOwnProperty.call(req.query, 'text')
-    ? req.query.text
-    : '';
-  // Verify import logs
-  if (req.query.logs) {
-    req.query.logs.split(',').forEach((log) => {
-      switch (log) {
-        case 'c':
-          filters.catch = true;
-          break;
-        case 'd':
-          filters.isDeleted = true;
-          break;
-        case 't':
-          filters.test = true;
-          break;
-        default:
-          break;
-      }
-    });
-  }
-  Address.countDocuments({
-    'logs.isDeleted': filters.isDeleted,
-    'logs.test': filters.test,
-    $text: {
-      $search: filters.text,
-    },
-  })
-    .then((responseCount) => {
-      return Address.find({
-        'logs.isDeleted': filters.isDeleted,
-        'logs.test': filters.test,
-        $text: {
-          $search: filters.text,
-        },
-      }, {
-        score: {
-          $meta: 'textScore',
-        },
-      })
-        .limit(filters.limit)
-        .skip(filters.page)
-        .sort({
-          score: {
-            $meta: 'textScore',
-          },
-        })
-        .then((responseSearch) => {
-          if (filters.catch) {
-            throw new Error();
-          } else {
-            res.status(200).json({
-              paging: {
-                count: responseSearch.length,
-                limit: filters.limit,
-                page: (filters.page / filters.limit) + 1,
-                total: responseValue(0, responseCount, 0),
-              },
-              results: responseSearch,
-            });
-          }
-        })
-        .catch((errorSearch) => {
-          errorTraceRaven(errorSearch);
-          res.status(404).json(errorResponse('list').response);
-        });
-    });
-};
-
 /*  Method Update
- *  URI: /address/:id
+ *  URI: /sii/queue/:id
  *  Method: PUT
  */
 exports.update = (req, res) => {
-  Address.findById(req.params.id)
+  SiiQueue.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();
@@ -232,7 +144,7 @@ exports.update = (req, res) => {
       const { body } = req;
       body.logs = responseFind.logs;
       body.logs.updatedAt = new Date();
-      return Address.findOneAndUpdate({
+      return SiiQueue.findOneAndUpdate({
         _id: req.params.id,
       }, body, {
         new: true,
@@ -248,11 +160,11 @@ exports.update = (req, res) => {
 };
 
 /*  Method View
- *  URI: /address/:id
+ *  URI: /sii/queue/:id
  *  Method: GET
  */
 exports.view = (req, res) => {
-  Address.findById(req.params.id)
+  SiiQueue.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();

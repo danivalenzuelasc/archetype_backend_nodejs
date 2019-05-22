@@ -4,121 +4,121 @@ const request = require('request');
 listadoDocumentos = () => {
     return [{
         key: '30',
-        name: 'Factura'
+        name: 'Factura',
     }, {
         key: '32',
-        name: 'Factura de ventas y servicios no afectos o exentos de IVA'
+        name: 'Factura de ventas y servicios no afectos o exentos de IVA',
     }, {
         key: '33',
-        name: 'Factura electrónica'
+        name: 'Factura electrónica',
     }, {
         key: '34',
-        name: 'Factura no afecta o exenta electrónica'
+        name: 'Factura no afecta o exenta electrónica',
     }, {
         key: '35',
-        name: 'Boleta'
+        name: 'Boleta',
     }, {
         key: '38',
-        name: 'Boleta exenta'
+        name: 'Boleta exenta',
     }, {
         key: '39',
-        name: 'Boleta electrónica'
+        name: 'Boleta electrónica',
     }, {
         key: '40',
-        name: 'Liquidación factura'
+        name: 'Liquidación factura',
     }, {
         key: '41',
-        name: 'Boleta exenta electrónica'
+        name: 'Boleta exenta electrónica',
     }, {
         key: '43',
-        name: 'Liquidación factura electrónica'
+        name: 'Liquidación factura electrónica',
     }, {
         key: '45',
-        name: 'Factura de compra'
+        name: 'Factura de compra',
     }, {
         key: '46',
-        name: 'Factura de compra electrónica'
+        name: 'Factura de compra electrónica',
     }, {
         key: '48',
-        name: 'Pago electrónico'
+        name: 'Pago electrónico',
     }, {
         key: '50',
-        name: 'Guía de despacho'
+        name: 'Guía de despacho',
     }, {
         key: '52',
-        name: 'Guía de despacho electrónica'
+        name: 'Guía de despacho electrónica',
     }, {
         key: '55',
-        name: 'Nota de débito'
+        name: 'Nota de débito',
     }, {
         key: '56',
-        name: 'Nota de débito electrónica'
+        name: 'Nota de débito electrónica',
     }, {
         key: '60',
-        name: 'Nota de crédito'
+        name: 'Nota de crédito',
     }, {
         key: '61',
-        name: 'Nota de crédito electrónica'
+        name: 'Nota de crédito electrónica',
     }, {
         key: '103',
-        name: 'Liquidación'
+        name: 'Liquidación',
     }, {
         key: '110',
-        name: 'Factura de exportación electrónica'
+        name: 'Factura de exportación electrónica',
     }, {
         key: '111',
-        name: 'Nota de débito de exportación electrónica'
+        name: 'Nota de débito de exportación electrónica',
     }, {
         key: '112',
-        name: 'Nota de crédito de exportación electrónica'
+        name: 'Nota de crédito de exportación electrónica',
     }, {
         key: '801',
-        name: 'Orden de compra'
+        name: 'Orden de compra',
     }, {
         key: '802',
-        name: 'Presupuesto'
+        name: 'Presupuesto',
     }, {
         key: '803',
-        name: 'Contrato'
+        name: 'Contrato',
     }, {
         key: '804',
-        name: 'Resolución'
+        name: 'Resolución',
     }, {
         key: '805',
-        name: 'Proceso ChileCompra'
+        name: 'Proceso ChileCompra',
     }, {
         key: '806',
-        name: 'Ficha ChileCompra'
+        name: 'Ficha ChileCompra',
     }, {
         key: '807',
-        name: 'DUS'
+        name: 'DUS',
     }, {
         key: '808',
-        name: 'B/L (conocimiento de embarque)'
+        name: 'B/L (conocimiento de embarque)',
     }, {
         key: '809',
-        name: 'AWB (Air Will Bill)'
+        name: 'AWB (Air Will Bill)',
     }, {
         key: '810',
-        name: 'MIC/DTA'
+        name: 'MIC/DTA',
     }, {
         key: '811',
-        name: 'Carta de porte'
+        name: 'Carta de porte',
     }, {
         key: '812',
-        name: 'Resolución del SNA donde califica servicios de exportación'
+        name: 'Resolución del SNA donde califica servicios de exportación',
     }, {
         key: '813',
-        name: 'Pasaporte'
+        name: 'Pasaporte',
     }, {
         key: '814',
-        name: 'Certificado de depósito bolsa prod. Chile'
+        name: 'Certificado de depósito bolsa prod. Chile',
     }, {
         key: '815',
-        name: 'Vale de prenda bolsa prod. Chile'
+        name: 'Vale de prenda bolsa prod. Chile',
     }, {
         key: '914',
-        name: 'Declaración de ingreso (DIN)'
+        name: 'Declaración de ingreso (DIN)',
     }];
 }
 
@@ -170,29 +170,29 @@ obtenerDetalleCompra = (session, document, month, year) => {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
                 'Cookie': `TOKEN=${session.TOKEN}`,
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
             },
             json: {
                 data: {
                     codTipoDoc: document,
                     dvEmisor: session.DV_NS,
                     estadoContab: 'REGISTRO',
-                    operacion: 'COMPRA',
+                    operacion: 'VENTA',
                     ptributario: `${year}${month}`,
-                    rutEmisor: session.RUT_NS
+                    rutEmisor: session.RUT_NS,
                 },
                 metaData: {
                     conversationId: session.TOKEN,
                     namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getDetalleCompra',
                     page: null,
-                    transactionId: generarUUID()
+                    transactionId: generarUUID(),
                 }
             },
             method: 'POST',
-            uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getDetalleCompra'
+            uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getDetalleCompra',
         }, (error, response) => {
             if (!error && response && response.body) {
-                resolve(response.body.data.length);
+                resolve(response.body.data);
             } else {
                 reject(error);
             }
@@ -210,8 +210,8 @@ sincronizarDocumentos = async(dni, password, month, year) => {
     if (session) {
         listadoDocumentos().forEach((row) => {
             obtenerDetalleCompra(session, row.key, month, year).then((response) => {
-              //console.info(response);
-                console.info(`${row.key} ${row.name} -> ${response} documentos`);
+              console.info(response);
+                //console.info(`${row.key} ${row.name} -> ${response} documentos`);
             });
         });
     } else {
@@ -222,6 +222,7 @@ sincronizarDocumentos = async(dni, password, month, year) => {
 
 
 //sincronizarDocumentos('17.052.424-1', '222422');
-sincronizarDocumentos('76.103.915-6', 'Nubox.2019', '03', '2019');
+//sincronizarDocumentos('17.052.424-1', 'isidora');
+sincronizarDocumentos('76.103.915-6', 'Nubox.2019', '01', '2019');
 
 

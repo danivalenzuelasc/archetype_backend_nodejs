@@ -70,8 +70,8 @@
     "seed": "cross-env NODE_ENV=seed node task/seed.js",
     "seed:dev": "cross-env NODE_ENV=seed MONGO_URI=mongodb://localhost/integraciones_backend_cl node task/seed.js",
     "start": "cross-env NODE_ENV=development MONGO_URI=mongodb://localhost/integraciones_backend_cl nodemon app.js & npm run lint:watch",
-    "test": "cross-env NODE_ENV=testing jest --detectOpenHandles --verbose --forceExit",
-    "test:dev": "cross-env NODE_ENV=testing MONGO_URI=mongodb://localhost/integraciones_backend_cl jest --detectOpenHandles --verbose --forceExit"
+    "test": "cross-env NODE_ENV=testing jest --verbose --forceExit",
+    "test:dev": "cross-env NODE_ENV=testing MONGO_URI=mongodb://localhost/integraciones_backend_cl jest --verbose --forceExit"
   },
   "pre-commit": [
     "message:commit",
