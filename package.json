@@ -75,7 +75,8 @@
   },
   "pre-commit": [
     "message:commit",
-    "lint"
+    "lint",
+    "test:dev"
   ],
   "dependencies": {
     "bluebird": "3.5.4",

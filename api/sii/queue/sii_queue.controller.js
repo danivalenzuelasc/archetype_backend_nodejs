@@ -31,12 +31,12 @@ exports.list = (req, res) => {
   // Settings filters
   const filters = {};
   filters.isDeleted = false;
-  filters.limit = req.query.limit && req.query.limit
-    ? (parseInt(req.query.limit, 10) < 1 || parseInt(req.query.limit, 10) > settings.endpoint.limit)
+  filters.limit = req.query.limit && Number.isInteger(parseInt(req.query.limit, 10)) ?
+    (parseInt(req.query.limit, 10) < 1 || parseInt(req.query.limit, 10) > settings.endpoint.limit)
       ? settings.endpoint.limit
       : parseInt(req.query.limit, 10)
     : settings.endpoint.limit;
-  filters.page = req.query.page && req.query.page ?
+  filters.page = req.query.page && Number.isInteger(parseInt(req.query.page, 10)) ?
     parseInt(req.query.page, 10) < 1
       ? 0
       : filters.limit * (parseInt(req.query.page, 10) - 1)
@@ -48,6 +48,9 @@ exports.list = (req, res) => {
     ? -1
     : 1;
   filters.test = false;
+  if (['Automatic', 'Priority'].indexOf(req.query.type) !== -1) {
+    filters.type = req.query.type;
+  }
   // Verify import logs
   if (req.query.logs) {
     req.query.logs.split(',').forEach((log) => {
@@ -65,15 +68,16 @@ exports.list = (req, res) => {
       }
     });
   }
-  SiiQueue.countDocuments({
+  const query = {
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
-  })
+  };
+  if (filters.type) {
+    query['synchronize.type'] = filters.type;
+  }
+  SiiQueue.countDocuments(query)
     .then((responseCount) => {
-      return SiiQueue.find({
-        'logs.isDeleted': filters.isDeleted,
-        'logs.test': filters.test,
-      }, filters.query, {
+      return SiiQueue.find(query, filters.query, {
         limit: filters.limit,
         skip: filters.page,
         sort: {

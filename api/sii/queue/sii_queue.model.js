@@ -15,10 +15,6 @@ const SiiQueueSchema = new mongoose.Schema({
       required: true,
       type: Date,
     },
-    execute: {
-      default: null,
-      type: Date,
-    },
     isDeleted: {
       default: false,
       index: true,
@@ -44,9 +40,9 @@ const SiiQueueSchema = new mongoose.Schema({
       type: String,
     },
     type: {
-      default: 'Manual',
+      default: 'Automatic',
       enum: [
-        'Manual',
+        'Automatic',
         'Priority',
       ],
       index: true,
