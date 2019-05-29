@@ -2,12 +2,18 @@
 const mongoose = require('mongoose');
 
 // Setting model
-const SiiQueueSchema = new mongoose.Schema({
+const SiiCredentialSchema = new mongoose.Schema({
   active: {
     default: true,
     index: true,
     required: true,
     type: Boolean,
+  },
+  certificate: {
+    index: true,
+    required: false,
+    trim: true,
+    type: String,
   },
   logs: {
     createdAt: {
@@ -33,32 +39,20 @@ const SiiQueueSchema = new mongoose.Schema({
       type: Date,
     },
   },
-  synchronize: {
-    period: {
-      default: null,
-      index: true,
-      trim: true,
-      type: String,
-    },
-    type: {
-      default: 'Automatic',
-      enum: [
-        'Automatic',
-        'Priority',
-      ],
-      index: true,
-      require: true,
-      trim: true,
-      type: String,
-    },
+  password: {
+    index: true,
+    required: true,
+    trim: true,
+    type: String,
   },
   user: {
     index: true,
     required: true,
     trim: true,
     type: String,
+    unique: true,
   },
 });
 
-// Export model SiiQueue
-module.exports = mongoose.model('SiiQueue', SiiQueueSchema);
+// Export model SiiCredential
+module.exports = mongoose.model('SiiCredential', SiiCredentialSchema);

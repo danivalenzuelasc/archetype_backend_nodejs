@@ -192,7 +192,7 @@ obtenerDetalleCompra = (session, document, month, year) => {
             uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getDetalleCompra',
         }, (error, response) => {
             if (!error && response && response.body) {
-                resolve(response.body.data);
+                resolve(response.body.data.length);
             } else {
                 reject(error);
             }
@@ -210,8 +210,8 @@ sincronizarDocumentos = async(dni, password, month, year) => {
     if (session) {
         listadoDocumentos().forEach((row) => {
             obtenerDetalleCompra(session, row.key, month, year).then((response) => {
-              console.info(response);
-                //console.info(`${row.key} ${row.name} -> ${response} documentos`);
+                //console.info(response);
+                console.info(`${row.key} ${row.name} -> ${response} documentos`);
             });
         });
     } else {
@@ -223,6 +223,6 @@ sincronizarDocumentos = async(dni, password, month, year) => {
 
 //sincronizarDocumentos('17.052.424-1', '222422');
 //sincronizarDocumentos('17.052.424-1', 'isidora');
-sincronizarDocumentos('76.103.915-6', 'Nubox.2019', '01', '2019');
+sincronizarDocumentos('76.103.915-6', 'Nubox.2019', '03', '2019');
 
 

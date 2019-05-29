@@ -1,6 +1,20 @@
 // Setting Collections
 module.exports = () => {
   const api = {
+    siiCredential: {
+      import: false,
+      router: {
+        path: 'credential',
+        root: 'sii',
+      },
+    },
+    siiDocument: {
+      import: false,
+      router: {
+        path: 'document',
+        root: 'sii',
+      },
+    },
     siiQueue: {
       import: false,
       router: {

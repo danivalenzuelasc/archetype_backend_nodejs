@@ -1,7 +1,7 @@
 // Export global configs
 module.exports = {
   endpoint: {
-    crypt: '1F2C1447E581F2378AFAA78EF01D7562B9EA4FF1CA83A69C37D4BA11F57AB10C89BCFC12F064AF65E88DD4A1A0B197C60EE5C452DD442C3F8348CFF624677541',
+    crypt: 'secret',
     hashing: 43200000,
     limit: 500,
   },
