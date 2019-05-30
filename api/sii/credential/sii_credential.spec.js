@@ -1,9 +1,12 @@
 // Declare dependencies
-const { request } = require('./../../testing');
+const cryptr = require('cryptr');
+const settings = require('./../../../config/settings');
+const { request } = require('../../testing');
 
 // Declare mocks spec
-const mocks = require('./sii_queue.mocks');
-const { errorResponse } = require('./../../../utils/errors');
+const Cryptr = new cryptr(settings.endpoint.crypt);
+const mocks = require('./sii_credential.mocks');
+const { errorResponse } = require('../../../utils/errors');
 
 // Setting counter
 let counter = 0;
@@ -13,25 +16,24 @@ function getCounter() {
 }
 
 /*  Testing method Create
-  *  URI: /sii/queue
+  *  URI: /sii/credential
   *  Method: POST
   */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/queue (POST) [siiQueue.create]`, async () => {
+  await test(`Testing ${getCounter()} - Method /sii/credential (POST) [siiCredential.create]`, async () => {
     counter += 1;
-    await request().post('/sii/queue').send(row)
+    await request().post('/sii/credential').send(row)
       .then((response) => {
         if (response.statusCode === 201) {
           expect(response.body).toBeDefined();
           expect(response.body.active).toEqual(row.active);
+          expect(response.body.certificate).toEqual(row.certificate);
           expect(response.body.logs).toBeDefined();
           expect(response.body.logs.createdAt).toBeDefined();
           expect(response.body.logs.isDeleted).toEqual(row.logs.isDeleted);
           expect(response.body.logs.test).toEqual(row.logs.test);
           expect(response.body.logs.updatedAt).toEqual(null);
-          expect(response.body.synchronize).toBeDefined();
-          expect(response.body.synchronize.period).toEqual(row.synchronize.period);
-          expect(response.body.synchronize.type).toEqual(row.synchronize.type);
+          expect(Cryptr.decrypt(response.body.password)).toEqual(row.password);
           expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('create').response;
@@ -44,24 +46,23 @@ mocks.forEach(async (row) => {
 });
 
 /*  Testing method View
-  *  URI: /sii/queue/:id
+  *  URI: /sii/credential/:id
   *  Method: VIEW
   */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/queue/:id (GET) [siiQueue.view]`, async () => {
-    await request().get(`/sii/queue/${row._id}`)
+  await test(`Testing ${getCounter()} - Method /sii/credential/:id (GET) [siiCredential.view]`, async () => {
+    await request().get(`/sii/credential/${row._id}`)
       .then((response) => {
         if (response.statusCode === 200) {
           expect(response.body).toBeDefined();
           expect(response.body.active).toEqual(row.active);
+          expect(response.body.certificate).toEqual(row.certificate);
           expect(response.body.logs).toBeDefined();
           expect(response.body.logs.createdAt).toBeDefined();
           expect(response.body.logs.isDeleted).toEqual(row.logs.isDeleted);
           expect(response.body.logs.test).toEqual(row.logs.test);
           expect(response.body.logs.updatedAt).toBeDefined();
-          expect(response.body.synchronize).toBeDefined();
-          expect(response.body.synchronize.period).toEqual(row.synchronize.period);
-          expect(response.body.synchronize.type).toEqual(row.synchronize.type);
+          expect(Cryptr.decrypt(response.body.password)).toEqual(row.password);
           expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('view').response;
@@ -74,26 +75,29 @@ mocks.forEach(async (row) => {
 });
 
 /*  Testing method Update
-  *  URI: /sii/queue/:id
+  *  URI: /sii/credential/:id
   *  Method: PUT
   */
-mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/queue/:id (PUT) [siiQueue.update]`, async () => {
+mocks.forEach(async (row, key) => {
+  await test(`Testing ${getCounter()} - Method /sii/credential/:id (PUT) [siiCredential.update]`, async () => {
     const data = row;
-    data.name += ' - Update';
-    await request().put(`/sii/queue/${row._id}`).send(data)
+    data.password += ' - Update';
+    if (key === 5) {
+      data.password = null;
+    }
+    await request().put(`/sii/credential/${row._id}`).send(data)
       .then((response) => {
         if (response.statusCode === 200) {
+          const password = Cryptr.decrypt(response.body.password);
           expect(response.body).toBeDefined();
           expect(response.body.active).toEqual(row.active);
+          expect(response.body.certificate).toEqual(row.certificate);
           expect(response.body.logs).toBeDefined();
           expect(response.body.logs.createdAt).toBeDefined();
           expect(response.body.logs.isDeleted).toEqual(row.logs.isDeleted);
           expect(response.body.logs.test).toEqual(row.logs.test);
           expect(response.body.logs.updatedAt).toBeDefined();
-          expect(response.body.synchronize).toBeDefined();
-          expect(response.body.synchronize.period).toEqual(row.synchronize.period);
-          expect(response.body.synchronize.type).toEqual(row.synchronize.type);
+          expect(password).toEqual(row.password);
           expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('update').response;
@@ -106,24 +110,27 @@ mocks.forEach(async (row) => {
 });
 
 /*  Testing method Remove
-  *  URI: /sii/queue/:id
+  *  URI: /sii/credential/:id
   *  Method: DELETE
   */
-mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/queue/:id (DELETE) [siiQueue.remove]`, async () => {
-    await request().delete(`/sii/queue/${row._id}`)
+mocks.forEach(async (row, key) => {
+  await test(`Testing ${getCounter()} - Method /sii/credential/:id (DELETE) [siiCredential.remove]`, async () => {
+    await request().delete(`/sii/credential/${row._id}`)
       .then((response) => {
         if (response.statusCode === 200) {
           expect(response.body).toBeDefined();
           expect(response.body.active).toEqual(row.active);
+          expect(response.body.certificate).toEqual(row.certificate);
           expect(response.body.logs).toBeDefined();
           expect(response.body.logs.createdAt).toBeDefined();
           expect(response.body.logs.isDeleted).toEqual(!row.logs.isDeleted);
           expect(response.body.logs.test).toEqual(row.logs.test);
           expect(response.body.logs.updatedAt).toBeDefined();
-          expect(response.body.synchronize).toBeDefined();
-          expect(response.body.synchronize.period).toEqual(row.synchronize.period);
-          expect(response.body.synchronize.type).toEqual(row.synchronize.type);
+          if (key !== 5) {
+            expect(Cryptr.decrypt(response.body.password)).toEqual(row.password);
+          } else {
+            expect(null).toEqual(row.password);
+          }
           expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('remove').response;
@@ -136,11 +143,11 @@ mocks.forEach(async (row) => {
 });
 
 /*  Testing method List
-  *  URI: /sii/queue
+  *  URI: /sii/credential
   *  Method: GET
   */
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=3&page=1&order=desc&logs=d,t')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?limit=3&page=1&order=desc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -158,8 +165,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=5&page=2&order=asc&logs=c,d,t')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?limit=5&page=2&order=asc&logs=c,d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -177,8 +184,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?short&limit=5&order=asc&logs=a,d,t')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?short&limit=5&order=asc&logs=a,d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -196,8 +203,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?short&order=asc')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?short&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -215,8 +222,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=-1&page=-1&order=asc')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?limit=-1&page=-1&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -234,8 +241,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=5&page=-1&order=asc&logs=d,t&type=a')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?limit=5&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -253,8 +260,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=-1&page=-1&order=asc&logs=d,t&type=Automatic')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?limit=-1&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -262,7 +269,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
         expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(4);
+        expect(response.body.paging.total).toEqual(6);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -272,8 +279,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=3&page=-1&order=asc&logs=d,t&type=Automatic')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?limit=3&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -281,7 +288,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
         expect(response.body.paging.limit).toEqual(3);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(4);
+        expect(response.body.paging.total).toEqual(6);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -291,8 +298,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=-2&page=-1&order=asc&logs=d,t&type=Priority')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?limit=-2&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -300,7 +307,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
         expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(2);
+        expect(response.body.paging.total).toEqual(6);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -310,8 +317,8 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=1&page=-1&order=asc&logs=d,t&type=Priority')
+test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
+  await request().get('/sii/credential?limit=1&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -319,7 +326,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
         expect(response.body.paging.limit).toEqual(1);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(2);
+        expect(response.body.paging.total).toEqual(6);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;

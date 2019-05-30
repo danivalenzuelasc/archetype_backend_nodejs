@@ -1,19 +1,19 @@
 // Declare dependencies
 const mongoose = require('mongoose');
-const settings = require('./../../../config/settings');
-const { errorResponse } = require('./../../../utils/errors');
-const { errorTraceRaven, responseValue } = require('./../../../utils/general');
+const settings = require('../../../config/settings');
+const { errorResponse } = require('../../../utils/errors');
+const { errorTraceRaven, responseValue } = require('../../../utils/general');
 
 // Declare model
-const SiiQueue = mongoose.model('SiiQueue');
+const SiiDocument = mongoose.model('SiiDocument');
 
 /*  Method Create
  *  URI: /sii/queue
  *  Method: POST
  */
 exports.create = (req, res) => {
-  const newSiiQueue = new SiiQueue(req.body);
-  newSiiQueue.save()
+  const newSiiDocument = new SiiDocument(req.body);
+  newSiiDocument.save()
     .then((response) => {
       res.status(201).json(response);
     })
@@ -75,9 +75,9 @@ exports.list = (req, res) => {
   if (filters.type) {
     query['synchronize.type'] = filters.type;
   }
-  SiiQueue.countDocuments(query)
+  SiiDocument.countDocuments(query)
     .then((responseCount) => {
-      return SiiQueue.find(query, filters.query, {
+      return SiiDocument.find(query, filters.query, {
         limit: filters.limit,
         skip: filters.page,
         sort: {
@@ -112,7 +112,7 @@ exports.list = (req, res) => {
  *  Method: DELETE
  */
 exports.remove = (req, res) => {
-  SiiQueue.findById(req.params.id)
+  SiiDocument.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();
@@ -120,7 +120,7 @@ exports.remove = (req, res) => {
       const body = responseFind;
       body.logs.isDeleted = true;
       body.logs.updatedAt = new Date();
-      return SiiQueue.findOneAndUpdate({
+      return SiiDocument.findOneAndUpdate({
         _id: req.params.id,
       }, body, {
         new: true,
@@ -140,7 +140,7 @@ exports.remove = (req, res) => {
  *  Method: PUT
  */
 exports.update = (req, res) => {
-  SiiQueue.findById(req.params.id)
+  SiiDocument.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();
@@ -148,7 +148,7 @@ exports.update = (req, res) => {
       const { body } = req;
       body.logs = responseFind.logs;
       body.logs.updatedAt = new Date();
-      return SiiQueue.findOneAndUpdate({
+      return SiiDocument.findOneAndUpdate({
         _id: req.params.id,
       }, body, {
         new: true,
@@ -168,7 +168,7 @@ exports.update = (req, res) => {
  *  Method: GET
  */
 exports.view = (req, res) => {
-  SiiQueue.findById(req.params.id)
+  SiiDocument.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();

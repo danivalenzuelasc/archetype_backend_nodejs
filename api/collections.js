@@ -1,6 +1,20 @@
 // Setting Collections
 module.exports = () => {
   const api = {
+    siiCredential: {
+      import: false,
+      router: {
+        path: 'credential',
+        root: 'sii',
+      },
+    },
+    siiDocument: {
+      import: false,
+      router: {
+        path: 'document',
+        root: 'sii',
+      },
+    },
     siiQueue: {
       import: false,
       router: {
@@ -10,8 +24,9 @@ module.exports = () => {
     },
   };
   Object.keys(api).forEach((collection) => {
-    api[collection].mocks = require(`./${api[collection].router.root}/${api[collection].router.path}/${api[collection].router.root}_${api[collection].router.path}.mocks`);
-    api[collection].model = require(`./${api[collection].router.root}/${api[collection].router.path}/${api[collection].router.root}_${api[collection].router.path}.model`);
+    const { router } = api[collection];
+    api[collection].mocks = require(`./${router.root}/${router.path}/${router.root}_${router.path}.mocks`);
+    api[collection].model = require(`./${router.root}/${router.path}/${router.root}_${router.path}.model`);
   });
   return api;
 };

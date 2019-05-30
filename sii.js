@@ -192,7 +192,7 @@ obtenerDetalleCompra = (session, document, month, year) => {
             uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getDetalleCompra',
         }, (error, response) => {
             if (!error && response && response.body) {
-                resolve(response.body.data);
+                resolve(response.body.data.length);
             } else {
                 reject(error);
             }
@@ -210,8 +210,8 @@ sincronizarDocumentos = async(dni, password, month, year) => {
     if (session) {
         listadoDocumentos().forEach((row) => {
             obtenerDetalleCompra(session, row.key, month, year).then((response) => {
-              console.info(response);
-                //console.info(`${row.key} ${row.name} -> ${response} documentos`);
+                //console.info(response);
+                console.info(`${row.key} ${row.name} -> ${response} documentos`);
             });
         });
     } else {

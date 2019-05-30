@@ -1,30 +1,44 @@
 // Declare dependencies
+const cryptr = require('cryptr');
 const mongoose = require('mongoose');
-const settings = require('./../../../config/settings');
-const { errorResponse } = require('./../../../utils/errors');
-const { errorTraceRaven, responseValue } = require('./../../../utils/general');
+const settings = require('../../../config/settings');
+const { errorResponse } = require('../../../utils/errors');
+const { errorTraceRaven, responseValue } = require('../../../utils/general');
+const { getCredentials } = require('./../../../utils/sii');
 
 // Declare model
-const SiiQueue = mongoose.model('SiiQueue');
+const SiiCredential = mongoose.model('SiiCredential');
+const Cryptr = new cryptr(settings.endpoint.crypt);
 
 /*  Method Create
- *  URI: /sii/queue
+ *  URI: /sii/credential
  *  Method: POST
  */
 exports.create = (req, res) => {
-  const newSiiQueue = new SiiQueue(req.body);
-  newSiiQueue.save()
-    .then((response) => {
-      res.status(201).json(response);
+  const { password } = req.body;
+  if (req.body.password) {
+    req.body.password = Cryptr.encrypt(req.body.password);
+  }
+  const newSiiCredential = new SiiCredential(req.body);
+  getCredentials(req.body.user, password)
+    .then(() => {
+      newSiiCredential.save()
+        .then((response) => {
+          res.status(201).json(response);
+        })
+        .catch((error) => {
+          errorTraceRaven(error);
+          res.status(401).json(errorResponse('create').response);
+        });
     })
     .catch((error) => {
       errorTraceRaven(error);
-      res.status(400).json(errorResponse('create').response);
+      res.status(401).json(errorResponse('create').response);
     });
 };
 
 /*  Method List
- *  URI: /sii/queue
+ *  URI: /sii/credential
  *  Method: GET
  */
 exports.list = (req, res) => {
@@ -42,15 +56,12 @@ exports.list = (req, res) => {
       : filters.limit * (parseInt(req.query.page, 10) - 1)
     : 0;
   filters.query = Object.prototype.hasOwnProperty.call(req.query, 'short')
-    ? '_id synchronize user'
+    ? '_id user'
     : '';
   filters.sort = req.query.order && req.query.order === 'desc'
     ? -1
     : 1;
   filters.test = false;
-  if (['Automatic', 'Priority'].indexOf(req.query.type) !== -1) {
-    filters.type = req.query.type;
-  }
   // Verify import logs
   if (req.query.logs) {
     req.query.logs.split(',').forEach((log) => {
@@ -72,12 +83,9 @@ exports.list = (req, res) => {
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   };
-  if (filters.type) {
-    query['synchronize.type'] = filters.type;
-  }
-  SiiQueue.countDocuments(query)
+  SiiCredential.countDocuments(query)
     .then((responseCount) => {
-      return SiiQueue.find(query, filters.query, {
+      return SiiCredential.find(query, filters.query, {
         limit: filters.limit,
         skip: filters.page,
         sort: {
@@ -108,11 +116,11 @@ exports.list = (req, res) => {
 };
 
 /*  Method Remove
- *  URI: /sii/queue/:id
+ *  URI: /sii/credential/:id
  *  Method: DELETE
  */
 exports.remove = (req, res) => {
-  SiiQueue.findById(req.params.id)
+  SiiCredential.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();
@@ -120,7 +128,7 @@ exports.remove = (req, res) => {
       const body = responseFind;
       body.logs.isDeleted = true;
       body.logs.updatedAt = new Date();
-      return SiiQueue.findOneAndUpdate({
+      return SiiCredential.findOneAndUpdate({
         _id: req.params.id,
       }, body, {
         new: true,
@@ -136,25 +144,33 @@ exports.remove = (req, res) => {
 };
 
 /*  Method Update
- *  URI: /sii/queue/:id
+ *  URI: /sii/credential/:id
  *  Method: PUT
  */
 exports.update = (req, res) => {
-  SiiQueue.findById(req.params.id)
+  SiiCredential.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();
       }
+      let password = '';
       const { body } = req;
+      if (req.body.password) {
+        body.password = Cryptr.encrypt(req.body.password);
+        ({ password } = body);
+      }
       body.logs = responseFind.logs;
       body.logs.updatedAt = new Date();
-      return SiiQueue.findOneAndUpdate({
-        _id: req.params.id,
-      }, body, {
-        new: true,
-      })
-        .then((responseUpdate) => {
-          res.status(200).json(responseUpdate);
+      getCredentials(req.body.user, password)
+        .then(() => {
+          SiiCredential.findOneAndUpdate({
+            _id: req.params.id,
+          }, body, {
+            new: true,
+          })
+            .then((responseUpdate) => {
+              res.status(201).json(responseUpdate);
+            });
         });
     })
     .catch((errorFind) => {
@@ -164,11 +180,11 @@ exports.update = (req, res) => {
 };
 
 /*  Method View
- *  URI: /sii/queue/:id
+ *  URI: /sii/credential/:id
  *  Method: GET
  */
 exports.view = (req, res) => {
-  SiiQueue.findById(req.params.id)
+  SiiCredential.findById(req.params.id)
     .then((responseFind) => {
       if (!responseFind) {
         throw new Error();

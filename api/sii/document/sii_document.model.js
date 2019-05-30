@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // Setting model
-const SiiQueueSchema = new mongoose.Schema({
+const SiiDocumentSchema = new mongoose.Schema({
   active: {
     default: true,
     index: true,
@@ -60,5 +60,5 @@ const SiiQueueSchema = new mongoose.Schema({
   },
 });
 
-// Export model SiiQueue
-module.exports = mongoose.model('SiiQueue', SiiQueueSchema);
+// Export model SiiDocument
+module.exports = mongoose.model('SiiDocument', SiiDocumentSchema);

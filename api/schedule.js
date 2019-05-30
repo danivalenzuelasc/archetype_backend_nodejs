@@ -9,7 +9,7 @@ exports.init = () => {
   // Run schedule [30 seconds]
   nodeSchedule.scheduleJob('*30 * * * * *', () => {
     // Send mailing
-    const listingMailing = `${settings.url.api}/mailing/listing`;
+    const listingMailing = `${settings.url.api}/sii/queue`;
     request(listingMailing, (errorListing, responseListing, dataListing) => {
       if (errorListing) {
         errorTraceRaven(errorListing);

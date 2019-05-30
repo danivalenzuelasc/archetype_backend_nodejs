@@ -1,11 +1,12 @@
-// Declare dependencies
+// Declaracion de dependencias
 const collections = require('./collections');
 
-// Setting API
+// Se exporta la configuracion de las rutas de los diversos endpoints
 module.exports = (app) => {
   Object.keys(collections()).forEach((collection) => {
-    require(`./${collections()[collection].router.root}/${collections()[collection].router.path}/${collections()[collection].router.root}_${collections()[collection].router.path}.model`);
-    require(`./${collections()[collection].router.root}/${collections()[collection].router.path}/${collections()[collection].router.root}_${collections()[collection].router.path}.routes`)(app);
+    const { router } = collections()[collection];
+    require(`./${router.root}/${router.path}/${router.root}_${router.path}.model`);
+    require(`./${router.root}/${router.path}/${router.root}_${router.path}.routes`)(app);
   });
   return app;
 };
