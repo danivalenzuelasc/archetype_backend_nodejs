@@ -221,8 +221,8 @@ sincronizarDocumentos = async(dni, password, month, year) => {
 
 
 
-//sincronizarDocumentos('17.052.424-1', '222422');
-sincronizarDocumentos('76.973.499-6', 'isidora', '03', '2019');
+sincronizarDocumentos('17.052.424-1', '2224221');
+//sincronizarDocumentos('76.973.499-6', 'isidora', '03', '2019');
 //sincronizarDocumentos('76.103.915-6', 'Nubox.2019', '01', '2019');
 
 

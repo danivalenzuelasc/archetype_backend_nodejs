@@ -8,8 +8,8 @@ function getCounter() {
   return counter < 10 ? `0${counter}` : counter;
 }
 
-/*  Testing function ErrorTraceRaven
-  */
+/** Testing function ErrorTraceRaven
+ */
 test(`Testing ${getCounter()} - Function cleanCharacters()`, async () => {
   counter += 1;
   const response = await cleanCharacters('ÀÁÂÃÄÅÆàáâãäåæ');

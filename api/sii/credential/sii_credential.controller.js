@@ -7,20 +7,19 @@ const { errorTraceRaven, responseValue } = require('../../../utils/general');
 const { getCredentials } = require('./../../../utils/sii');
 
 // Declare model
-const SiiCredential = mongoose.model('SiiCredential');
 const Cryptr = new cryptr(settings.endpoint.crypt);
+const SiiCredential = mongoose.model('SiiCredential');
 
 /*  Method Create
  *  URI: /sii/credential
  *  Method: POST
  */
 exports.create = (req, res) => {
-  const { password } = req.body;
   if (req.body.password) {
     req.body.password = Cryptr.encrypt(req.body.password);
   }
   const newSiiCredential = new SiiCredential(req.body);
-  getCredentials(req.body.user, password)
+  getCredentials(req.body.user, req.body.password)
     .then(() => {
       newSiiCredential.save()
         .then((response) => {
@@ -153,15 +152,13 @@ exports.update = (req, res) => {
       if (!responseFind) {
         throw new Error();
       }
-      let password = '';
       const { body } = req;
       if (req.body.password) {
         body.password = Cryptr.encrypt(req.body.password);
-        ({ password } = body);
       }
       body.logs = responseFind.logs;
       body.logs.updatedAt = new Date();
-      getCredentials(req.body.user, password)
+      getCredentials(body.user, body.password)
         .then(() => {
           SiiCredential.findOneAndUpdate({
             _id: req.params.id,
@@ -171,6 +168,10 @@ exports.update = (req, res) => {
             .then((responseUpdate) => {
               res.status(201).json(responseUpdate);
             });
+        })
+        .catch((errorFind) => {
+          errorTraceRaven(errorFind);
+          res.status(404).send(errorResponse('update').response);
         });
     })
     .catch((errorFind) => {
