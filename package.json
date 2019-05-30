@@ -40,18 +40,15 @@
     "coverageDirectory": "./coverage/",
     "coveragePathIgnorePatterns": [
       "app.js",
-      "api/schedule.js",
-      "api/socket.io.js",
       "config/api.js",
       "config/credentials.js",
-      "config/passport.js",
       "config/settings.js",
+      "config/sii.js",
       "coverage",
       "node_modules",
       "public/index.routes.js",
       "task/pretest.js",
-      "task/seed.js",
-      "utils/google.js"
+      "task/seed.js"
     ],
     "testEnvironment": "node"
   },

@@ -1,8 +1,8 @@
 // Declare dependencies
 const request = require('request');
 
-// Function getCredentials()
-function getCredentials(dni, password) {
+// Export function getCredentials()
+exports.getCredentials = (dni, password) => {
   if (process.env.NODE_ENV === 'production') {
     return new Promise((resolve, reject) => {
       request.post({
@@ -40,5 +40,4 @@ function getCredentials(dni, password) {
       resolve({});
     }
   });
-}
-exports.getCredentials = getCredentials;
+};
