@@ -42,15 +42,12 @@ exports.list = (req, res) => {
       : filters.limit * (parseInt(req.query.page, 10) - 1)
     : 0;
   filters.query = Object.prototype.hasOwnProperty.call(req.query, 'short')
-    ? '_id synchronize user'
+    ? '_id document execute'
     : '';
   filters.sort = req.query.order && req.query.order === 'desc'
     ? -1
     : 1;
   filters.test = false;
-  if (['Automatic', 'Priority'].indexOf(req.query.type) !== -1) {
-    filters.type = req.query.type;
-  }
   // Verify import logs
   if (req.query.logs) {
     req.query.logs.split(',').forEach((log) => {
@@ -72,9 +69,6 @@ exports.list = (req, res) => {
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   };
-  if (filters.type) {
-    query['synchronize.type'] = filters.type;
-  }
   SiiDocument.countDocuments(query)
     .then((responseCount) => {
       return SiiDocument.find(query, filters.query, {

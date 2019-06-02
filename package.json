@@ -47,8 +47,7 @@
       "coverage",
       "node_modules",
       "public/index.routes.js",
-      "task/pretest.js",
-      "task/seed.js"
+      "task/pretest.js"
     ],
     "testEnvironment": "node"
   },
@@ -56,16 +55,11 @@
     "lint": "eslint app.js api/*.js config/*.js public/*.js utils/*.js api/**/*.js",
     "lint:watch": "esw app.js api/*.js config/*.js public/*.js utils/*.js api/**/*.js -w",
     "message:commit": "echo 'Starting ... npm run lint & npm run test'",
-    "message:seed": "echo 'Starting ... Populate seeds'",
-    "postseed": "pkill -f node",
-    "postseed:dev": "pkill -f node",
     "preprod": "npm run lint & npm run test",
     "prestart": "pkill -f node",
     "pretest": "cross-env NODE_ENV=pretest node task/pretest.js",
     "pretest:dev": "cross-env NODE_ENV=pretest MONGO_URI=mongodb://localhost/integraciones_backend_cl node task/pretest.js",
     "prod": "cross-env NODE_ENV=production node app.js",
-    "seed": "cross-env NODE_ENV=seed node task/seed.js",
-    "seed:dev": "cross-env NODE_ENV=seed MONGO_URI=mongodb://localhost/integraciones_backend_cl node task/seed.js",
     "start": "cross-env NODE_ENV=development MONGO_URI=mongodb://localhost/integraciones_backend_cl nodemon app.js & npm run lint:watch",
     "test": "cross-env NODE_ENV=testing jest --verbose --forceExit",
     "test:dev": "cross-env NODE_ENV=testing MONGO_URI=mongodb://localhost/integraciones_backend_cl jest --verbose --forceExit"
