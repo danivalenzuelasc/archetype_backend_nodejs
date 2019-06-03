@@ -140,7 +140,6 @@ exports.update = (req, res) => {
         throw new Error();
       }
       const { body } = req;
-      body.logs = responseFind.logs;
       body.logs.updatedAt = new Date();
       return SiiDocument.findOneAndUpdate({
         _id: req.params.id,

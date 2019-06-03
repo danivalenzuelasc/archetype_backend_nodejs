@@ -177,22 +177,22 @@ obtenerDetalleCompra = (session, document, month, year) => {
                     codTipoDoc: document,
                     dvEmisor: session.DV_NS,
                     estadoContab: 'REGISTRO',
-                    operacion: 'COMPRA',
+                    operacion: 'VENTA',
                     ptributario: `${year}${month}`,
                     rutEmisor: session.RUT_NS,
                 },
                 metaData: {
                     conversationId: session.TOKEN,
-                    namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getDetalleCompra',
+                    namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getDetalleVenta',
                     page: null,
                     transactionId: generarUUID(),
                 }
             },
             method: 'POST',
-            uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getDetalleCompra',
+            uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getDetalleVenta',
         }, (error, response) => {
             if (!error && response && response.body) {
-                resolve(response.body.data);
+                resolve(response.body.data.length);
             } else {
                 reject(error);
             }
@@ -210,8 +210,8 @@ sincronizarDocumentos = async(dni, password, month, year) => {
     if (session) {
         listadoDocumentos().forEach((row) => {
             obtenerDetalleCompra(session, row.key, month, year).then((response) => {
-                console.info(response);
-                //console.info(`${row.key} ${row.name} -> ${response} documentos`);
+                //console.info(response);
+                console.info(`${row.key} ${row.name} -> ${response} documentos`);
             });
         });
     } else {

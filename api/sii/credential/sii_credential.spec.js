@@ -299,7 +299,7 @@ test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.lis
     });
 }, 10000);
 test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
-  await request().get('/sii/credential?limit=-2&page=-1&order=asc&logs=d,t')
+  await request().get('/sii/credential?limit=-2&page=-1&order=asc&logs=d,t&user=1-1')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -307,7 +307,7 @@ test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.lis
         expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(6);
+        expect(response.body.paging.total).toEqual(1);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -318,7 +318,7 @@ test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.lis
     });
 }, 10000);
 test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.list]`, async () => {
-  await request().get('/sii/credential?limit=1&page=-1&order=asc&logs=d,t')
+  await request().get('/sii/credential?limit=1&page=-1&order=asc&logs=d,t&user=1-2')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -326,7 +326,7 @@ test(`Testing ${getCounter()} - Method /sii/credential (LIST) [siiCredential.lis
         expect(response.body.paging.limit).toEqual(1);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(6);
+        expect(response.body.paging.total).toEqual(1);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;

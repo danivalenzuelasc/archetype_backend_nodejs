@@ -61,6 +61,7 @@ exports.list = (req, res) => {
     ? -1
     : 1;
   filters.test = false;
+  filters.user = req.query.user;
   // Verify import logs
   if (req.query.logs) {
     req.query.logs.split(',').forEach((log) => {
@@ -82,6 +83,9 @@ exports.list = (req, res) => {
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   };
+  if (filters.user) {
+    query.user = filters.user;
+  }
   SiiCredential.countDocuments(query)
     .then((responseCount) => {
       return SiiCredential.find(query, filters.query, {
@@ -156,7 +160,6 @@ exports.update = (req, res) => {
       if (req.body.password) {
         body.password = Cryptr.encrypt(req.body.password);
       }
-      body.logs = responseFind.logs;
       body.logs.updatedAt = new Date();
       getCredentials(body.user, body.password)
         .then(() => {

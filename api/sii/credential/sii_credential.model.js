@@ -5,12 +5,10 @@ const mongoose = require('mongoose');
 const SiiCredentialSchema = new mongoose.Schema({
   active: {
     default: true,
-    index: true,
     required: true,
     type: Boolean,
   },
   certificate: {
-    index: true,
     required: false,
     trim: true,
     type: String,
@@ -23,13 +21,11 @@ const SiiCredentialSchema = new mongoose.Schema({
     },
     isDeleted: {
       default: false,
-      index: true,
       required: true,
       type: Boolean,
     },
     test: {
       default: false,
-      index: true,
       required: true,
       type: Boolean,
     },
@@ -40,7 +36,6 @@ const SiiCredentialSchema = new mongoose.Schema({
     },
   },
   password: {
-    index: true,
     required: true,
     trim: true,
     type: String,
@@ -52,6 +47,13 @@ const SiiCredentialSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+});
+
+// Create indexes
+SiiCredentialSchema.index({
+  user: 1,
+}, {
+  unique: true,
 });
 
 // Export model SiiCredential

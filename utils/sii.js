@@ -10,9 +10,27 @@ function getDateInternal(date) {
   return date ? moment(date, 'DD/MM/YYYY HH:mm:ss') : null;
 }
 
+// Function generateUUIDInternal()
+function generateUUIDInternal() {
+  const a = [];
+  const b = '0123456789abcdef';
+  for (let c = 0; c < 36; c += 1) {
+    a[c] = b.substr(Math.floor(16 * Math.random()), 1);
+  }
+  a[8] = '-';
+  a[13] = '-';
+  a[14] = '4';
+  a[18] = '-';
+  a[23] = '-';
+  return a.join('');
+}
+
+// Export function generateUUID()
+exports.generateUUID = generateUUIDInternal;
+
 // Export function getCredentials()
-exports.getCredentials = (dni, password, test = false) => {
-  if (process.env.NODE_ENV === 'production' || test) {
+exports.getCredentials = (dni, password, transaction = false) => {
+  if (process.env.NODE_ENV === 'production' || transaction) {
     return new Promise((resolve) => {
       const options = {
         form: {
@@ -57,6 +75,51 @@ exports.getCredentials = (dni, password, test = false) => {
 
 // Export function getDate()
 exports.getDate = getDateInternal;
+
+// Export function getDocuments()
+exports.getDocuments = (session, data, year, month) => {
+  return new Promise((resolve, reject) => {
+    const options = {
+      body: {
+        data: {
+          codTipoDoc: data.document,
+          dvEmisor: session.DV_NS,
+          estadoContab: data.state,
+          operacion: data.operation,
+          ptributario: `${year}${month}`,
+          rutEmisor: session.RUT_NS,
+        },
+        metaData: {
+          conversationId: session.TOKEN,
+          namespace: `cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/${data.url}`,
+          page: null,
+          transactionId: generateUUIDInternal(),
+        },
+      },
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Cookie: `TOKEN=${session.TOKEN}`,
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+      },
+      json: true,
+      method: 'POST',
+      resolveWithFullResponse: true,
+      uri: `https://www4.sii.cl/consdcvinternetui/services/data/facadeService/${data.url}`,
+    };
+    request(options)
+      .then((response) => {
+        if (response && response.body && response.body.data) {
+          resolve(response.body.data);
+        } else {
+          reject(new Error(''));
+        }
+      })
+      .catch(() => {
+        reject(new Error(''));
+      });
+  });
+};
 
 // Export function getCredentials()
 exports.mapperDocument = (document, code = null, operation = null) => {

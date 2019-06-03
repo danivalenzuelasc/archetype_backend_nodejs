@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const SiiQueueSchema = new mongoose.Schema({
   active: {
     default: true,
-    index: true,
     required: true,
     type: Boolean,
   },
@@ -17,13 +16,11 @@ const SiiQueueSchema = new mongoose.Schema({
     },
     isDeleted: {
       default: false,
-      index: true,
       required: true,
       type: Boolean,
     },
     test: {
       default: false,
-      index: true,
       required: true,
       type: Boolean,
     },
@@ -36,7 +33,6 @@ const SiiQueueSchema = new mongoose.Schema({
   synchronize: {
     period: {
       default: null,
-      index: true,
       trim: true,
       type: String,
     },
@@ -46,7 +42,6 @@ const SiiQueueSchema = new mongoose.Schema({
         'Automatic',
         'Priority',
       ],
-      index: true,
       require: true,
       trim: true,
       type: String,
@@ -57,7 +52,15 @@ const SiiQueueSchema = new mongoose.Schema({
     required: true,
     trim: true,
     type: String,
+    unique: true,
   },
+});
+
+// Create indexes
+SiiQueueSchema.index({
+  user: 1,
+}, {
+  unique: true,
 });
 
 // Export model SiiQueue

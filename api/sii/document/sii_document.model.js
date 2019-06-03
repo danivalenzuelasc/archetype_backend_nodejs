@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const SiiDocumentSchema = new mongoose.Schema({
   active: {
     default: true,
-    index: true,
     required: true,
     type: Boolean,
   },
@@ -58,14 +57,12 @@ const SiiDocumentSchema = new mongoose.Schema({
   business: {
     dv: {
       default: null,
-      index: true,
       required: true,
       trim: true,
       type: String,
     },
     name: {
       default: null,
-      index: true,
       required: true,
       trim: true,
       type: String,
@@ -75,6 +72,7 @@ const SiiDocumentSchema = new mongoose.Schema({
       index: true,
       required: true,
       type: Number,
+      unique: true,
     },
   },
   date: {
@@ -106,6 +104,7 @@ const SiiDocumentSchema = new mongoose.Schema({
       index: true,
       required: true,
       type: Number,
+      unique: true,
     },
     codeSII: {
       default: null,
@@ -132,6 +131,7 @@ const SiiDocumentSchema = new mongoose.Schema({
       index: true,
       required: true,
       type: Number,
+      unique: true,
     },
     indicator: {
       freeCharge: {
@@ -166,7 +166,6 @@ const SiiDocumentSchema = new mongoose.Schema({
     },
     period: {
       default: null,
-      index: true,
       required: true,
       trim: true,
       type: String,
@@ -221,13 +220,11 @@ const SiiDocumentSchema = new mongoose.Schema({
   execute: {
     details: {
       default: false,
-      index: true,
       required: true,
       type: Boolean,
     },
     xml: {
       default: false,
-      index: true,
       required: true,
       type: Boolean,
     },
@@ -240,13 +237,11 @@ const SiiDocumentSchema = new mongoose.Schema({
     },
     isDeleted: {
       default: false,
-      index: true,
       required: true,
       type: Boolean,
     },
     test: {
       default: false,
-      index: true,
       required: true,
       type: Boolean,
     },
@@ -337,6 +332,15 @@ const SiiDocumentSchema = new mongoose.Schema({
       type: Number,
     },
   },
+});
+
+// Create indexes
+SiiDocumentSchema.index({
+  'business.rut': 1,
+  'document.code': 1,
+  'document.id': 1,
+}, {
+  unique: true,
 });
 
 // Export model SiiDocument

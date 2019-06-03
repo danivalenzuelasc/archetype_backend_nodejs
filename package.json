@@ -40,6 +40,10 @@
     "coverageDirectory": "./coverage/",
     "coveragePathIgnorePatterns": [
       "app.js",
+      "api/api.js",
+      "api/collections.js",
+      "api/schedule.js",
+      "api/testing.js",
       "config/api.js",
       "config/credentials.js",
       "config/settings.js",

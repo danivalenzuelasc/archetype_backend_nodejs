@@ -35,7 +35,7 @@ test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
 }, 10000);
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
-  const response = await getCredentials('1-2', 'bb5ca2dbd534f6a94c7267579fd6259f6db0a0e2ab8dfef797ae');
+  const response = await getCredentials('1-2', 'bb5ca2dbd534f6a94c7267579fd6259f6db0a0e2ab8dfef797ae', true);
   expect(Object.keys(response).length > 0).toEqual(false);
 }, 10000);
 
