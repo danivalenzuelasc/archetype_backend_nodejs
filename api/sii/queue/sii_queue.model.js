@@ -8,29 +8,7 @@ const SiiQueueSchema = new mongoose.Schema({
     required: true,
     type: Boolean,
   },
-  logs: {
-    createdAt: {
-      default: new Date(),
-      required: true,
-      type: Date,
-    },
-    isDeleted: {
-      default: false,
-      required: true,
-      type: Boolean,
-    },
-    test: {
-      default: false,
-      required: true,
-      type: Boolean,
-    },
-    updatedAt: {
-      default: null,
-      required: false,
-      type: Date,
-    },
-  },
-  periods: [
+  executions: [
     {
       code: {
         required: true,
@@ -65,6 +43,28 @@ const SiiQueueSchema = new mongoose.Schema({
       },
     },
   ],
+  logs: {
+    createdAt: {
+      default: new Date(),
+      required: true,
+      type: Date,
+    },
+    isDeleted: {
+      default: false,
+      required: true,
+      type: Boolean,
+    },
+    test: {
+      default: false,
+      required: true,
+      type: Boolean,
+    },
+    updatedAt: {
+      default: null,
+      required: false,
+      type: Date,
+    },
+  },
   synchronize: {
     period: {
       default: null,

@@ -24,6 +24,23 @@ mocks.forEach(async (row) => {
         if (response.statusCode === 201) {
           expect(response.body).toBeDefined();
           expect(response.body.active).toEqual(row.active);
+          expect(response.body.executions).toBeDefined();
+          expect(response.body.executions.length).toEqual(row.executions.length);
+          if (response.body.executions && Array.isArray(response.body.executions)) {
+            response.body.executions.forEach((item, keyItem) => {
+              expect(item.code).toEqual(row.executions[keyItem].code);
+              expect(item.period).toEqual(row.executions[keyItem].period);
+              expect(item.types).toBeDefined();
+              if (item.types && Array.isArray(item.types)) {
+                item.types.forEach((type, keyType) => {
+                  expect(type.code).toEqual(row.executions[keyItem].types[keyType].code);
+                  expect(type.count).toEqual(row.executions[keyItem].types[keyType].count);
+                  expect(type.processed).toEqual(row.executions[keyItem].types[keyType].processed);
+                });
+              }
+              expect(item.value).toEqual(row.executions[keyItem].value);
+            });
+          }
           expect(response.body.logs).toBeDefined();
           expect(response.body.logs.createdAt).toBeDefined();
           expect(response.body.logs.isDeleted).toEqual(row.logs.isDeleted);
@@ -54,6 +71,23 @@ mocks.forEach(async (row) => {
         if (response.statusCode === 200) {
           expect(response.body).toBeDefined();
           expect(response.body.active).toEqual(row.active);
+          expect(response.body.executions).toBeDefined();
+          expect(response.body.executions.length).toEqual(row.executions.length);
+          if (response.body.executions && Array.isArray(response.body.executions)) {
+            response.body.executions.forEach((item, keyItem) => {
+              expect(item.code).toEqual(row.executions[keyItem].code);
+              expect(item.period).toEqual(row.executions[keyItem].period);
+              expect(item.types).toBeDefined();
+              if (item.types && Array.isArray(item.types)) {
+                item.types.forEach((type, keyType) => {
+                  expect(type.code).toEqual(row.executions[keyItem].types[keyType].code);
+                  expect(type.count).toEqual(row.executions[keyItem].types[keyType].count);
+                  expect(type.processed).toEqual(row.executions[keyItem].types[keyType].processed);
+                });
+              }
+              expect(item.value).toEqual(row.executions[keyItem].value);
+            });
+          }
           expect(response.body.logs).toBeDefined();
           expect(response.body.logs.createdAt).toBeDefined();
           expect(response.body.logs.isDeleted).toEqual(row.logs.isDeleted);
@@ -86,6 +120,23 @@ mocks.forEach(async (row) => {
         if (response.statusCode === 200) {
           expect(response.body).toBeDefined();
           expect(response.body.active).toEqual(row.active);
+          expect(response.body.executions).toBeDefined();
+          expect(response.body.executions.length).toEqual(row.executions.length);
+          if (response.body.executions && Array.isArray(response.body.executions)) {
+            response.body.executions.forEach((item, keyItem) => {
+              expect(item.code).toEqual(row.executions[keyItem].code);
+              expect(item.period).toEqual(row.executions[keyItem].period);
+              expect(item.types).toBeDefined();
+              if (item.types && Array.isArray(item.types)) {
+                item.types.forEach((type, keyType) => {
+                  expect(type.code).toEqual(row.executions[keyItem].types[keyType].code);
+                  expect(type.count).toEqual(row.executions[keyItem].types[keyType].count);
+                  expect(type.processed).toEqual(row.executions[keyItem].types[keyType].processed);
+                });
+              }
+              expect(item.value).toEqual(row.executions[keyItem].value);
+            });
+          }
           expect(response.body.logs).toBeDefined();
           expect(response.body.logs.createdAt).toBeDefined();
           expect(response.body.logs.isDeleted).toEqual(row.logs.isDeleted);
@@ -116,6 +167,23 @@ mocks.forEach(async (row) => {
         if (response.statusCode === 200) {
           expect(response.body).toBeDefined();
           expect(response.body.active).toEqual(row.active);
+          expect(response.body.executions).toBeDefined();
+          expect(response.body.executions.length).toEqual(row.executions.length);
+          if (response.body.executions && Array.isArray(response.body.executions)) {
+            response.body.executions.forEach((item, keyItem) => {
+              expect(item.code).toEqual(row.executions[keyItem].code);
+              expect(item.period).toEqual(row.executions[keyItem].period);
+              expect(item.types).toBeDefined();
+              if (item.types && Array.isArray(item.types)) {
+                item.types.forEach((type, keyType) => {
+                  expect(type.code).toEqual(row.executions[keyItem].types[keyType].code);
+                  expect(type.count).toEqual(row.executions[keyItem].types[keyType].count);
+                  expect(type.processed).toEqual(row.executions[keyItem].types[keyType].processed);
+                });
+              }
+              expect(item.value).toEqual(row.executions[keyItem].value);
+            });
+          }
           expect(response.body.logs).toBeDefined();
           expect(response.body.logs.createdAt).toBeDefined();
           expect(response.body.logs.isDeleted).toEqual(!row.logs.isDeleted);

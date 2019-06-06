@@ -6,6 +6,7 @@ module.exports = [
   {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [],
     logs: {
       isDeleted: false,
       test: true,
@@ -18,6 +19,14 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [
+      {
+        code: 'Code 02',
+        period: '201902',
+        types: [],
+        value: 'Value 02',
+      },
+    ],
     logs: {
       isDeleted: false,
       test: true,
@@ -30,6 +39,20 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [
+      {
+        code: 'Code 03',
+        period: '201903',
+        types: [
+          {
+            code: 1,
+            count: 0,
+            processed: 0,
+          },
+        ],
+        value: 'Value 03',
+      },
+    ],
     logs: {
       isDeleted: false,
       test: true,
@@ -42,6 +65,24 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [
+      {
+        code: 'Code 04',
+        period: '201904',
+        types: [
+          {
+            code: 1,
+            count: 0,
+            processed: 0,
+          }, {
+            code: 2,
+            count: 0,
+            processed: 0,
+          },
+        ],
+        value: 'Value 04',
+      },
+    ],
     logs: {
       isDeleted: false,
       test: true,
@@ -54,6 +95,7 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [],
     logs: {
       isDeleted: false,
       test: true,
@@ -66,6 +108,7 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [],
     logs: {
       isDeleted: false,
       test: true,
@@ -78,6 +121,7 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [],
     logs: {
       isDeleted: false,
       test: true,
@@ -90,6 +134,7 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [],
     logs: {
       isDeleted: false,
       test: true,
@@ -102,6 +147,7 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [],
     logs: {
       isDeleted: false,
       test: true,
@@ -114,6 +160,7 @@ module.exports = [
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
+    executions: [],
     logs: {
       isDeleted: false,
       test: true,

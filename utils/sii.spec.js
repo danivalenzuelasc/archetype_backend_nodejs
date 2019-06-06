@@ -15,18 +15,18 @@ function getCounter() {
  */
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
-  const response = await getCredentials('17.052.424-1', '57418e336eef064ec5467e7ba48434eabad63b2f04e8', true);
-  expect(Object.keys(response).length > 0).toEqual(true);
+  const response = await getCredentials('17.052.424-1', '99a533c1ab7b06a99170718bd4876516540af7918762', true);
+  expect(Object.keys(response).length).toBeGreaterThan(0);
 }, 10000);
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
-  const response = await getCredentials('76.973.499-6', 'dde7ead33703160cee04cc88f8d69248440f3c94eaf7db', true);
-  expect(Object.keys(response).length > 0).toEqual(true);
+  const response = await getCredentials('76.973.499-6', 'ba9c3c74e04c20363b17013e80339d53fcb47f5cd9c29d', true);
+  expect(Object.keys(response).length).toBeGreaterThan(0);
 }, 10000);
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
-  const response = await getCredentials('76.103.915-6', 'bb5ca2dbd534f6a94c7267579fd6259f6db0a0e2ab8dfef797ae', true);
-  expect(Object.keys(response).length > 0).toEqual(true);
+  const response = await getCredentials('76.103.915-6', '2fcf93ad857d9b83b8a3022b8ab0f9a4642d39f667d31dda7483', true);
+  expect(Object.keys(response).length).toBeGreaterThan(0);
 }, 10000);
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
