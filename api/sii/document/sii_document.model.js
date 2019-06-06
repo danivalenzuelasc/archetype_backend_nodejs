@@ -323,6 +323,14 @@ const SiiDocumentSchema = new mongoose.Schema({
       default: null,
       type: Number,
     },
+    totalTax: {
+      default: null,
+      type: Number,
+    },
+    totalTaxNonRecoverable: {
+      default: null,
+      type: Number,
+    },
     type: {
       default: null,
       type: Number,
@@ -332,6 +340,18 @@ const SiiDocumentSchema = new mongoose.Schema({
       type: Number,
     },
   },
+  taxs: [
+    {
+      amount: {
+        required: true,
+        type: Number,
+      },
+      code: {
+        required: true,
+        type: Number,
+      },
+    },
+  ],
 });
 
 // Create indexes

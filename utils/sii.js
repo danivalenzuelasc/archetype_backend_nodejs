@@ -206,11 +206,11 @@ exports.mapperDocument = (document, code = null, operation = null) => {
         rate: document.detTasaImp, // Number => Tasa del impuesto del documento
         thirdParties: document.detIVATerceros, // Number => Impuesto de terceros
         totalRetention: document.detIVARetTotal, // Number => Impuesto de retencion total
+        totalTax: document.totalDtoiMontoImp, // Number => Monto total de impuestos del documento
+        totalTaxNonRecoverable: document.totalDinrMontoIVANoR, // Number => Total total de impuestos no recuperables del documento
         type: document.detTpoImp, // Number => Tipo de impuesto del documento
         vehicles: document.detImpVehiculo, // Number => Impuesto de vehiculos
       },
-      // totalDtoiMontoImp: 0, // Number => Total documento del monto de impuestos
-      // totalDinrMontoIVANoR: null // Number => Total documento del IVA no recuperable
     };
   } catch (e) {
     return {};

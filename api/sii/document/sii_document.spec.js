@@ -102,6 +102,8 @@ mocks.forEach(async (row) => {
           expect(response.body.tax.rate).toEqual(row.tax.rate);
           expect(response.body.tax.thirdParties).toEqual(row.tax.thirdParties);
           expect(response.body.tax.totalRetention).toEqual(row.tax.totalRetention);
+          expect(response.body.tax.totalTax).toEqual(row.tax.totalTax);
+          expect(response.body.tax.totalTaxNonRecoverable).toEqual(row.tax.totalTaxNonRecoverable);
           expect(response.body.tax.type).toEqual(row.tax.type);
           expect(response.body.tax.vehicles).toEqual(row.tax.vehicles);
         } else if (response.statusCode === 400) {
@@ -203,6 +205,8 @@ mocks.forEach(async (row) => {
           expect(response.body.tax.rate).toEqual(row.tax.rate);
           expect(response.body.tax.thirdParties).toEqual(row.tax.thirdParties);
           expect(response.body.tax.totalRetention).toEqual(row.tax.totalRetention);
+          expect(response.body.tax.totalTax).toEqual(row.tax.totalTax);
+          expect(response.body.tax.totalTaxNonRecoverable).toEqual(row.tax.totalTaxNonRecoverable);
           expect(response.body.tax.type).toEqual(row.tax.type);
           expect(response.body.tax.vehicles).toEqual(row.tax.vehicles);
         } else if (response.statusCode === 400) {
@@ -306,6 +310,8 @@ mocks.forEach(async (row) => {
           expect(response.body.tax.rate).toEqual(row.tax.rate);
           expect(response.body.tax.thirdParties).toEqual(row.tax.thirdParties);
           expect(response.body.tax.totalRetention).toEqual(row.tax.totalRetention);
+          expect(response.body.tax.totalTax).toEqual(row.tax.totalTax);
+          expect(response.body.tax.totalTaxNonRecoverable).toEqual(row.tax.totalTaxNonRecoverable);
           expect(response.body.tax.type).toEqual(row.tax.type);
           expect(response.body.tax.vehicles).toEqual(row.tax.vehicles);
         } else if (response.statusCode === 400) {
@@ -408,6 +414,8 @@ mocks.forEach(async (row) => {
           expect(response.body.tax.rate).toEqual(row.tax.rate);
           expect(response.body.tax.thirdParties).toEqual(row.tax.thirdParties);
           expect(response.body.tax.totalRetention).toEqual(row.tax.totalRetention);
+          expect(response.body.tax.totalTax).toEqual(row.tax.totalTax);
+          expect(response.body.tax.totalTaxNonRecoverable).toEqual(row.tax.totalTaxNonRecoverable);
           expect(response.body.tax.type).toEqual(row.tax.type);
           expect(response.body.tax.vehicles).toEqual(row.tax.vehicles);
         } else if (response.statusCode === 400) {
