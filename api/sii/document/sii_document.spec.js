@@ -106,6 +106,13 @@ mocks.forEach(async (row) => {
           expect(response.body.tax.totalTaxNonRecoverable).toEqual(row.tax.totalTaxNonRecoverable);
           expect(response.body.tax.type).toEqual(row.tax.type);
           expect(response.body.tax.vehicles).toEqual(row.tax.vehicles);
+          expect(response.body.taxs).toBeDefined();
+          if (Array.isArray(response.body.taxs)) {
+            response.body.taxs.forEach((tax, keyTax) => {
+              expect(tax.amount).toEqual(row.taxs[keyTax].amount);
+              expect(tax.code).toEqual(row.taxs[keyTax].code);
+            });
+          }
         } else if (response.statusCode === 400) {
           const error = errorResponse('create').response;
           expect(response.body).toBeDefined();
@@ -209,6 +216,13 @@ mocks.forEach(async (row) => {
           expect(response.body.tax.totalTaxNonRecoverable).toEqual(row.tax.totalTaxNonRecoverable);
           expect(response.body.tax.type).toEqual(row.tax.type);
           expect(response.body.tax.vehicles).toEqual(row.tax.vehicles);
+          expect(response.body.taxs).toBeDefined();
+          if (Array.isArray(response.body.taxs)) {
+            response.body.taxs.forEach((tax, keyTax) => {
+              expect(tax.amount).toEqual(row.taxs[keyTax].amount);
+              expect(tax.code).toEqual(row.taxs[keyTax].code);
+            });
+          }
         } else if (response.statusCode === 400) {
           const error = errorResponse('view').response;
           expect(response.body).toBeDefined();
@@ -314,6 +328,13 @@ mocks.forEach(async (row) => {
           expect(response.body.tax.totalTaxNonRecoverable).toEqual(row.tax.totalTaxNonRecoverable);
           expect(response.body.tax.type).toEqual(row.tax.type);
           expect(response.body.tax.vehicles).toEqual(row.tax.vehicles);
+          expect(response.body.taxs).toBeDefined();
+          if (Array.isArray(response.body.taxs)) {
+            response.body.taxs.forEach((tax, keyTax) => {
+              expect(tax.amount).toEqual(row.taxs[keyTax].amount);
+              expect(tax.code).toEqual(row.taxs[keyTax].code);
+            });
+          }
         } else if (response.statusCode === 400) {
           const error = errorResponse('update').response;
           expect(response.body).toBeDefined();
@@ -418,6 +439,13 @@ mocks.forEach(async (row) => {
           expect(response.body.tax.totalTaxNonRecoverable).toEqual(row.tax.totalTaxNonRecoverable);
           expect(response.body.tax.type).toEqual(row.tax.type);
           expect(response.body.tax.vehicles).toEqual(row.tax.vehicles);
+          expect(response.body.taxs).toBeDefined();
+          if (Array.isArray(response.body.taxs)) {
+            response.body.taxs.forEach((tax, keyTax) => {
+              expect(tax.amount).toEqual(row.taxs[keyTax].amount);
+              expect(tax.code).toEqual(row.taxs[keyTax].code);
+            });
+          }
         } else if (response.statusCode === 400) {
           const error = errorResponse('remove').response;
           expect(response.body).toBeDefined();

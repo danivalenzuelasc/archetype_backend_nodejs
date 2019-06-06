@@ -100,6 +100,7 @@ module.exports = [
       type: 1,
       vehicles: 1,
     },
+    taxs: [],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -197,6 +198,7 @@ module.exports = [
       type: 2,
       vehicles: 2,
     },
+    taxs: [],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -294,6 +296,12 @@ module.exports = [
       type: 3,
       vehicles: 3,
     },
+    taxs: [
+      {
+        amount: 1,
+        code: 1,
+      },
+    ],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -391,6 +399,15 @@ module.exports = [
       type: 4,
       vehicles: 4,
     },
+    taxs: [
+      {
+        amount: 1,
+        code: 1,
+      }, {
+        amount: 2,
+        code: 2,
+      },
+    ],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -488,7 +505,21 @@ module.exports = [
       type: 5,
       vehicles: 5,
     },
-
+    taxs: [
+      {
+        amount: 1,
+        code: 1,
+      }, {
+        amount: 2,
+        code: 2,
+      }, {
+        amount: 3,
+        code: 3,
+      }, {
+        amount: 4,
+        code: 4,
+      },
+    ],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -586,6 +617,7 @@ module.exports = [
       type: 6,
       vehicles: 6,
     },
+    taxs: [],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -683,6 +715,7 @@ module.exports = [
       type: 7,
       vehicles: 7,
     },
+    taxs: [],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -780,6 +813,7 @@ module.exports = [
       type: 8,
       vehicles: 8,
     },
+    taxs: [],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -877,6 +911,7 @@ module.exports = [
       type: 9,
       vehicles: 9,
     },
+    taxs: [],
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -974,5 +1009,6 @@ module.exports = [
       type: 10,
       vehicles: 10,
     },
+    taxs: [],
   },
 ];
