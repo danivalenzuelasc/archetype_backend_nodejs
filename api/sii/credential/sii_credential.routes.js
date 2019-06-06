@@ -7,5 +7,6 @@ module.exports = (app) => {
   app.get('/sii/credential', controllerSiiCredential.list);
   app.get('/sii/credential/:id', controllerSiiCredential.view);
   app.post('/sii/credential', controllerSiiCredential.create);
+  app.post('/sii/credential/verify', controllerSiiCredential.verify);
   app.put('/sii/credential/:id', controllerSiiCredential.update);
 };

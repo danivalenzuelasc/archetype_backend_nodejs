@@ -142,6 +142,99 @@ mocks.forEach(async (row, key) => {
   }, 10000);
 });
 
+/*  Testing method Verify
+  *  URI: /sii/credential/verify
+  *  Method: POST
+  */
+test(`Testing ${getCounter()} - Method /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
+  await request().post('/sii/credential/verify').send({
+    password: 'password01',
+    production: true,
+    user: 'user01',
+  })
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(Object.keys(response.body).length).toBeGreaterThan(0);
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Testing ${getCounter()} - Method /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
+  await request().post('/sii/credential/verify').send({
+    production: true,
+    user: 'user02',
+  })
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(Object.keys(response.body).length).toBeGreaterThan(0);
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Testing ${getCounter()} - Method /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
+  await request().post('/sii/credential/verify').send({
+    password: 'password03',
+    user: 'user03',
+  })
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(Object.keys(response.body).length).toBeGreaterThan(0);
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Testing ${getCounter()} - Method /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
+  await request().post('/sii/credential/verify').send({
+    password: 'Nubox.2019',
+    production: true,
+    user: '76.103.915-6',
+  })
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(Object.keys(response.body).length).toBeGreaterThan(0);
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Testing ${getCounter()} - Method /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
+  await request().post('/sii/credential/verify').send({
+    password: '222422',
+    production: true,
+    user: '17.052.424-1',
+  })
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(Object.keys(response.body).length).toBeGreaterThan(0);
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+
 /*  Testing method List
   *  URI: /sii/credential
   *  Method: GET

@@ -27,12 +27,12 @@ exports.create = (req, res) => {
         })
         .catch((error) => {
           errorTraceRaven(error);
-          res.status(401).json(errorResponse('create').response);
+          res.status(400).json(errorResponse('create').response);
         });
     })
     .catch((error) => {
       errorTraceRaven(error);
-      res.status(401).json(errorResponse('create').response);
+      res.status(400).json(errorResponse('create').response);
     });
 };
 
@@ -169,17 +169,36 @@ exports.update = (req, res) => {
             new: true,
           })
             .then((responseUpdate) => {
-              res.status(201).json(responseUpdate);
+              res.status(200).json(responseUpdate);
             });
         })
         .catch((errorFind) => {
           errorTraceRaven(errorFind);
-          res.status(404).send(errorResponse('update').response);
+          res.status(400).send(errorResponse('update').response);
         });
     })
     .catch((errorFind) => {
       errorTraceRaven(errorFind);
       res.status(404).send(errorResponse('update').response);
+    });
+};
+
+/*  Method Verify
+ *  URI: /sii/credential/verify
+ *  Method: POST
+ */
+exports.verify = (req, res) => {
+  const { production } = req.body;
+  if (req.body.password) {
+    req.body.password = Cryptr.encrypt(req.body.password);
+  }
+  getCredentials(req.body.user, req.body.password, production)
+    .then((response) => {
+      if (Object.keys(response).length > 0) {
+        res.status(200).json(response);
+      } else {
+        res.status(400).json(errorResponse('create').response);
+      }
     });
 };
 

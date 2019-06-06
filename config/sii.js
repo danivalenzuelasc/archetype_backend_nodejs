@@ -20,121 +20,121 @@ module.exports = {
   ],
   typesOfDocuments: [
     {
-      key: '30',
+      key: 30,
       name: 'Factura',
     }, {
-      key: '32',
+      key: 32,
       name: 'Factura de ventas y servicios no afectos o exentos de IVA',
     }, {
-      key: '33',
+      key: 33,
       name: 'Factura electrónica',
     }, {
-      key: '34',
+      key: 34,
       name: 'Factura no afecta o exenta electrónica',
     }, {
-      key: '35',
+      key: 35,
       name: 'Boleta',
     }, {
-      key: '38',
+      key: 38,
       name: 'Boleta exenta',
     }, {
-      key: '39',
+      key: 39,
       name: 'Boleta electrónica',
     }, {
-      key: '40',
+      key: 40,
       name: 'Liquidación factura',
     }, {
-      key: '41',
+      key: 41,
       name: 'Boleta exenta electrónica',
     }, {
-      key: '43',
+      key: 43,
       name: 'Liquidación factura electrónica',
     }, {
-      key: '45',
+      key: 45,
       name: 'Factura de compra',
     }, {
-      key: '46',
+      key: 46,
       name: 'Factura de compra electrónica',
     }, {
-      key: '48',
+      key: 48,
       name: 'Pago electrónico',
     }, {
-      key: '50',
+      key: 50,
       name: 'Guía de despacho',
     }, {
-      key: '52',
+      key: 52,
       name: 'Guía de despacho electrónica',
     }, {
-      key: '55',
+      key: 55,
       name: 'Nota de débito',
     }, {
-      key: '56',
+      key: 56,
       name: 'Nota de débito electrónica',
     }, {
-      key: '60',
+      key: 60,
       name: 'Nota de crédito',
     }, {
-      key: '61',
+      key: 61,
       name: 'Nota de crédito electrónica',
     }, {
-      key: '103',
+      key: 103,
       name: 'Liquidación',
     }, {
-      key: '110',
+      key: 110,
       name: 'Factura de exportación electrónica',
     }, {
-      key: '111',
+      key: 111,
       name: 'Nota de débito de exportación electrónica',
     }, {
-      key: '112',
+      key: 112,
       name: 'Nota de crédito de exportación electrónica',
     }, {
-      key: '801',
+      key: 801,
       name: 'Orden de compra',
     }, {
-      key: '802',
+      key: 802,
       name: 'Presupuesto',
     }, {
-      key: '803',
+      key: 803,
       name: 'Contrato',
     }, {
-      key: '804',
+      key: 804,
       name: 'Resolución',
     }, {
-      key: '805',
+      key: 805,
       name: 'Proceso ChileCompra',
     }, {
-      key: '806',
+      key: 806,
       name: 'Ficha ChileCompra',
     }, {
-      key: '807',
+      key: 807,
       name: 'DUS',
     }, {
-      key: '808',
+      key: 808,
       name: 'B/L (conocimiento de embarque)',
     }, {
-      key: '809',
+      key: 809,
       name: 'AWB (Air Will Bill)',
     }, {
-      key: '810',
+      key: 810,
       name: 'MIC/DTA',
     }, {
-      key: '811',
+      key: 811,
       name: 'Carta de porte',
     }, {
-      key: '812',
+      key: 812,
       name: 'Resolución del SNA donde califica servicios de exportación',
     }, {
-      key: '813',
+      key: 813,
       name: 'Pasaporte',
     }, {
-      key: '814',
+      key: 814,
       name: 'Certificado de depósito bolsa prod. Chile',
     }, {
-      key: '815',
+      key: 815,
       name: 'Vale de prenda bolsa prod. Chile',
     }, {
-      key: '914',
+      key: 914,
       name: 'Declaración de ingreso (DIN)',
     },
   ],

@@ -30,6 +30,41 @@ const SiiQueueSchema = new mongoose.Schema({
       type: Date,
     },
   },
+  periods: [
+    {
+      code: {
+        required: true,
+        trim: true,
+        type: String,
+      },
+      period: {
+        required: true,
+        trim: true,
+        type: String,
+      },
+      types: [
+        {
+          code: {
+            required: true,
+            type: Number,
+          },
+          count: {
+            default: 0,
+            type: Number,
+          },
+          processed: {
+            default: 0,
+            type: Number,
+          },
+        },
+      ],
+      value: {
+        required: true,
+        trim: true,
+        type: String,
+      },
+    },
+  ],
   synchronize: {
     period: {
       default: null,

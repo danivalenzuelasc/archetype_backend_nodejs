@@ -87,7 +87,7 @@ switch (process.env.NODE_ENV) {
 }
 app.listen(serverPort, () => {
   // Run Schedule Jobs (without Testing)
-  require('./api/schedule').init();
+  // require('./api/schedule').init();
 });
 
 // Export server

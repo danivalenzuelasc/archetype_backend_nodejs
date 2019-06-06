@@ -34,7 +34,7 @@ exports.getCredentials = (dni, password, transaction = false) => {
     return new Promise((resolve) => {
       const options = {
         form: {
-          clave: Cryptr.decrypt(password),
+          clave: password ? Cryptr.decrypt(password) : null,
           dv: dni.replace(/\./g, '').split('-')[1],
           referencia: 'https://misiir.sii.cl/cgi_misii/siihome.cgi',
           rut: dni.replace(/\./g, '').split('-')[0],
@@ -209,8 +209,8 @@ exports.mapperDocument = (document, code = null, operation = null) => {
         type: document.detTpoImp, // Number => Tipo de impuesto del documento
         vehicles: document.detImpVehiculo, // Number => Impuesto de vehiculos
       },
-      // totalDtoiMontoImp: 0, // Number => ??
-      // totalDinrMontoIVANoR: null // ??
+      // totalDtoiMontoImp: 0, // Number => Total documento del monto de impuestos
+      // totalDinrMontoIVANoR: null // Number => Total documento del IVA no recuperable
     };
   } catch (e) {
     return {};
