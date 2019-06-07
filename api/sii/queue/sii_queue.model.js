@@ -66,6 +66,10 @@ const SiiQueueSchema = new mongoose.Schema({
     },
   },
   synchronize: {
+    date: {
+      default: null,
+      type: Date,
+    },
     period: {
       default: null,
       trim: true,

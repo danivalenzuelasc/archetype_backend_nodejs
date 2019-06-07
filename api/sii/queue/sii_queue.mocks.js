@@ -12,6 +12,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: null,
       period: null,
       type: 'Automatic',
     },
@@ -32,6 +33,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: null,
       period: null,
       type: 'Automatic',
     },
@@ -58,6 +60,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: '2019-01-01T00:00:00.000Z',
       period: null,
       type: 'Automatic',
     },
@@ -88,6 +91,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: '2019-01-01T00:00:00.000Z',
       period: null,
       type: 'Automatic',
     },
@@ -101,6 +105,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: '2019-01-01T00:00:00.000Z',
       period: '201901',
       type: 'Priority',
     },
@@ -114,6 +119,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: '2019-01-01T00:00:00.000Z',
       period: '201901',
       type: 'Priority',
     },
@@ -127,6 +133,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: null,
       period: null,
       type: null,
     },
@@ -140,6 +147,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: null,
       period: null,
       type: null,
     },
@@ -153,6 +161,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: null,
       period: null,
       type: null,
     },
@@ -166,6 +175,7 @@ module.exports = [
       test: true,
     },
     synchronize: {
+      date: null,
       period: null,
       type: null,
     },

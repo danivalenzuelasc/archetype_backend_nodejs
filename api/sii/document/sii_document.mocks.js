@@ -300,6 +300,7 @@ module.exports = [
       {
         amount: 1,
         code: 1,
+        rate: 1,
       },
     ],
   }, {
@@ -403,9 +404,11 @@ module.exports = [
       {
         amount: 1,
         code: 1,
+        rate: 1,
       }, {
         amount: 2,
         code: 2,
+        rate: 2,
       },
     ],
   }, {
@@ -509,15 +512,19 @@ module.exports = [
       {
         amount: 1,
         code: 1,
+        rate: 1,
       }, {
         amount: 2,
         code: 2,
+        rate: 2,
       }, {
         amount: 3,
         code: 3,
+        rate: 3,
       }, {
         amount: 4,
         code: 4,
+        rate: 4,
       },
     ],
   }, {

@@ -56,19 +56,16 @@ const SiiDocumentSchema = new mongoose.Schema({
   },
   business: {
     dv: {
-      default: null,
       required: true,
       trim: true,
       type: String,
     },
     name: {
-      default: null,
       required: true,
       trim: true,
       type: String,
     },
     rut: {
-      default: null,
       index: true,
       required: true,
       type: Number,
@@ -100,7 +97,6 @@ const SiiDocumentSchema = new mongoose.Schema({
       type: String,
     },
     code: {
-      default: null,
       index: true,
       required: true,
       type: Number,
@@ -127,7 +123,6 @@ const SiiDocumentSchema = new mongoose.Schema({
       },
     },
     id: {
-      default: null,
       index: true,
       required: true,
       type: Number,
@@ -165,7 +160,6 @@ const SiiDocumentSchema = new mongoose.Schema({
       },
     },
     period: {
-      default: null,
       required: true,
       trim: true,
       type: String,
@@ -347,6 +341,10 @@ const SiiDocumentSchema = new mongoose.Schema({
         type: Number,
       },
       code: {
+        required: true,
+        type: Number,
+      },
+      rate: {
         required: true,
         type: Number,
       },

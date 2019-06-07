@@ -12,9 +12,9 @@ function getCounter() {
   return counter < 10 ? `0${counter}` : counter;
 }
 
-/*  Testing method Create
-  *  URI: /sii/queue
-  *  Method: POST
+/** Testing method Create
+  * URI: /sii/queue
+  * Method: POST
   */
 mocks.forEach(async (row) => {
   await test(`Testing ${getCounter()} - Method /sii/queue (POST) [siiQueue.create]`, async () => {
@@ -47,6 +47,7 @@ mocks.forEach(async (row) => {
           expect(response.body.logs.test).toEqual(row.logs.test);
           expect(response.body.logs.updatedAt).toEqual(null);
           expect(response.body.synchronize).toBeDefined();
+          expect(response.body.synchronize.date).toEqual(row.synchronize.date);
           expect(response.body.synchronize.period).toEqual(row.synchronize.period);
           expect(response.body.synchronize.type).toEqual(row.synchronize.type);
           expect(response.body.user).toEqual(row.user);
@@ -60,9 +61,9 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/*  Testing method View
-  *  URI: /sii/queue/:id
-  *  Method: VIEW
+/** Testing method View
+  * URI: /sii/queue/:id
+  * Method: VIEW
   */
 mocks.forEach(async (row) => {
   await test(`Testing ${getCounter()} - Method /sii/queue/:id (GET) [siiQueue.view]`, async () => {
@@ -94,6 +95,7 @@ mocks.forEach(async (row) => {
           expect(response.body.logs.test).toEqual(row.logs.test);
           expect(response.body.logs.updatedAt).toBeDefined();
           expect(response.body.synchronize).toBeDefined();
+          expect(response.body.synchronize.date).toEqual(row.synchronize.date);
           expect(response.body.synchronize.period).toEqual(row.synchronize.period);
           expect(response.body.synchronize.type).toEqual(row.synchronize.type);
           expect(response.body.user).toEqual(row.user);
@@ -107,9 +109,9 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/*  Testing method Update
-  *  URI: /sii/queue/:id
-  *  Method: PUT
+/** Testing method Update
+  * URI: /sii/queue/:id
+  * Method: PUT
   */
 mocks.forEach(async (row) => {
   await test(`Testing ${getCounter()} - Method /sii/queue/:id (PUT) [siiQueue.update]`, async () => {
@@ -143,6 +145,7 @@ mocks.forEach(async (row) => {
           expect(response.body.logs.test).toEqual(row.logs.test);
           expect(response.body.logs.updatedAt).toBeDefined();
           expect(response.body.synchronize).toBeDefined();
+          expect(response.body.synchronize.date).toEqual(row.synchronize.date);
           expect(response.body.synchronize.period).toEqual(row.synchronize.period);
           expect(response.body.synchronize.type).toEqual(row.synchronize.type);
           expect(response.body.user).toEqual(row.user);
@@ -156,9 +159,9 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/*  Testing method Remove
-  *  URI: /sii/queue/:id
-  *  Method: DELETE
+/** Testing method Remove
+  * URI: /sii/queue/:id
+  * Method: DELETE
   */
 mocks.forEach(async (row) => {
   await test(`Testing ${getCounter()} - Method /sii/queue/:id (DELETE) [siiQueue.remove]`, async () => {
@@ -190,6 +193,7 @@ mocks.forEach(async (row) => {
           expect(response.body.logs.test).toEqual(row.logs.test);
           expect(response.body.logs.updatedAt).toBeDefined();
           expect(response.body.synchronize).toBeDefined();
+          expect(response.body.synchronize.date).toEqual(row.synchronize.date);
           expect(response.body.synchronize.period).toEqual(row.synchronize.period);
           expect(response.body.synchronize.type).toEqual(row.synchronize.type);
           expect(response.body.user).toEqual(row.user);
@@ -203,9 +207,99 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/*  Testing method List
-  *  URI: /sii/queue
-  *  Method: GET
+/** Testing method Sync
+  * URI: /sii/queue/sync
+  * Method: GET
+  */
+test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+  counter += 1;
+  request().get('/sii/queue/sync?user=1-1&logs=d,t')
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+        expect(response.body.synchronize).toBeDefined();
+        expect(response.body.synchronize.date).toBeDefined();
+        expect(response.body.user).toEqual('1-1');
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('view').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+  counter += 1;
+  request().get('/sii/queue/sync?user')
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+        expect(response.body.synchronize).toBeDefined();
+        expect(response.body.synchronize.date).toBeDefined();
+        expect(response.body.user).toEqual('1-1');
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('view').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+  counter += 1;
+  request().get('/sii/queue/sync?user=1-3&logs=d,t')
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+        expect(response.body.synchronize).toBeDefined();
+        expect(response.body.synchronize.date).toBeDefined();
+        expect(response.body.user).toEqual('1-1');
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('view').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+  counter += 1;
+  request().get('/sii/queue/sync?user=1-4&logs=c,d,t')
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+        expect(response.body.synchronize).toBeDefined();
+        expect(response.body.synchronize.date).toBeDefined();
+        expect(response.body.user).toEqual('1-1');
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('view').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+  counter += 1;
+  request().get('/sii/queue/sync?user=1-1')
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+        expect(response.body.synchronize).toBeDefined();
+        expect(response.body.synchronize.date).toBeDefined();
+        expect(response.body.user).toEqual('1-1');
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('view').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+
+/** Testing method List
+  * URI: /sii/queue
+  * Method: GET
   */
 test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=3&page=1&order=desc&logs=d,t')

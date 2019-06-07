@@ -81,7 +81,7 @@ exports.list = (req, res) => {
         limit: filters.limit,
         skip: filters.page,
         sort: {
-          name: filters.sort,
+          user: filters.sort,
         },
       })
         .then((responseList) => {
@@ -133,6 +133,51 @@ exports.remove = (req, res) => {
       errorTraceRaven(errorFind);
       res.status(404).send(errorResponse('remove').response);
     });
+};
+
+/*  Method Sync
+ *  URI: /sii/queue/sync
+ *  Method: GET
+ */
+exports.sync = (req, res) => {
+  if (!!req.query.user) {
+    // Settings filters
+    const filters = {};
+    filters.isDeleted = false;
+    filters.test = false;
+    // Verify import logs
+    if (req.query.logs) {
+      req.query.logs.split(',').forEach((log) => {
+        switch (log) {
+          case 'd':
+            filters.isDeleted = true;
+            break;
+          case 't':
+            filters.test = true;
+            break;
+          default:
+        }
+      });
+    }
+    const query = {
+      'logs.isDeleted': filters.isDeleted,
+      'logs.test': filters.test,
+    };
+    query.user = req.query.user;
+    SiiQueue.find(query, '_id synchronize.date user')
+      .then((responseFind) => {
+        if (!responseFind || !Array.isArray(responseFind) || responseFind.length === 0) {
+          throw new Error();
+        }
+        res.status(200).json(responseFind[0]);
+      })
+      .catch((errorFind) => {
+        errorTraceRaven(errorFind);
+        res.status(404).send(errorResponse('view').response);
+      });
+  } else {
+    res.status(404).send(errorResponse('view').response);
+  }
 };
 
 /*  Method Update

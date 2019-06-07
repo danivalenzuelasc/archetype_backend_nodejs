@@ -111,6 +111,7 @@ mocks.forEach(async (row) => {
             response.body.taxs.forEach((tax, keyTax) => {
               expect(tax.amount).toEqual(row.taxs[keyTax].amount);
               expect(tax.code).toEqual(row.taxs[keyTax].code);
+              expect(tax.rate).toEqual(row.taxs[keyTax].rate);
             });
           }
         } else if (response.statusCode === 400) {
@@ -221,6 +222,7 @@ mocks.forEach(async (row) => {
             response.body.taxs.forEach((tax, keyTax) => {
               expect(tax.amount).toEqual(row.taxs[keyTax].amount);
               expect(tax.code).toEqual(row.taxs[keyTax].code);
+              expect(tax.rate).toEqual(row.taxs[keyTax].rate);
             });
           }
         } else if (response.statusCode === 400) {
@@ -333,6 +335,7 @@ mocks.forEach(async (row) => {
             response.body.taxs.forEach((tax, keyTax) => {
               expect(tax.amount).toEqual(row.taxs[keyTax].amount);
               expect(tax.code).toEqual(row.taxs[keyTax].code);
+              expect(tax.rate).toEqual(row.taxs[keyTax].rate);
             });
           }
         } else if (response.statusCode === 400) {
@@ -444,6 +447,7 @@ mocks.forEach(async (row) => {
             response.body.taxs.forEach((tax, keyTax) => {
               expect(tax.amount).toEqual(row.taxs[keyTax].amount);
               expect(tax.code).toEqual(row.taxs[keyTax].code);
+              expect(tax.rate).toEqual(row.taxs[keyTax].rate);
             });
           }
         } else if (response.statusCode === 400) {
