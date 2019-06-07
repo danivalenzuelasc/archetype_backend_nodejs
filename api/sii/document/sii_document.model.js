@@ -350,6 +350,16 @@ const SiiDocumentSchema = new mongoose.Schema({
       },
     },
   ],
+  transaction: {
+    queue: {
+      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    user: {
+      required: true,
+      type: String,
+    },
+  },
 });
 
 // Create indexes

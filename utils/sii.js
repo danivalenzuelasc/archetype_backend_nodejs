@@ -201,7 +201,7 @@ exports.mapperDocument = (document, code = null, operation = null) => {
         commonUse: document.detIVAUsoComun, // Number => Impuesto de uso comun
         notWithheld: document.detIVANoRetenido, // Number => Impuesto no retenido
         outOfTime: document.detIVAFueraPlazo, // Number => Impuesto fuera de plazo
-        own: document.detIVAPropio, // Number => Impuesto proopio
+        own: document.detIVAPropio, // Number => Impuesto propio
         partialRetention: document.detIVARetParcial, // Number => Impuesto de retencion total
         rate: document.detTasaImp, // Number => Tasa del impuesto del documento
         thirdParties: document.detIVATerceros, // Number => Impuesto de terceros

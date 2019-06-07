@@ -101,6 +101,10 @@ module.exports = [
       vehicles: 1,
     },
     taxs: [],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-1',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -199,6 +203,10 @@ module.exports = [
       vehicles: 2,
     },
     taxs: [],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-2',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -303,6 +311,10 @@ module.exports = [
         rate: 1,
       },
     ],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-3',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -411,6 +423,10 @@ module.exports = [
         rate: 2,
       },
     ],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-4',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -527,6 +543,10 @@ module.exports = [
         rate: 4,
       },
     ],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-5',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -625,6 +645,10 @@ module.exports = [
       vehicles: 6,
     },
     taxs: [],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-6',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -723,6 +747,10 @@ module.exports = [
       vehicles: 7,
     },
     taxs: [],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-7',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -821,6 +849,10 @@ module.exports = [
       vehicles: 8,
     },
     taxs: [],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-8',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -919,6 +951,10 @@ module.exports = [
       vehicles: 9,
     },
     taxs: [],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-9',
+    },
   }, {
     _id: mongoose.Types.ObjectId(),
     active: true,
@@ -1017,5 +1053,9 @@ module.exports = [
       vehicles: 10,
     },
     taxs: [],
+    transaction: {
+      queue: mongoose.Types.ObjectId(),
+      user: '1-10',
+    },
   },
 ];

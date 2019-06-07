@@ -114,6 +114,9 @@ mocks.forEach(async (row) => {
               expect(tax.rate).toEqual(row.taxs[keyTax].rate);
             });
           }
+          expect(response.body.transaction).toBeDefined();
+          expect(response.body.transaction.queue).toBeDefined();
+          expect(response.body.transaction.user).toEqual(row.transaction.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('create').response;
           expect(response.body).toBeDefined();
@@ -225,6 +228,9 @@ mocks.forEach(async (row) => {
               expect(tax.rate).toEqual(row.taxs[keyTax].rate);
             });
           }
+          expect(response.body.transaction).toBeDefined();
+          expect(response.body.transaction.queue).toBeDefined();
+          expect(response.body.transaction.user).toEqual(row.transaction.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('view').response;
           expect(response.body).toBeDefined();
@@ -338,6 +344,9 @@ mocks.forEach(async (row) => {
               expect(tax.rate).toEqual(row.taxs[keyTax].rate);
             });
           }
+          expect(response.body.transaction).toBeDefined();
+          expect(response.body.transaction.queue).toBeDefined();
+          expect(response.body.transaction.user).toEqual(row.transaction.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('update').response;
           expect(response.body).toBeDefined();
@@ -450,6 +459,9 @@ mocks.forEach(async (row) => {
               expect(tax.rate).toEqual(row.taxs[keyTax].rate);
             });
           }
+          expect(response.body.transaction).toBeDefined();
+          expect(response.body.transaction.queue).toBeDefined();
+          expect(response.body.transaction.user).toEqual(row.transaction.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('remove').response;
           expect(response.body).toBeDefined();
