@@ -271,7 +271,7 @@ exports.mapperDocument = (document, code = null, operation = null, user = null, 
       },
       transaction: {
         queue,
-        user,
+        user: user ? user.replace(/\./g, '') : null,
       },
     };
   } catch (e) {
