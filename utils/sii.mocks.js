@@ -425,6 +425,10 @@ exports.outputMapperDocument = [
       type: 1,
       vehicles: 0,
     },
+    transaction: {
+      queue: null,
+      user: null,
+    },
   }, {
     amount: {
       changeLaw18211: null,
@@ -511,6 +515,10 @@ exports.outputMapperDocument = [
       totalTaxNonRecoverable: null,
       type: 1,
       vehicles: 0,
+    },
+    transaction: {
+      queue: null,
+      user: null,
     },
   }, {
     amount: {
@@ -599,6 +607,10 @@ exports.outputMapperDocument = [
       type: 1,
       vehicles: 0,
     },
+    transaction: {
+      queue: null,
+      user: null,
+    },
   }, {
     amount: {
       changeLaw18211: null,
@@ -685,6 +697,10 @@ exports.outputMapperDocument = [
       totalTaxNonRecoverable: null,
       type: 1,
       vehicles: 0,
+    },
+    transaction: {
+      queue: null,
+      user: null,
     },
   },
 ];

@@ -37,6 +37,7 @@ mongoose.connection.on('error', (error) => {
 
 // Config server Express
 const app = express();
+app.timeout = 0;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false,
@@ -68,7 +69,7 @@ function random() {
   do {
     port = Math.floor((Math.random() * 10000) + 1);
   }
-  while (port === settings.port || port === 4001 || port === 4002 || port < 2000 || port > 10000);
+  while (port === settings.port || port === 4001 || port === 4002 || port < 4000 || port > 10000);
   return port;
 }
 let serverPort;

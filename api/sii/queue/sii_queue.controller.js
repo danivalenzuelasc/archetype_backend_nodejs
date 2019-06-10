@@ -69,11 +69,18 @@ exports.list = (req, res) => {
     });
   }
   const query = {
+    active: true,
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   };
   if (filters.type) {
     query['synchronize.type'] = filters.type;
+  }
+  if (filters.type === 'Automatic') {
+    const now = new Date();
+    query['synchronize.date'] = {
+      $lt: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0),
+    };
   }
   SiiQueue.countDocuments(query)
     .then((responseCount) => {
@@ -160,6 +167,7 @@ exports.sync = (req, res) => {
       });
     }
     const query = {
+      active: true,
       'logs.isDeleted': filters.isDeleted,
       'logs.test': filters.test,
     };
@@ -190,7 +198,7 @@ exports.update = (req, res) => {
       if (!responseFind) {
         throw new Error();
       }
-      const { body } = req;
+      const body = Object.assign(responseFind, req.body);
       body.logs.updatedAt = new Date();
       return SiiQueue.findOneAndUpdate({
         _id: req.params.id,

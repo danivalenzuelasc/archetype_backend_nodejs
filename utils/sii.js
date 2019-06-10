@@ -12,9 +12,10 @@ function getDateInternal(date) {
 
 // Function generateUUIDInternal()
 function generateUUIDInternal() {
-  const a = [];
-  const b = '0123456789abcdef';
-  for (let c = 0; c < 36; c += 1) {
+  let a = [];
+  let b = '0123456789abcdef';
+  let c;
+  for (c = 0; c < 36; c += 1) {
     a[c] = b.substr(Math.floor(16 * Math.random()), 1);
   }
   a[8] = '-';
@@ -22,7 +23,11 @@ function generateUUIDInternal() {
   a[14] = '4';
   a[18] = '-';
   a[23] = '-';
-  return a.join('');
+  try {
+    return a.join('');
+  } finally {
+    a = b = c = null;
+  }
 }
 
 // Export function generateUUID()
@@ -32,7 +37,10 @@ exports.generateUUID = generateUUIDInternal;
 exports.getCredentials = (dni, password, transaction = false) => {
   if (process.env.NODE_ENV === 'production' || transaction) {
     return new Promise((resolve) => {
-      const options = {
+      let aux0;
+      let aux1;
+      let list = {};
+      let options = {
         form: {
           clave: password ? Cryptr.decrypt(password) : null,
           dv: dni.replace(/\./g, '').split('-')[1],
@@ -51,16 +59,18 @@ exports.getCredentials = (dni, password, transaction = false) => {
       request(options)
         .then((response) => {
           if (response && response.headers && response.headers['set-cookie']) {
-            const list = {};
             response.headers['set-cookie'].forEach((cookie) => {
-              const aux0 = cookie.split(';')[0].split('=')[0];
-              const aux1 = cookie.split(';')[0].split('=')[1];
+              aux0 = cookie.split(';')[0].split('=')[0];
+              aux1 = cookie.split(';')[0].split('=')[1];
               list[aux0] = aux1;
             });
             resolve(list);
           } else {
             resolve({});
           }
+        })
+        .finally(() => {
+          aux0 = aux1 = dni = list = password = options = transaction = null;
         });
     });
   }
@@ -77,20 +87,20 @@ exports.getCredentials = (dni, password, transaction = false) => {
 exports.getDate = getDateInternal;
 
 // Export function getDocuments()
-exports.getDocuments = (session, data, year, month) => {
+exports.getDocuments = (transaction, data, year, month) => {
   return new Promise((resolve, reject) => {
-    const options = {
+    let options = {
       body: {
         data: {
           codTipoDoc: data.document,
-          dvEmisor: session.DV_NS,
+          dvEmisor: transaction.user.replace(/\./g, '').split('-')[1],
           estadoContab: data.state,
           operacion: data.operation,
           ptributario: `${year}${month}`,
-          rutEmisor: session.RUT_NS,
+          rutEmisor: transaction.user.replace(/\./g, '').split('-')[0],
         },
         metaData: {
-          conversationId: session.TOKEN,
+          conversationId: transaction.session.token,
           namespace: `cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/${data.url}`,
           page: null,
           transactionId: generateUUIDInternal(),
@@ -99,7 +109,7 @@ exports.getDocuments = (session, data, year, month) => {
       headers: {
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json',
-        Cookie: `TOKEN=${session.TOKEN}`,
+        Cookie: `TOKEN=${transaction.session.token}`,
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
       },
       json: true,
@@ -111,18 +121,66 @@ exports.getDocuments = (session, data, year, month) => {
       .then((response) => {
         if (response && response.body && response.body.data) {
           resolve(response.body.data);
+          response = null;
         } else {
           reject(new Error(''));
         }
       })
       .catch(() => {
         reject(new Error(''));
+      })
+      .finally(() => {
+        data = month = options = transaction = year = null;
       });
   });
 };
 
-// Export function getCredentials()
-exports.mapperDocument = (document, code = null, operation = null) => {
+// Export function getSummary()
+exports.getSummary = (transaction, data, year, month) => {
+  return new Promise((resolve, reject) => {
+    let options = {
+      body: {
+        data: {
+          dvEmisor: transaction.user.replace(/\./g, '').split('-')[1],
+          estadoContab: data.state,
+          operacion: data.operation,
+          ptributario: `${year}${month}`,
+          rutEmisor: transaction.user.replace(/\./g, '').split('-')[0],
+        },
+        metaData: {
+          conversationId: transaction.session.token,
+          namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getResumen',
+          page: null,
+          transactionId: generateUUIDInternal(),
+        },
+      },
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Cookie: `TOKEN=${transaction.session.token}`,
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+      },
+      json: true,
+      method: 'POST',
+      resolveWithFullResponse: true,
+      uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getResumen',
+    };
+    request(options)
+      .then((response) => {
+        resolve(response.body.data ? response.body.data : []);
+        response = null;
+      })
+      .catch(() => {
+        reject(new Error(''));
+      })
+      .finally(() => {
+        data = month = options = transaction = year = null;
+      });
+  });
+};
+
+// Export function mapperDocument()
+exports.mapperDocument = (document, code = null, operation = null, user = null, queue = null) => {
   try {
     return {
       amount: {
@@ -203,7 +261,7 @@ exports.mapperDocument = (document, code = null, operation = null) => {
         outOfTime: document.detIVAFueraPlazo, // Number => Impuesto fuera de plazo
         own: document.detIVAPropio, // Number => Impuesto propio
         partialRetention: document.detIVARetParcial, // Number => Impuesto de retencion total
-        rate: document.detTasaImp, // Number => Tasa del impuesto del documento
+        rate: document.detTasaImp, // String => Tasa del impuesto del documento
         thirdParties: document.detIVATerceros, // Number => Impuesto de terceros
         totalRetention: document.detIVARetTotal, // Number => Impuesto de retencion total
         totalTax: document.totalDtoiMontoImp, // Number => Monto total de impuestos del documento
@@ -211,8 +269,14 @@ exports.mapperDocument = (document, code = null, operation = null) => {
         type: document.detTpoImp, // Number => Tipo de impuesto del documento
         vehicles: document.detImpVehiculo, // Number => Impuesto de vehiculos
       },
+      transaction: {
+        queue,
+        user,
+      },
     };
   } catch (e) {
     return {};
+  } finally {
+    code = document = operation = queue = user = null;
   }
 };

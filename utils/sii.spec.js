@@ -43,12 +43,12 @@ test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
  */
 test(`Testing ${getCounter()} - Function mapperDocument()`, async () => {
   counter += 1;
-  const response = await mapperDocument(inputMapperDocument[0], 1, 'COMPRA');
+  const response = await mapperDocument(inputMapperDocument[0], 1, 'COMPRA', null, null);
   expect(response).toEqual(outputMapperDocument[0]);
 }, 10000);
 test(`Testing ${getCounter()} - Function mapperDocument()`, async () => {
   counter += 1;
-  const response = await mapperDocument(inputMapperDocument[1], 2, 'VENTA');
+  const response = await mapperDocument(inputMapperDocument[1], 2, 'VENTA', null, null);
   expect(response).toEqual(outputMapperDocument[1]);
 }, 10000);
 test(`Testing ${getCounter()} - Function mapperDocument()`, async () => {

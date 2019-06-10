@@ -40,6 +40,17 @@ const SiiCredentialSchema = new mongoose.Schema({
     trim: true,
     type: String,
   },
+  session: {
+    expires: {
+      default: null,
+      type: Date,
+    },
+    token: {
+      default: null,
+      trim: true,
+      type: String,
+    },
+  },
   user: {
     index: true,
     required: true,

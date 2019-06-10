@@ -63,8 +63,8 @@
     "prestart": "pkill -f node",
     "pretest": "cross-env NODE_ENV=pretest node task/pretest.js",
     "pretest:dev": "cross-env NODE_ENV=pretest MONGO_URI=mongodb://localhost/integraciones_backend_cl node task/pretest.js",
-    "prod": "cross-env NODE_ENV=production node app.js",
-    "start": "cross-env NODE_ENV=development MONGO_URI=mongodb://localhost/integraciones_backend_cl nodemon app.js & npm run lint:watch",
+    "prod": "cross-env NODE_ENV=production node --max-old-space-size=8192 app.js",
+    "start": "cross-env NODE_ENV=development MONGO_URI=mongodb://localhost/integraciones_backend_cl nodemon --max-old-space-size=8192 app.js & npm run lint:watch",
     "test": "cross-env NODE_ENV=testing jest --verbose --forceExit",
     "test:dev": "cross-env NODE_ENV=testing MONGO_URI=mongodb://localhost/integraciones_backend_cl jest --verbose --forceExit"
   },

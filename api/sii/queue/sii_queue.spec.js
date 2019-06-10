@@ -424,7 +424,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
         expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(4);
+        expect(response.body.paging.total).toEqual(2);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -443,7 +443,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
         expect(response.body.paging.limit).toEqual(3);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(4);
+        expect(response.body.paging.total).toEqual(2);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;

@@ -18,6 +18,11 @@ module.exports = {
       url: 'getDetalleVenta',
     },
   ],
+  synchronization: {
+    document: '',
+    queue: '',
+  },
+  tokenExpires: 900000,
   typesOfDocuments: [
     {
       key: 30,

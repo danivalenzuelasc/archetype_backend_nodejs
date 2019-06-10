@@ -80,6 +80,7 @@ exports.list = (req, res) => {
     });
   }
   const query = {
+    active: true,
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   };
@@ -156,7 +157,7 @@ exports.update = (req, res) => {
       if (!responseFind) {
         throw new Error();
       }
-      const { body } = req;
+      const body = Object.assign(responseFind, req.body);
       if (req.body.password) {
         body.password = Cryptr.encrypt(req.body.password);
       }

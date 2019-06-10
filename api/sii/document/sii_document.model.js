@@ -307,7 +307,8 @@ const SiiDocumentSchema = new mongoose.Schema({
     },
     rate: {
       default: null,
-      type: Number,
+      trim: true,
+      type: String,
     },
     thirdParties: {
       default: null,
