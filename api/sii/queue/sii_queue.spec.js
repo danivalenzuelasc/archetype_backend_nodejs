@@ -1,23 +1,24 @@
-// Declare dependencies
+// Declaracion de dependencias
 const { request } = require('./../../testing');
 
-// Declare mocks spec
+// Declaracion de mocks de pruebas
 const mocks = require('./sii_queue.mocks');
 const { errorResponse } = require('./../../../utils/errors');
 
-// Setting counter
+// Configuracion del contador
 let counter = 0;
 function getCounter() {
   counter += 1;
   return counter < 10 ? `0${counter}` : counter;
 }
 
-/** Testing method Create
-  * URI: /sii/queue
-  * Method: POST
-  */
+/**
+ * Prueba del metodo Create
+ * URI: /sii/queue
+ * Method: POST
+ */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/queue (POST) [siiQueue.create]`, async () => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/queue (POST) [siiQueue.create]`, async () => {
     counter += 1;
     await request().post('/sii/queue').send(row)
       .then((response) => {
@@ -61,12 +62,13 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/** Testing method View
-  * URI: /sii/queue/:id
-  * Method: VIEW
-  */
+/**
+ * Prueba del metodo View
+ * URI: /sii/queue/:id
+ * Method: VIEW
+ */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/queue/:id (GET) [siiQueue.view]`, async () => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/queue/:id (GET) [siiQueue.view]`, async () => {
     await request().get(`/sii/queue/${row._id}`)
       .then((response) => {
         if (response.statusCode === 200) {
@@ -109,12 +111,13 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/** Testing method Update
-  * URI: /sii/queue/:id
-  * Method: PUT
-  */
+/**
+ * Prueba del metodo Update
+ * URI: /sii/queue/:id
+ * Method: PUT
+ */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/queue/:id (PUT) [siiQueue.update]`, async () => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/queue/:id (PUT) [siiQueue.update]`, async () => {
     const data = row;
     data.name += ' - Update';
     await request().put(`/sii/queue/${row._id}`).send(data)
@@ -159,12 +162,13 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/** Testing method Remove
-  * URI: /sii/queue/:id
-  * Method: DELETE
-  */
+/**
+ * Prueba del metodo Remove
+ * URI: /sii/queue/:id
+ * Method: DELETE
+ */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/queue/:id (DELETE) [siiQueue.remove]`, async () => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/queue/:id (DELETE) [siiQueue.remove]`, async () => {
     await request().delete(`/sii/queue/${row._id}`)
       .then((response) => {
         if (response.statusCode === 200) {
@@ -207,11 +211,12 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/** Testing method Sync
-  * URI: /sii/queue/sync
-  * Method: GET
-  */
-test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+/**
+ * Prueba del metodo Sync
+ * URI: /sii/queue/sync
+ * Method: GET
+ */
+test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
   counter += 1;
   request().get('/sii/queue/sync?user=1-1&logs=d,t')
     .then((response) => {
@@ -228,7 +233,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => 
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
   counter += 1;
   request().get('/sii/queue/sync?user')
     .then((response) => {
@@ -245,7 +250,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => 
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
   counter += 1;
   request().get('/sii/queue/sync?user=1-3&logs=d,t')
     .then((response) => {
@@ -262,7 +267,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => 
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
   counter += 1;
   request().get('/sii/queue/sync?user=1-4&logs=c,d,t')
     .then((response) => {
@@ -279,7 +284,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => 
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
   counter += 1;
   request().get('/sii/queue/sync?user=1-1')
     .then((response) => {
@@ -297,11 +302,12 @@ test(`Testing ${getCounter()} - Method /sii/queue (GET) [siiQueue.sync]`, () => 
     });
 }, 10000);
 
-/** Testing method List
-  * URI: /sii/queue
-  * Method: GET
-  */
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+/**
+ * Prueba del metodo List
+ * URI: /sii/queue
+ * Method: GET
+ */
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=3&page=1&order=desc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -320,7 +326,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=5&page=2&order=asc&logs=c,d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -339,7 +345,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?short&limit=5&order=asc&logs=a,d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -358,7 +364,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?short&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -377,7 +383,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=-1&page=-1&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -396,7 +402,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=5&page=-1&order=asc&logs=d,t&type=a')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -415,7 +421,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=-1&page=-1&order=asc&logs=d,t&type=Automatic')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -434,7 +440,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=3&page=-1&order=asc&logs=d,t&type=Automatic')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -453,7 +459,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=-2&page=-1&order=asc&logs=d,t&type=Priority')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -472,7 +478,7 @@ test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/queue (LIST) [siiQueue.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
   await request().get('/sii/queue?limit=1&page=-1&order=asc&logs=d,t&type=Priority')
     .then((response) => {
       if (response.statusCode === 200) {

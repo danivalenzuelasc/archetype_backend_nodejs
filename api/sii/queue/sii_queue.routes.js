@@ -1,7 +1,7 @@
-// Load controller
+// Declaracion de dependencias
 const controllerSiiQueue = require('./sii_queue.controller');
 
-// Export routes endpoint
+// Se exportan las rutas del endpoint
 module.exports = (app) => {
   app.delete('/sii/queue/:id', controllerSiiQueue.remove);
   app.get('/sii/queue', controllerSiiQueue.list);

@@ -1,10 +1,11 @@
-// Declare dependencies
+// Declaracion de dependencias
 const mongoose = require('mongoose');
 
-// Setting model
+// Configuracion del esquema de la coleccion
 const SiiQueueSchema = new mongoose.Schema({
   active: {
     default: true,
+    index: true,
     required: true,
     type: Boolean,
   },
@@ -68,10 +69,12 @@ const SiiQueueSchema = new mongoose.Schema({
   synchronize: {
     date: {
       default: null,
+      index: true,
       type: Date,
     },
     period: {
       default: null,
+      index: true,
       trim: true,
       type: String,
     },
@@ -81,6 +84,7 @@ const SiiQueueSchema = new mongoose.Schema({
         'Automatic',
         'Priority',
       ],
+      index: true,
       require: true,
       trim: true,
       type: String,
@@ -95,12 +99,12 @@ const SiiQueueSchema = new mongoose.Schema({
   },
 });
 
-// Create indexes
+// Se crean los indices del esquema
 SiiQueueSchema.index({
   user: 1,
 }, {
   unique: true,
 });
 
-// Export model SiiQueue
+// Se exporta el esquema SiiQueue
 module.exports = mongoose.model('SiiQueue', SiiQueueSchema);

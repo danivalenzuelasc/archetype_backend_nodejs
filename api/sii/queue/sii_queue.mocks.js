@@ -1,7 +1,7 @@
-// Declare dependencies
+// Declaracion de dependencias
 const mongoose = require('mongoose');
 
-// Default mocks
+// Se exportan los documentos para realizar las pruebas del esquema
 module.exports = [
   {
     _id: mongoose.Types.ObjectId(),
