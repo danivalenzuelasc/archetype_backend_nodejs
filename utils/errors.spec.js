@@ -1,16 +1,17 @@
-// Declare dependencies
+// Declaracion de dependencias
 const { errorHttp, errorResponse } = require('./errors');
 
-// Setting counter
+// Configuracion del contador
 let counter = 0;
 function getCounter() {
   counter += 1;
   return counter < 10 ? `0${counter}` : counter;
 }
 
-/*  Testing function errorHttp
-  */
-test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
+/**
+ * Pruebas al metodo errorHttp
+ */
+test(`Prueba ${getCounter()} - Metodo errorHttp()`, async () => {
   counter += 1;
   const response = errorHttp(100);
   expect(response).toBeDefined();
@@ -19,7 +20,7 @@ test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
   expect(response.response.message).toEqual('Continue');
   expect(response.response.status).toEqual(100);
 }, 10000);
-test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
+test(`Prueba ${getCounter()} - Metodo errorHttp()`, async () => {
   counter += 1;
   const response = errorHttp(200);
   expect(response).toBeDefined();
@@ -28,7 +29,7 @@ test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
   expect(response.response.message).toEqual('OK');
   expect(response.response.status).toEqual(200);
 }, 10000);
-test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
+test(`Prueba ${getCounter()} - Metodo errorHttp()`, async () => {
   counter += 1;
   const response = errorHttp(300);
   expect(response).toBeDefined();
@@ -37,7 +38,7 @@ test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
   expect(response.response.message).toEqual('Multiple Choices');
   expect(response.response.status).toEqual(300);
 }, 10000);
-test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
+test(`Prueba ${getCounter()} - Metodo errorHttp()`, async () => {
   counter += 1;
   const response = errorHttp(400);
   expect(response).toBeDefined();
@@ -46,7 +47,7 @@ test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
   expect(response.response.message).toEqual('Bad Request');
   expect(response.response.status).toEqual(400);
 }, 10000);
-test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
+test(`Prueba ${getCounter()} - Metodo errorHttp()`, async () => {
   counter += 1;
   const response = errorHttp(500);
   expect(response).toBeDefined();
@@ -56,9 +57,10 @@ test(`Testing ${getCounter()} - Function errorHttp()`, async () => {
   expect(response.response.status).toEqual(500);
 }, 10000);
 
-/*  Testing function errorResponse
-  */
-test(`Testing ${getCounter()} - Function errorResponse()`, () => {
+/**
+ * Prueba del metodo errorResponse
+ */
+test(`Prueba ${getCounter()} - Metodo errorResponse()`, () => {
   counter += 1;
   const response = errorResponse('create');
   expect(response).toBeDefined();
@@ -66,7 +68,7 @@ test(`Testing ${getCounter()} - Function errorResponse()`, () => {
   expect(response.response.message).toEqual('Se ha producido un error al intentar crear un nuevo registro. Por favor, vuelve a intentarlo en unos minutos.');
   expect(response.response.status).toEqual('ERROR_DB_CREATE');
 }, 10000);
-test(`Testing ${getCounter()} - Function errorResponse()`, () => {
+test(`Prueba ${getCounter()} - Metodo errorResponse()`, () => {
   counter += 1;
   const response = errorResponse('list');
   expect(response).toBeDefined();
@@ -74,7 +76,7 @@ test(`Testing ${getCounter()} - Function errorResponse()`, () => {
   expect(response.response.message).toEqual('Se ha producido un error al intentar obtener los registros. Por favor, vuelve a intentarlo en unos minutos.');
   expect(response.response.status).toEqual('ERROR_DB_LIST');
 }, 10000);
-test(`Testing ${getCounter()} - Function errorResponse()`, () => {
+test(`Prueba ${getCounter()} - Metodo errorResponse()`, () => {
   counter += 1;
   const response = errorResponse('remove');
   expect(response).toBeDefined();
@@ -82,7 +84,7 @@ test(`Testing ${getCounter()} - Function errorResponse()`, () => {
   expect(response.response.message).toEqual('Se ha producido un error al intentar eliminar el registro, no se ha encontrado coincidencias con los criterios de búsqueda. Por favor, contacta al administrador del sistema.');
   expect(response.response.status).toEqual('ERROR_DB_REMOVE');
 }, 10000);
-test(`Testing ${getCounter()} - Function errorResponse()`, () => {
+test(`Prueba ${getCounter()} - Metodo errorResponse()`, () => {
   counter += 1;
   const response = errorResponse('update');
   expect(response).toBeDefined();
@@ -90,7 +92,7 @@ test(`Testing ${getCounter()} - Function errorResponse()`, () => {
   expect(response.response.message).toEqual('Se ha producido un error al intentar actualizar el registro, no se ha encontrado coincidencias con los criterios de búsqueda. Por favor, contacta al administrador del sistema.');
   expect(response.response.status).toEqual('ERROR_DB_UPDATE');
 }, 10000);
-test(`Testing ${getCounter()} - Function errorResponse()`, () => {
+test(`Prueba ${getCounter()} - Metodo errorResponse()`, () => {
   counter += 1;
   const response = errorResponse('view');
   expect(response).toBeDefined();

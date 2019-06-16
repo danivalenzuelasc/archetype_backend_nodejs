@@ -1,4 +1,4 @@
-// Setting Collections
+// Se exportan la configuracion de las colecciones
 module.exports = () => {
   const api = {
     siiCredential: {

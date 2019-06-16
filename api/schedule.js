@@ -11,7 +11,7 @@ const {
 const Cryptr = new cryptr(settings.endpoint.crypt);
 
 // Configuracion de la URL del entorno de la API
-const apiUrl = process.env.NODE_ENV === 'production' ? settings.url.api : `http://localhost:${settings.port}`;
+const apiUrl = process.env.NODE_ENV === 'production' ? `${settings.api}:${settings.port}` : `http://localhost:${settings.port}`;
 
 // Export Schedules
 exports.init = () => {

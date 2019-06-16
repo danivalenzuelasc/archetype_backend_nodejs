@@ -1,8 +1,8 @@
-// Declare dependencies
+// Declaracion de dependencias
 const app = require('./../app');
 const collections = require('./../api/collections');
 
-// Run server
+// Se inicializa el servidor
 app.listen(() => {
   console.info('[Comienzo] Eliminando registros de prueba');
   console.info('...');

@@ -19,6 +19,7 @@ module.exports = {
     },
   ],
   synchronization: {
+    credential: '',
     document: '',
     queue: '',
   },

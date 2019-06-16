@@ -1,6 +1,6 @@
-// Declare seeds
+// Declaracion de dependencias
 const supertest = require('supertest');
 const app = require('./../app');
 
-// Export request()
+// Se exporta el metodo de pruebas request()
 module.exports.request = () => supertest(app);

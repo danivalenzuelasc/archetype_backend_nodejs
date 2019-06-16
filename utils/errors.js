@@ -1,4 +1,4 @@
-// Declare Errors
+// Se exportan los errores HTTP
 const errorsHttp = {
   100: {
     description: 'El navegador puede continuar realizando su petición (se utiliza para indicar que la primera parte de la petición del navegador se ha recibido correctamente).',
@@ -253,6 +253,8 @@ const errorsHttp = {
     message: 'Not updated',
   },
 };
+
+// Se exportan los errores de respuesta
 const errorsResponse = {
   create: {
     message: 'Se ha producido un error al intentar crear un nuevo registro. Por favor, vuelve a intentarlo en unos minutos.',
@@ -296,7 +298,7 @@ const errorsResponse = {
   },
 };
 
-// Export ErrorHTTP
+// Se exporta el metodo errorHTTP
 exports.errorHttp = code => ({
   response: {
     description: errorsHttp[code].description,
@@ -305,7 +307,7 @@ exports.errorHttp = code => ({
   },
 });
 
-// Export ErrorResponse
+// Se exporta el metodo errorResponse
 exports.errorResponse = code => ({
   response: {
     message: errorsResponse[code].message,
