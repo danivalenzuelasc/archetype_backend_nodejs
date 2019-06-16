@@ -1,7 +1,7 @@
-// Load controller
+// Declaracion de dependencias
 const controllerSiiCredential = require('./sii_credential.controller');
 
-// Export routes endpoint
+// Se exportan las rutas del endpoint
 module.exports = (app) => {
   app.delete('/sii/credential/:id', controllerSiiCredential.remove);
   app.get('/sii/credential', controllerSiiCredential.list);

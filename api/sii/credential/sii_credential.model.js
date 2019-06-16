@@ -1,10 +1,11 @@
-// Declare dependencies
+// Declaracion de dependencias
 const mongoose = require('mongoose');
 
-// Setting model
+// Configuracion del esquema de la coleccion
 const SiiCredentialSchema = new mongoose.Schema({
   active: {
     default: true,
+    index: true,
     required: true,
     type: Boolean,
   },
@@ -60,12 +61,12 @@ const SiiCredentialSchema = new mongoose.Schema({
   },
 });
 
-// Create indexes
+// Se crean los indices del esquema
 SiiCredentialSchema.index({
   user: 1,
 }, {
   unique: true,
 });
 
-// Export model SiiCredential
+// Se exporta el esquema SiiCredential
 module.exports = mongoose.model('SiiCredential', SiiCredentialSchema);
