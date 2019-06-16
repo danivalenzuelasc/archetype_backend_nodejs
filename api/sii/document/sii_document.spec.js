@@ -1,23 +1,24 @@
-// Declare dependencies
+// Declaracion de dependencias
 const { request } = require('../../testing');
 
-// Declare mocks spec
+// Declaracion de mocks de pruebas
 const mocks = require('./sii_document.mocks');
 const { errorResponse } = require('../../../utils/errors');
 
-// Setting counter
+// Configuracion del contador
 let counter = 0;
 function getCounter() {
   counter += 1;
   return counter < 10 ? `0${counter}` : counter;
 }
 
-/*  Testing method Create
-  *  URI: /sii/document
-  *  Method: POST
-  */
+/**
+ * Prueba del metodo Create
+ * URI: /sii/document
+ * Method: POST
+ */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/document (POST) [siiDocument.create]`, async () => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/document (POST) [siiDocument.create]`, async () => {
     counter += 1;
     await request().post('/sii/document').send(row)
       .then((response) => {
@@ -89,6 +90,11 @@ mocks.forEach(async (row) => {
           expect(response.body.paying.netAmount).toEqual(row.paying.netAmount);
           expect(response.body.paying.rut).toEqual(row.paying.rut);
           expect(response.body.paying.taxAmount).toEqual(row.paying.taxAmount);
+          expect(response.body.send).toBeDefined();
+          expect(response.body.send.execute).toEqual(row.send.execute);
+          expect(response.body.send.error).toBeDefined();
+          expect(response.body.send.error.code).toEqual(row.send.error.code);
+          expect(response.body.send.error.message).toEqual(row.send.error.message);
           expect(response.body.tax).toBeDefined();
           expect(response.body.tax.amount).toEqual(row.tax.amount);
           expect(response.body.tax.amountFixedAsset).toEqual(row.tax.amountFixedAsset);
@@ -127,12 +133,13 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/*  Testing method View
-  *  URI: /sii/document/:id
-  *  Method: VIEW
-  */
+/**
+ * Prueba del metodo View
+ * URI: /sii/document/:id
+ * Method: VIEW
+ */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/document/:id (GET) [siiDocument.view]`, async () => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/document/:id (GET) [siiDocument.view]`, async () => {
     await request().get(`/sii/document/${row._id}`)
       .then((response) => {
         if (response.statusCode === 200) {
@@ -203,6 +210,11 @@ mocks.forEach(async (row) => {
           expect(response.body.paying.netAmount).toEqual(row.paying.netAmount);
           expect(response.body.paying.rut).toEqual(row.paying.rut);
           expect(response.body.paying.taxAmount).toEqual(row.paying.taxAmount);
+          expect(response.body.send).toBeDefined();
+          expect(response.body.send.execute).toEqual(row.send.execute);
+          expect(response.body.send.error).toBeDefined();
+          expect(response.body.send.error.code).toEqual(row.send.error.code);
+          expect(response.body.send.error.message).toEqual(row.send.error.message);
           expect(response.body.tax).toBeDefined();
           expect(response.body.tax.amount).toEqual(row.tax.amount);
           expect(response.body.tax.amountFixedAsset).toEqual(row.tax.amountFixedAsset);
@@ -241,12 +253,13 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/*  Testing method Update
-  *  URI: /sii/document/:id
-  *  Method: PUT
-  */
+/**
+ * Prueba del metodo Update
+ * URI: /sii/document/:id
+ * Method: PUT
+ */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/document/:id (PUT) [siiDocument.update]`, async () => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/document/:id (PUT) [siiDocument.update]`, async () => {
     const data = row;
     data.name += ' - Update';
     await request().put(`/sii/document/${row._id}`).send(data)
@@ -319,6 +332,11 @@ mocks.forEach(async (row) => {
           expect(response.body.paying.netAmount).toEqual(row.paying.netAmount);
           expect(response.body.paying.rut).toEqual(row.paying.rut);
           expect(response.body.paying.taxAmount).toEqual(row.paying.taxAmount);
+          expect(response.body.send).toBeDefined();
+          expect(response.body.send.execute).toEqual(row.send.execute);
+          expect(response.body.send.error).toBeDefined();
+          expect(response.body.send.error.code).toEqual(row.send.error.code);
+          expect(response.body.send.error.message).toEqual(row.send.error.message);
           expect(response.body.tax).toBeDefined();
           expect(response.body.tax.amount).toEqual(row.tax.amount);
           expect(response.body.tax.amountFixedAsset).toEqual(row.tax.amountFixedAsset);
@@ -357,12 +375,13 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/*  Testing method Remove
-  *  URI: /sii/document/:id
-  *  Method: DELETE
-  */
+/**
+ * Prueba del metodo Remove
+ * URI: /sii/document/:id
+ * Method: DELETE
+ */
 mocks.forEach(async (row) => {
-  await test(`Testing ${getCounter()} - Method /sii/document/:id (DELETE) [siiDocument.remove]`, async () => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/document/:id (DELETE) [siiDocument.remove]`, async () => {
     await request().delete(`/sii/document/${row._id}`)
       .then((response) => {
         if (response.statusCode === 200) {
@@ -434,6 +453,11 @@ mocks.forEach(async (row) => {
           expect(response.body.paying.netAmount).toEqual(row.paying.netAmount);
           expect(response.body.paying.rut).toEqual(row.paying.rut);
           expect(response.body.paying.taxAmount).toEqual(row.paying.taxAmount);
+          expect(response.body.send).toBeDefined();
+          expect(response.body.send.execute).toEqual(row.send.execute);
+          expect(response.body.send.error).toBeDefined();
+          expect(response.body.send.error.code).toEqual(row.send.error.code);
+          expect(response.body.send.error.message).toEqual(row.send.error.message);
           expect(response.body.tax).toBeDefined();
           expect(response.body.tax.amount).toEqual(row.tax.amount);
           expect(response.body.tax.amountFixedAsset).toEqual(row.tax.amountFixedAsset);
@@ -472,11 +496,12 @@ mocks.forEach(async (row) => {
   }, 10000);
 });
 
-/*  Testing method List
-  *  URI: /sii/document
-  *  Method: GET
-  */
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+/**
+ * Prueba del metodo List
+ * URI: /sii/document
+ * Method: GET
+ */
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?limit=3&page=1&order=desc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -495,7 +520,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?limit=5&page=2&order=asc&logs=c,d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -514,7 +539,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?short&limit=5&order=asc&logs=a,d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -533,7 +558,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?short&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -552,7 +577,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?limit=-1&page=-1&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -571,7 +596,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?limit=5&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -590,7 +615,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?limit=-1&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -609,8 +634,8 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
-  await request().get('/sii/document?limit=3&page=-1&order=asc&logs=d,t')
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
+  await request().get('/sii/document?limit=3&page=-1&order=asc&logs=d,t&send')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -618,7 +643,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
         expect(response.body.paging.limit).toEqual(3);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(6);
+        expect(response.body.paging.total).toEqual(4);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -628,7 +653,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?limit=-2&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {
@@ -647,7 +672,7 @@ test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`,
       }
     });
 }, 10000);
-test(`Testing ${getCounter()} - Method /sii/document (LIST) [siiDocument.list]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
   await request().get('/sii/document?limit=1&page=-1&order=asc&logs=d,t')
     .then((response) => {
       if (response.statusCode === 200) {

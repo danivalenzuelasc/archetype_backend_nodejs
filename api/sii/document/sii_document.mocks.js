@@ -1,7 +1,7 @@
-// Declare dependencies
+// Declaracion de dependencias
 const mongoose = require('mongoose');
 
-// Default mocks
+// Se exportan los documentos para realizar las pruebas del esquema
 module.exports = [
   {
     _id: mongoose.Types.ObjectId(),
@@ -25,10 +25,10 @@ module.exports = [
       rut: 1,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 01',
@@ -82,6 +82,13 @@ module.exports = [
       rut: 1,
       taxAmount: 1,
     },
+    send: {
+      execute: false,
+      error: {
+        code: null,
+        message: null,
+      },
+    },
     tax: {
       amount: 1,
       amountFixedAsset: 1,
@@ -127,10 +134,10 @@ module.exports = [
       rut: 2,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 02',
@@ -184,6 +191,13 @@ module.exports = [
       rut: 2,
       taxAmount: 2,
     },
+    send: {
+      execute: false,
+      error: {
+        code: null,
+        message: null,
+      },
+    },
     tax: {
       amount: 2,
       amountFixedAsset: 2,
@@ -229,10 +243,10 @@ module.exports = [
       rut: 3,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 03',
@@ -286,6 +300,13 @@ module.exports = [
       rut: 3,
       taxAmount: 3,
     },
+    send: {
+      execute: true,
+      error: {
+        code: null,
+        message: null,
+      },
+    },
     tax: {
       amount: 3,
       amountFixedAsset: 3,
@@ -337,10 +358,10 @@ module.exports = [
       rut: 4,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 04',
@@ -393,6 +414,13 @@ module.exports = [
       netAmount: 4,
       rut: 4,
       taxAmount: 4,
+    },
+    send: {
+      execute: true,
+      error: {
+        code: null,
+        message: null,
+      },
     },
     tax: {
       amount: 4,
@@ -449,10 +477,10 @@ module.exports = [
       rut: 5,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 05',
@@ -505,6 +533,13 @@ module.exports = [
       netAmount: 5,
       rut: 5,
       taxAmount: 5,
+    },
+    send: {
+      execute: false,
+      error: {
+        code: 5,
+        message: 'Message 05',
+      },
     },
     tax: {
       amount: 5,
@@ -569,10 +604,10 @@ module.exports = [
       rut: 6,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 06',
@@ -626,6 +661,13 @@ module.exports = [
       rut: 6,
       taxAmount: 6,
     },
+    send: {
+      execute: false,
+      error: {
+        code: 6,
+        message: 'Message 06',
+      },
+    },
     tax: {
       amount: 6,
       amountFixedAsset: 6,
@@ -671,10 +713,10 @@ module.exports = [
       rut: 7,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 07',
@@ -728,6 +770,13 @@ module.exports = [
       rut: 7,
       taxAmount: 7,
     },
+    send: {
+      execute: false,
+      error: {
+        code: null,
+        message: null,
+      },
+    },
     tax: {
       amount: 7,
       amountFixedAsset: 7,
@@ -773,10 +822,10 @@ module.exports = [
       rut: 8,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 08',
@@ -830,6 +879,13 @@ module.exports = [
       rut: 8,
       taxAmount: 8,
     },
+    send: {
+      execute: false,
+      error: {
+        code: null,
+        message: null,
+      },
+    },
     tax: {
       amount: 8,
       amountFixedAsset: 8,
@@ -875,10 +931,10 @@ module.exports = [
       rut: null,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 09',
@@ -932,6 +988,13 @@ module.exports = [
       rut: 9,
       taxAmount: 9,
     },
+    send: {
+      execute: false,
+      error: {
+        code: null,
+        message: null,
+      },
+    },
     tax: {
       amount: 9,
       amountFixedAsset: 9,
@@ -977,10 +1040,10 @@ module.exports = [
       rut: null,
     },
     date: {
-      accuse: '2019-05-31T21:30:30.000Z',
-      document: '2019-05-31T21:30:30.000Z',
-      reception: '2019-05-31T21:30:30.000Z',
-      reclaimed: '2019-05-31T21:30:30.000Z',
+      accuse: '2019-01-01T00:00:00.000Z',
+      document: '2019-01-01T00:00:00.000Z',
+      reception: '2019-01-01T00:00:00.000Z',
+      reclaimed: '2019-01-01T00:00:00.000Z',
     },
     document: {
       accountingStatement: 'State 010',
@@ -1033,6 +1096,13 @@ module.exports = [
       netAmount: 10,
       rut: 10,
       taxAmount: 10,
+    },
+    send: {
+      execute: false,
+      error: {
+        code: null,
+        message: null,
+      },
     },
     tax: {
       amount: 10,

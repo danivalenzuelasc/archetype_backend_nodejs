@@ -1,7 +1,7 @@
-// Load controller
+// Declaracion de dependencias
 const controllerSiiDocument = require('./sii_document.controller');
 
-// Export routes endpoint
+// Se exportan las rutas del endpoint
 module.exports = (app) => {
   app.delete('/sii/document/:id', controllerSiiDocument.remove);
   app.get('/sii/document', controllerSiiDocument.list);

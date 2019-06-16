@@ -1,10 +1,11 @@
-// Declare dependencies
+// Declaracion de dependencias
 const mongoose = require('mongoose');
 
-// Setting model
+// Configuracion del esquema de la coleccion
 const SiiDocumentSchema = new mongoose.Schema({
   active: {
     default: true,
+    index: true,
     required: true,
     type: Boolean,
   },
@@ -268,6 +269,24 @@ const SiiDocumentSchema = new mongoose.Schema({
       type: Number,
     },
   },
+  send: {
+    execute: {
+      default: false,
+      required: true,
+      type: Boolean,
+    },
+    error: {
+      code: {
+        default: null,
+        type: Number,
+      },
+      message: {
+        default: null,
+        trim: true,
+        type: String,
+      },
+    },
+  },
   tax: {
     amount: {
       default: null,
@@ -363,7 +382,7 @@ const SiiDocumentSchema = new mongoose.Schema({
   },
 });
 
-// Create indexes
+// Se crean los indices del esquema
 SiiDocumentSchema.index({
   'business.rut': 1,
   'document.code': 1,
@@ -372,5 +391,5 @@ SiiDocumentSchema.index({
   unique: true,
 });
 
-// Export model SiiDocument
+// Se exporta el esquema SiiDocument
 module.exports = mongoose.model('SiiDocument', SiiDocumentSchema);
