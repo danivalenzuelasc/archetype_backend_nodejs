@@ -1,16 +1,16 @@
 # Gitignore
 
-# Dependencies
+# Dependencias
 /node_modules
 
-# Testing
+# Pruebas
 /coverage
 
-# Production
+# Produccion
 /bin
 /build
 
-# Misc
+# Archivos y carpetas generales
 .DS_Store
 .env.development.local
 .env.local

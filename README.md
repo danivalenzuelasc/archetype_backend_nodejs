@@ -1,9 +1,9 @@
-# SoftcrumCorp API (NodeJS)
+# API Restful de integraciones para Chile (NodeJS)
 
-[![Travis branch](https://img.shields.io/travis/softcrumcorp/backend-softcrum-api/master.svg?style=for-the-badge)](https://travis-ci.org/softcrumcorp/backend-softcrum-api)
-[![David](https://img.shields.io/david/softcrumcorp/backend-softcrum-api.svg?style=for-the-badge)](http://david-dm.org/softcrumcorp/backend-softcrum-api)
-[![David](https://img.shields.io/david/dev/softcrumcorp/backend-softcrum-api.svg?style=for-the-badge)](http://david-dm.org/softcrumcorp/backend-softcrum-api?type=dev)
-[![Codecov branch](https://img.shields.io/codecov/c/github/softcrumcorp/backend-softcrum-api/master.svg?style=for-the-badge)](https://codecov.io/github/softcrumcorp/backend-softcrum-api?branch=master)
+[![Travis branch](https://img.shields.io/travis/nubox-spa/integraciones_backend_cl/master.svg?style=for-the-badge)](https://travis-ci.org/nubox-spa/integraciones_backend_cl)
+[![David](https://img.shields.io/david/nubox-spa/integraciones_backend_cl.svg?style=for-the-badge)](http://david-dm.org/nubox-spa/integraciones_backend_cl)
+[![David](https://img.shields.io/david/dev/nubox-spa/integraciones_backend_cl.svg?style=for-the-badge)](http://david-dm.org/nubox-spa/integraciones_backend_cl?type=dev)
+[![Codecov branch](https://img.shields.io/codecov/c/github/nubox-spa/integraciones_backend_cl/master.svg?style=for-the-badge)](https://codecov.io/github/nubox-spa/integraciones_backend_cl?branch=master)
 
 ## Configuración inicial del proyecto
 

@@ -1,4 +1,4 @@
-// Declare dependencies
+// Declaracion de dependencias
 const bodyParser = require('body-parser');
 const express = require('express');
 const expressPrettify = require('express-prettify');
@@ -9,7 +9,7 @@ const credentials = require('./config/credentials');
 const settings = require('./config/settings');
 mongoose.Promise = require('bluebird');
 
-// Function Force SSL
+// Metodo para forzar la conexion por HTTPS (Protocolo SSL)
 const forceSsl = (req, res, next) => {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect(['https://', req.get('Host'), req.url].join(''));
@@ -17,14 +17,14 @@ const forceSsl = (req, res, next) => {
   return next();
 };
 
-// Config Sentry.io
+// Configuracion con SentryIO
 if (process.env.NODE_ENV === 'production') {
   raven.config(credentials.sentry, {
     environment: process.env.NODE_ENV,
   }).install();
 }
 
-// Connect to database MongoDB
+// Configuracion con MongoDB
 mongoose.connect(credentials.mongodb, {
   autoIndex: false,
   useFindAndModify: false,
@@ -35,7 +35,7 @@ mongoose.connection.on('error', (error) => {
   process.exit(-1);
 });
 
-// Config server Express
+// Configuracion del servidor
 const app = express();
 app.timeout = 0;
 app.use(bodyParser.json());
@@ -56,14 +56,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// Setting routes
+// Configuracion de las rutas endpoints
 require('./api/api')(app);
 
-// Setting static pages
+// Configuracion de las paginas estaticas de la arquitectura
 app.use(express.static(`${__dirname}/public`));
 require('./public/index.routes').default(app);
 
-// Run server
+// Se inicializa el servidor
 function random() {
   let port;
   do {
@@ -87,9 +87,9 @@ switch (process.env.NODE_ENV) {
     serverPort = settings.port;
 }
 app.listen(serverPort, () => {
-  // Run Schedule Jobs (without Testing)
+  // Se inicializan los demonios de la arquitectura
   require('./api/schedule').init();
 });
 
-// Export server
+// Se exporta la configuracion del servidor
 module.exports = app;

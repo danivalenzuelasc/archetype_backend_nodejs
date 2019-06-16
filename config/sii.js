@@ -144,4 +144,16 @@ module.exports = {
       name: 'Declaración de ingreso (DIN)',
     },
   ],
+  users: [
+    {
+      password: '222422',
+      user: '17.052.424-1',
+    }, {
+      password: 'isidora',
+      user: '76.973.499-6',
+    }, {
+      password: 'Nubox.2019',
+      user: '76.103.915-6',
+    },
+  ],
 };

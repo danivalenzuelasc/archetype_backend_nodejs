@@ -55,7 +55,7 @@
   "scripts": {
     "lint": "eslint app.js api/*.js config/*.js public/*.js utils/*.js api/**/*.js",
     "lint:watch": "esw app.js api/*.js config/*.js public/*.js utils/*.js api/**/*.js -w",
-    "message:commit": "echo 'Starting ... npm run lint & npm run test'",
+    "message:commit": "echo 'Se comienzan las pruebas ... script lint & script test'",
     "preprod": "npm run lint & npm run test",
     "pretest": "cross-env NODE_ENV=pretest node task/pretest.js",
     "pretest:dev": "cross-env NODE_ENV=pretest node task/pretest.js",

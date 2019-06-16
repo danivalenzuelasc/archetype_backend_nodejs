@@ -1,8 +1,14 @@
 // Declare dependencies
+const cryptr = require('cryptr');
+const settings = require('./../config/settings');
 const { getCredentials, mapperDocument } = require('./sii');
+const { users } = require('./../config/sii');
 
 // Declare mocks spec
 const { inputMapperDocument, outputMapperDocument } = require('./sii.mocks');
+
+// Declaracion de variables auxiliares
+const Cryptr = new cryptr(settings.endpoint.crypt);
 
 // Setting counter
 let counter = 0;
@@ -15,22 +21,22 @@ function getCounter() {
  */
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
-  const response = await getCredentials('17.052.424-1', '99a533c1ab7b06a99170718bd4876516540af7918762', true);
+  const response = await getCredentials(users[0].user, Cryptr.encrypt(users[0].password), true);
   expect(Object.keys(response).length).toBeGreaterThan(0);
 }, 10000);
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
-  const response = await getCredentials('76.973.499-6', 'ba9c3c74e04c20363b17013e80339d53fcb47f5cd9c29d', true);
+  const response = await getCredentials(users[1].user, Cryptr.encrypt(users[1].password), true);
   expect(Object.keys(response).length).toBeGreaterThan(0);
 }, 10000);
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
-  const response = await getCredentials('76.103.915-6', '2fcf93ad857d9b83b8a3022b8ab0f9a4642d39f667d31dda7483', true);
+  const response = await getCredentials(users[2].user, Cryptr.encrypt(users[2].password), true);
   expect(Object.keys(response).length).toBeGreaterThan(0);
 }, 10000);
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {
   counter += 1;
-  const response = await getCredentials('17.052.424-1', 'bb5ca2dbd534f6a94c7267579fd6259f6db0a0e2ab8dfef797ae', true);
+  const response = await getCredentials(users[0].user, Cryptr.encrypt(users[2].password), true);
   expect(Object.keys(response).length > 0).toEqual(false);
 }, 10000);
 test(`Testing ${getCounter()} - Function getCredentials()`, async () => {

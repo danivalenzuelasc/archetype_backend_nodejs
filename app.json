@@ -18,5 +18,5 @@
   "image": "heroku/nodejs",
   "name": "integraciones_backend_cl",
   "repository": "https://github.com/nubox-spa/integraciones_backend_cl",
-  "website": "https://integraciones.nubox.com/"
+  "website": "https://api.nubox.com/integraciones"
 }
