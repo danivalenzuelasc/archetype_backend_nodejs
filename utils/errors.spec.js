@@ -9,7 +9,7 @@ function getCounter() {
 }
 
 /**
- * Pruebas al metodo errorHttp()
+ * Pruebas del metodo errorHttp()
  */
 test(`Prueba ${getCounter()} - Metodo errorHttp()`, async () => {
   counter += 1;
@@ -58,7 +58,7 @@ test(`Prueba ${getCounter()} - Metodo errorHttp()`, async () => {
 }, 10000);
 
 /**
- * Prueba del metodo errorResponse()
+ * Pruebas del metodo errorResponse()
  */
 test(`Prueba ${getCounter()} - Metodo errorResponse()`, () => {
   counter += 1;

@@ -9,7 +9,7 @@ function getCounter() {
 }
 
 /**
- * Prueba del metodo cleanCharacters()
+ * Pruebas del metodo cleanCharacters()
  */
 test(`Prueba ${getCounter()} - Metodo cleanCharacters()`, async () => {
   counter += 1;

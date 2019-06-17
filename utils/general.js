@@ -1,7 +1,7 @@
-// Declare dependencies
+// Declaracion de dependencias
 const raven = require('raven');
 
-// Function responseValueInternal()
+// Metodo responseValueInternal()
 function responseValueInternal(response = null, a = null, b = null, c = null) {
   if (a) {
     return a;
@@ -15,17 +15,17 @@ function responseValueInternal(response = null, a = null, b = null, c = null) {
   return response;
 }
 
-// Export function errorTraceRaven()
+// Se exporta el metodo errorTraceRaven()
 exports.errorTraceRaven = (response = null, error = null, force = false) => {
   if (force) {
     raven.captureException(responseValueInternal({}, response, error));
   }
 };
 
-// Export function responseValue()
+// Se exporta el metodo responseValue()
 exports.responseValue = responseValueInternal;
 
-// Export function shuffle
+// Se exporta el metodo shuffle()
 exports.shuffle = (a) => {
   const array = a;
   for (let i = array.length; i; i -= 1) {
