@@ -1,4 +1,4 @@
-// Export function cleanCharacters()
+// Se exporta el metodo cleanCharacters()
 exports.cleanCharacters = (string) => {
   let clean = string;
   const replaces = [
