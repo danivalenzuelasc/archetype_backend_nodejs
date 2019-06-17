@@ -84,15 +84,17 @@ exports.list = (req, res) => {
   };
   if (filters.send) {
     query['synchronize.status'] = false;
-  }
-  if (filters.type) {
-    query['synchronize.type'] = filters.type;
-  }
-  if (filters.type === 'Automatic') {
-    const now = new Date();
-    query['synchronize.date'] = {
-      $lt: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0),
-    };
+    query['synchronize.type'] = 'Automatic';
+  } else {
+    if (filters.type) {
+      query['synchronize.type'] = filters.type;
+    }
+    if (filters.type === 'Automatic') {
+      const now = new Date();
+      query['synchronize.date'] = {
+        $lt: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0),
+      };
+    }
   }
   // Se obtiene la cantidad de documentos en la coleccion que coinciden con los filtros aplicados
   SiiQueue.countDocuments(query)

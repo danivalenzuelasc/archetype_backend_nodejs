@@ -19,6 +19,30 @@ const apiUrl = process.env.NODE_ENV === 'production' ? `${settings.api}:${settin
 exports.init = () => {
   // Se realiza ejecucion del demonio [cada 10 segundos]
   nodeSchedule.scheduleJob('*/10 * * * * *', () => {
+    // Se procede a realizar la llamada para obtener las colas pendientes de notificacion para sincronizacion finalizada
+    getQueue('', limitSynchronization.queue, true)
+      .then((responseGetQueue) => {
+        responseGetQueue.results.forEach((queue) => {
+          // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
+          getDocument(1, queue.user)
+            .then((responseGetDocument) => {
+              // Se procede a notificar que se acaba de sincronizar todos los documentos del cliente
+              if (responseGetDocument.paging.count === 0) {
+                connectAPIFacturaQueue(queue._id, queue.user);
+              }
+            })
+            // Se procede a notificar en caso de que se presente algun error al obtener las colas pendientes de notificacion para la sincronizacion finalizada
+            .catch((errorGetDocument) => {
+              errorTraceRaven(errorGetDocument);
+              errorGetDocument = null;
+            });
+        });
+      })
+      // Se procede a notificar en caso de que se presente algun error al obtener las colas pendientes de notificacion para la sincronizacion finalizada
+      .catch((errorGetQueue) => {
+        errorTraceRaven(errorGetQueue);
+        errorGetQueue = null;
+      });
     // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
     getDocument(limitSynchronization.document)
       .then((responseGetDocument) => {
@@ -275,7 +299,6 @@ function connectAPIFacturaDocument(document, method) {
  * queue => Identificador de la cola
  * user => Identificador del usuario
  */
-/*
 function connectAPIFacturaQueue(queue, user) {
   // Configuramos la peticion de la llamada de sincronizacion de colas
   let options = {
@@ -292,8 +315,10 @@ function connectAPIFacturaQueue(queue, user) {
     uri: synchronization.queue,
   };
   request(options)
-    // Se procede a enviar la respuesta de la sincronizacion de la cola
-    .then(() => {})
+    // Se procede a actualizar el registro de la cola
+    .then(() => {
+      synchronizeUpdate({ queue }, null, null, null, true);
+    })
     // Se procede a notificar en caso de que se presente algun error al sincronizar los colas
     .catch((error) => {
       errorTraceRaven(error);
@@ -304,7 +329,6 @@ function connectAPIFacturaQueue(queue, user) {
       options = queue = null;
     });
 }
-*/
 
 /**
  * Function documentCreate
@@ -399,8 +423,9 @@ function getCredential(user) {
  * Function getDocument
  * Parametros de entrada
  * limit => Limite de busqueda de documentos pendientes de sincronizacion
+ * user => Usuario del documento
  */
-function getDocument(limit) {
+function getDocument(limit, user = null) {
   return new Promise((resolve, reject) => {
     // Configuramos la peticion de la llamada de obtencion de una credencial
     const options = {
@@ -413,6 +438,9 @@ function getDocument(limit) {
       resolveWithFullResponse: true,
       uri: `${apiUrl}/sii/document?limit=${limit}&page=1&order=asc&send`,
     };
+    if (user) {
+      options.uri += `&user=${user.replace(/\./g, '')}`;
+    }
     request(options)
       // Se procede a enviar la respuesta de la obtencion de los documentos pendientes de sincronizacion
       .then((response) => {
@@ -431,7 +459,7 @@ function getDocument(limit) {
  * type => ['Priority', 'Manual']
  * limit => [1 ... 500]
  */
-function getQueue(type, limit) {
+function getQueue(type, limit, send = false) {
   return new Promise((resolve, reject) => {
     // Obtenemos el listado de la cola a procesar segun el tipo
     let options = {
@@ -444,6 +472,10 @@ function getQueue(type, limit) {
       resolveWithFullResponse: true,
       uri: `${apiUrl}/sii/queue?limit=${limit}&page=1&order=asc&type=${type}`,
     };
+    // Se verifica si se necesita aplicar el filtro de solo los pendientes de notificacion de sincronizacion
+    if (send) {
+      options.uri += '&send';
+    }
     request(options)
       // Se procede a enviar la respuesta de la obtencion de la cola
       .then((response) => {
@@ -676,15 +708,16 @@ function queueStop(queueId) {
  * month => mm
  * type => ['Automatic', 'Priority']
  */
-function synchronizeUpdate(transaction, year, month, type = 'Automatic') {
+function synchronizeUpdate(transaction, year, month, type = 'Automatic', sync = false) {
   return new Promise((resolve, reject) => {
     // Actualizamos la cola de sincronizacion
     let options = {
       body: {
         synchronize: {
           date: new Date(),
-          period: type !== 'Automatic' ? `${year}${month < 10 ? `${0}${month}` : month}` : null,
-          type,
+          period: sync ? null : type !== 'Automatic' ? `${year}${month < 10 ? `${0}${month}` : month}` : null,
+          status: sync,
+          type: sync ? 'Automatic' : type,
         },
       },
       headers: {

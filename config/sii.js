@@ -20,6 +20,7 @@ module.exports = {
   ],
   limitSynchronization: {
     document: 50,
+    queue: 10,
     saveMany: 20,
   },
   synchronization: {

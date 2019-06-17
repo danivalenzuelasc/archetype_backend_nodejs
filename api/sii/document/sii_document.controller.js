@@ -55,6 +55,7 @@ exports.list = (req, res) => {
     ? -1
     : 1;
   filters.test = false;
+  filters.user = Object.prototype.hasOwnProperty.call(req.query, 'user');
   // Se aplican los filtros de logeo para el listado
   if (req.query.logs) {
     req.query.logs.split(',').forEach((log) => {
@@ -80,6 +81,9 @@ exports.list = (req, res) => {
   };
   if (filters.send) {
     query['send.execute'] = false;
+  }
+  if (filters.user) {
+    query['transaction.user'] = req.query.user;
   }
   // Se obtiene la cantidad de documentos en la coleccion que coinciden con los filtros aplicados
   SiiDocument.countDocuments(query)
