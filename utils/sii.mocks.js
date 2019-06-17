@@ -1,7 +1,7 @@
-// Declare dependencies
+// Declaracion de dependencias
 const { getDate } = require('./sii');
 
-// Export input
+// Se exportan los datos de entrada
 exports.inputMapperDocument = [
   {
     dhdrCodigo: 3536982623,
@@ -336,7 +336,7 @@ exports.inputMapperDocument = [
   },
 ];
 
-// Export output
+// Se exportan los datos de salida
 exports.outputMapperDocument = [
   {
     amount: {

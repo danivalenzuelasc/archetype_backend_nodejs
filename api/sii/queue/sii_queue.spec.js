@@ -36,10 +36,8 @@ mocks.forEach(async (row) => {
                 item.types.forEach((type, keyType) => {
                   expect(type.code).toEqual(row.executions[keyItem].types[keyType].code);
                   expect(type.count).toEqual(row.executions[keyItem].types[keyType].count);
-                  expect(type.processed).toEqual(row.executions[keyItem].types[keyType].processed);
                 });
               }
-              expect(item.value).toEqual(row.executions[keyItem].value);
             });
           }
           expect(response.body.logs).toBeDefined();
@@ -85,10 +83,8 @@ mocks.forEach(async (row) => {
                 item.types.forEach((type, keyType) => {
                   expect(type.code).toEqual(row.executions[keyItem].types[keyType].code);
                   expect(type.count).toEqual(row.executions[keyItem].types[keyType].count);
-                  expect(type.processed).toEqual(row.executions[keyItem].types[keyType].processed);
                 });
               }
-              expect(item.value).toEqual(row.executions[keyItem].value);
             });
           }
           expect(response.body.logs).toBeDefined();
@@ -136,10 +132,8 @@ mocks.forEach(async (row) => {
                 item.types.forEach((type, keyType) => {
                   expect(type.code).toEqual(row.executions[keyItem].types[keyType].code);
                   expect(type.count).toEqual(row.executions[keyItem].types[keyType].count);
-                  expect(type.processed).toEqual(row.executions[keyItem].types[keyType].processed);
                 });
               }
-              expect(item.value).toEqual(row.executions[keyItem].value);
             });
           }
           expect(response.body.logs).toBeDefined();
@@ -185,10 +179,8 @@ mocks.forEach(async (row) => {
                 item.types.forEach((type, keyType) => {
                   expect(type.code).toEqual(row.executions[keyItem].types[keyType].code);
                   expect(type.count).toEqual(row.executions[keyItem].types[keyType].count);
-                  expect(type.processed).toEqual(row.executions[keyItem].types[keyType].processed);
                 });
               }
-              expect(item.value).toEqual(row.executions[keyItem].value);
             });
           }
           expect(response.body.logs).toBeDefined();

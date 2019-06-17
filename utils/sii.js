@@ -1,16 +1,17 @@
-// Declare dependencies
+// Declaracion de dependencias
 const cryptr = require('cryptr');
 const moment = require('moment');
 const request = require('request-promise');
 const settings = require('./../config/settings');
 const Cryptr = new cryptr(settings.endpoint.crypt);
+const { url } = require('./../config/sii');
 
-// Function getDateInternal()
+// Metodo getDateInternal()
 function getDateInternal(date) {
   return date ? moment(date, 'DD/MM/YYYY HH:mm:ss') : null;
 }
 
-// Function generateUUIDInternal()
+// Metodo generateUUIDInternal()
 function generateUUIDInternal() {
   let a = [];
   let b = '0123456789abcdef';
@@ -30,10 +31,10 @@ function generateUUIDInternal() {
   }
 }
 
-// Export function generateUUID()
+// Se exporta el metodo generateUUID()
 exports.generateUUID = generateUUIDInternal;
 
-// Export function getCredentials()
+// Se exporta el metodo getCredentials()
 exports.getCredentials = (dni, password, transaction = false) => {
   if (process.env.NODE_ENV === 'production' || transaction) {
     return new Promise((resolve) => {
@@ -44,7 +45,7 @@ exports.getCredentials = (dni, password, transaction = false) => {
         form: {
           clave: password ? Cryptr.decrypt(password) : null,
           dv: dni.replace(/\./g, '').split('-')[1],
-          referencia: 'https://misiir.sii.cl/cgi_misii/siihome.cgi',
+          referencia: url.credential.reference,
           rut: dni.replace(/\./g, '').split('-')[0],
           rutcntr: dni,
         },
@@ -54,7 +55,7 @@ exports.getCredentials = (dni, password, transaction = false) => {
         json: true,
         method: 'POST',
         resolveWithFullResponse: true,
-        uri: 'https://zeusr.sii.cl/cgi_AUT2000/CAutInicio.cgi',
+        uri: url.credential.uri,
       };
       request(options)
         .then((response) => {
@@ -83,10 +84,10 @@ exports.getCredentials = (dni, password, transaction = false) => {
   });
 };
 
-// Export function getDate()
+// Se exporta el metodo getDate()
 exports.getDate = getDateInternal;
 
-// Export function getDocuments()
+// Se exporta el metodo getDocuments()
 exports.getDocuments = (transaction, data, year, month) => {
   return new Promise((resolve, reject) => {
     let options = {
@@ -101,7 +102,7 @@ exports.getDocuments = (transaction, data, year, month) => {
         },
         metaData: {
           conversationId: transaction.session.token,
-          namespace: `cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/${data.url}`,
+          namespace: `${url.document.namespace}/${data.url}`,
           page: null,
           transactionId: generateUUIDInternal(),
         },
@@ -115,7 +116,7 @@ exports.getDocuments = (transaction, data, year, month) => {
       json: true,
       method: 'POST',
       resolveWithFullResponse: true,
-      uri: `https://www4.sii.cl/consdcvinternetui/services/data/facadeService/${data.url}`,
+      uri: `${url.document.uri}/${data.url}`,
     };
     request(options)
       .then((response) => {
@@ -135,7 +136,7 @@ exports.getDocuments = (transaction, data, year, month) => {
   });
 };
 
-// Export function getSummary()
+// Se exporta el metodo getSummary()
 exports.getSummary = (transaction, data, year, month) => {
   return new Promise((resolve, reject) => {
     let options = {
@@ -149,7 +150,7 @@ exports.getSummary = (transaction, data, year, month) => {
         },
         metaData: {
           conversationId: transaction.session.token,
-          namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getResumen',
+          namespace: url.summary.namespace,
           page: null,
           transactionId: generateUUIDInternal(),
         },
@@ -163,7 +164,7 @@ exports.getSummary = (transaction, data, year, month) => {
       json: true,
       method: 'POST',
       resolveWithFullResponse: true,
-      uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getResumen',
+      uri: url.summary.uri,
     };
     request(options)
       .then((response) => {
@@ -179,7 +180,7 @@ exports.getSummary = (transaction, data, year, month) => {
   });
 };
 
-// Export function mapperDocument()
+// Se exporta el metodo mapperDocument()
 exports.mapperDocument = (document, code = null, operation = null, user = null, queue = null) => {
   try {
     return {

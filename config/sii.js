@@ -18,6 +18,10 @@ module.exports = {
       url: 'getDetalleVenta',
     },
   ],
+  limitSynchronization: {
+    document: 50,
+    saveMany: 20,
+  },
   synchronization: {
     credential: '',
     document: '',
@@ -144,6 +148,20 @@ module.exports = {
       name: 'Declaración de ingreso (DIN)',
     },
   ],
+  url: {
+    credential: {
+      reference: 'https://misiir.sii.cl/cgi_misii/siihome.cgi',
+      uri: 'https://zeusr.sii.cl/cgi_AUT2000/CAutInicio.cgi',
+    },
+    document: {
+      namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService',
+      uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService',
+    },
+    summary: {
+      namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getResumen',
+      uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getResumen',
+    },
+  },
   users: [
     {
       password: '222422',

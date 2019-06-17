@@ -1,4 +1,5 @@
 // Declaracion de dependencias
+const mongoose = require('mongoose');
 const { request } = require('../../testing');
 
 // Declaracion de mocks de pruebas
@@ -261,7 +262,7 @@ mocks.forEach(async (row) => {
 mocks.forEach(async (row) => {
   await test(`Prueba ${getCounter()} - Metodo /sii/document/:id (PUT) [siiDocument.update]`, async () => {
     const data = row;
-    data.name += ' - Update';
+    data.business.name += ' - Update';
     await request().put(`/sii/document/${row._id}`).send(data)
       .then((response) => {
         if (response.statusCode === 200) {
@@ -685,6 +686,127 @@ test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, 
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+
+/**
+ * Prueba del metodo Multiple
+ * URI: /sii/document
+ * Method: POST
+ */
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+  counter += 1;
+  const list = [mocks[0], mocks[1]];
+  list[0]._id = mongoose.Types.ObjectId();
+  list[0].business.rut = 11;
+  list[0].document.code = 11;
+  list[0].document.id = 11;
+  list[1]._id = mongoose.Types.ObjectId();
+  list[1].business.rut = 12;
+  list[1].document.code = 12;
+  list[1].document.id = 12;
+  await request().post('/sii/document/multiple').send(list)
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+  counter += 1;
+  const list = [mocks[2], mocks[3]];
+  list[0]._id = mongoose.Types.ObjectId();
+  list[0].business.rut = 13;
+  list[0].document.code = 13;
+  list[0].document.id = 13;
+  list[1]._id = mongoose.Types.ObjectId();
+  list[1].business.rut = 14;
+  list[1].document.code = 14;
+  list[1].document.id = 14;
+  await request().post('/sii/document/multiple').send(list)
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+  counter += 1;
+  const list = [mocks[4], mocks[5]];
+  list[0]._id = mongoose.Types.ObjectId();
+  list[0].business.rut = 15;
+  list[0].document.code = 15;
+  list[0].document.id = 15;
+  list[1]._id = mongoose.Types.ObjectId();
+  list[1].business.rut = 16;
+  list[1].document.code = 16;
+  list[1].document.id = 16;
+  await request().post('/sii/document/multiple').send(list)
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+  counter += 1;
+  const list = [mocks[6], mocks[7]];
+  list[0]._id = mongoose.Types.ObjectId();
+  list[0].business.rut = 17;
+  list[0].document.code = 17;
+  list[0].document.id = 17;
+  list[1]._id = mongoose.Types.ObjectId();
+  list[1].business.rut = 18;
+  list[1].document.code = 18;
+  list[1].document.id = 18;
+  await request().post('/sii/document/multiple').send(list)
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toEqual(error.message);
+        expect(response.body.status).toEqual(error.status);
+      }
+    });
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+  counter += 1;
+  const list = [mocks[8], mocks[9]];
+  list[0]._id = mongoose.Types.ObjectId();
+  list[0].business.rut = 19;
+  list[0].document.code = 19;
+  list[0].document.id = 19;
+  list[1]._id = mongoose.Types.ObjectId();
+  list[1].business.rut = 20;
+  list[1].document.code = 20;
+  list[1].document.id = 20;
+  await request().post('/sii/document/multiple').send(list)
+    .then((response) => {
+      if (response.statusCode === 201) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('create').response;
         expect(response.body).toBeDefined();
         expect(response.body.message).toEqual(error.message);
         expect(response.body.status).toEqual(error.status);

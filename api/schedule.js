@@ -3,7 +3,9 @@ const cryptr = require('cryptr');
 const nodeSchedule = require('node-schedule');
 const request = require('request-promise');
 const settings = require('./../config/settings');
-const { documents, synchronization, tokenExpires } = require('./../config/sii');
+const {
+  documents, limitSynchronization, synchronization, tokenExpires,
+} = require('./../config/sii');
 const { errorTraceRaven } = require('./../utils/general');
 const {
   getCredentials, getDocuments, getSummary, mapperDocument,
@@ -13,10 +15,23 @@ const Cryptr = new cryptr(settings.endpoint.crypt);
 // Configuracion de la URL del entorno de la API
 const apiUrl = process.env.NODE_ENV === 'production' ? `${settings.api}:${settings.port}` : `http://localhost:${settings.port}`;
 
-// Export Schedules
+// Se inicializan los demonios
 exports.init = () => {
   // Se realiza ejecucion del demonio [cada 10 segundos]
   nodeSchedule.scheduleJob('*/10 * * * * *', () => {
+    // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
+    getDocument(limitSynchronization.document)
+      .then((responseGetDocument) => {
+        // Se envia una solicitud de sincronizacion del documento
+        responseGetDocument.results.forEach((document) => {
+          connectAPIFacturaDocument(document, 'POST');
+        });
+      })
+      // Se procede a notificar en caso de que se presente algun error al obtener los documentos pendientes de sincronizacion
+      .catch((errorGetDocument) => {
+        errorTraceRaven(errorGetDocument);
+        errorGetDocument = null;
+      });
     // Se procede a realizar la llamada para obtener las colas Prioritarias que se deben ejecutar
     getQueue('Priority', 5)
       // Se procede en caso de obtener las colas
@@ -137,7 +152,7 @@ exports.init = () => {
                         queueStop(transaction.queue)
                           // Se procede a notificar la detencion de la cola de ejecucion
                           .then(() => {
-                            connectAPIFacturaQueue(transaction.queue);
+                            connectAPIFacturaCredential(transaction.queue, transaction.user);
                             transaction = null;
                           })
                           // Se procede a notificar en caso de que se presente algun error al notificar la detencion de la cola de ejecucion
@@ -173,11 +188,46 @@ exports.init = () => {
 };
 
 /**
+ * Function connectAPIFacturaCredential
+ * Parametros de entrada
+ * queue => Identificador de la cola
+ * user => Identificador del usuario
+ */
+function connectAPIFacturaCredential(queue, user) {
+  // Configuramos la peticion de la llamada de sincronizacion de colas
+  let options = {
+    body: {
+      queue,
+      user,
+    },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    json: true,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    uri: synchronization.credential,
+  };
+  request(options)
+    // Se procede a enviar la respuesta de la sincronizacion de la cola
+    .then(() => {})
+    // Se procede a notificar en caso de que se presente algun error al sincronizar los colas
+    .catch((error) => {
+      errorTraceRaven(error);
+      error = null;
+    })
+    // Se procede a eliminar las variables temporales de la ejecucion
+    .finally(() => {
+      options = queue = null;
+    });
+}
+
+/**
  * Function connectAPIFacturaDocument
  * Parametros de entrada
  * document => Documento a guardar en la base de datos
  * method => ['POST', 'PUT']
-*/
+ */
 function connectAPIFacturaDocument(document, method) {
   // Configuramos la peticion de la llamada de sincronizacion de documentos
   let options = {
@@ -192,9 +242,24 @@ function connectAPIFacturaDocument(document, method) {
   };
   request(options)
     // Se procede a enviar la respuesta de la sincronizacion del documento
-    .then(() => {})
+    .then(() => {
+      documentSend(document._id, {
+        execute: true,
+        error: {
+          code: null,
+          message: null,
+        },
+      });
+    })
     // Se procede a notificar en caso de que se presente algun error al sincronizar los documentos
     .catch((error) => {
+      documentSend(document._id, {
+        execute: true,
+        error: {
+          code: 0,
+          message: 'Error',
+        },
+      });
       errorTraceRaven(error);
       error = null;
     })
@@ -207,13 +272,16 @@ function connectAPIFacturaDocument(document, method) {
 /**
  * Function connectAPIFacturaQueue
  * Parametros de entrada
- * queueId => Identificador de la cola
-*/
-function connectAPIFacturaQueue(queue) {
+ * queue => Identificador de la cola
+ * user => Identificador del usuario
+ */
+/*
+function connectAPIFacturaQueue(queue, user) {
   // Configuramos la peticion de la llamada de sincronizacion de colas
   let options = {
     body: {
-      queueId: queue,
+      queue,
+      user,
     },
     headers: {
       'Content-Type': 'application/json',
@@ -236,12 +304,13 @@ function connectAPIFacturaQueue(queue) {
       options = queue = null;
     });
 }
+*/
 
 /**
  * Function documentCreate
  * Parametros de entrada
  * document => Documento a guardar en la base de datos
-*/
+ */
 function documentCreate(document) {
   // Configuramos la peticion de la llamada de creacion de un documento
   const options = {
@@ -252,58 +321,55 @@ function documentCreate(document) {
     json: true,
     method: 'POST',
     resolveWithFullResponse: true,
-    uri: `${apiUrl}/sii/document`,
+    uri: `${apiUrl}/sii/document/multiple`,
   };
   request(options)
     // Se procede a enviar la respuesta de la creacion del documento
-    .then((response) => {
-      connectAPIFacturaDocument(response, 'POST');
-    })
+    .then(() => {})
     // Se procede a notificar en caso de que se presente algun error al crear un documento
     .catch((error) => {
-      errorTraceRaven(error);
       documentCreate(document);
+      errorTraceRaven(error);
       error = null;
     });
 }
 
 /**
- * Function documentUpdate
+ * Function documentSend
  * Parametros de entrada
- * document => Documento a actualizar en la base de datos
-*/
-/*
-function documentUpdate(document) {
+ * documentId => Identificador del documento
+ * send => Objecto con la estructura de notificacion del envio de sincronizacion
+ */
+function documentSend(documentId, send) {
   // Configuramos la peticion de la llamada de actualizacion de un documento
   const options = {
-    body: document,
+    body: {
+      send,
+    },
     headers: {
       'Content-Type': 'application/json',
     },
     json: true,
     method: 'PUT',
     resolveWithFullResponse: true,
-    uri: `${apiUrl}/sii/document/${document._id}`,
+    uri: `${apiUrl}/sii/document/${documentId}`,
   };
   request(options)
     // Se procede a enviar la respuesta de la actualizacion del documento
-    .then((response) => {
-      connectAPIFacturaDocument(response, 'PUT');
-    })
+    .then(() => {})
     // Se procede a notificar en caso de que se presente algun error al actualizar un documento
     .catch((error) => {
       errorTraceRaven(error);
-      documentCreate(document);
+      documentSend(documentId, send);
       error = null;
     });
 }
-*/
 
 /**
  * Function getCredential
  * Parametros de entrada
  * user => RUT formato 12.345.678-9
-*/
+ */
 function getCredential(user) {
   return new Promise((resolve, reject) => {
     // Configuramos la peticion de la llamada de obtencion de una credencial
@@ -330,11 +396,41 @@ function getCredential(user) {
 }
 
 /**
+ * Function getDocument
+ * Parametros de entrada
+ * limit => Limite de busqueda de documentos pendientes de sincronizacion
+ */
+function getDocument(limit) {
+  return new Promise((resolve, reject) => {
+    // Configuramos la peticion de la llamada de obtencion de una credencial
+    const options = {
+      body: {},
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      json: true,
+      method: 'GET',
+      resolveWithFullResponse: true,
+      uri: `${apiUrl}/sii/document?limit=${limit}&page=1&order=asc&send`,
+    };
+    request(options)
+      // Se procede a enviar la respuesta de la obtencion de los documentos pendientes de sincronizacion
+      .then((response) => {
+        resolve(response.body);
+      })
+      // Se procede a notificar en caso de que se presente algun error al obtener el listado de documentos pendientes de sincronizacion
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+/**
  * Function getQueue
  * Parametros de entrada
  * type => ['Priority', 'Manual']
  * limit => [1 ... 500]
-*/
+ */
 function getQueue(type, limit) {
   return new Promise((resolve, reject) => {
     // Obtenemos el listado de la cola a procesar segun el tipo
@@ -371,7 +467,7 @@ function getQueue(type, limit) {
  * Parametros de entrada
  * type => ['Priority', 'Manual']
  * limit => [1 ... 500]
-*/
+ */
 function getService(transaction) {
   const now = new Date();
   let month;
@@ -383,25 +479,42 @@ function getService(transaction) {
     ({ period } = transaction.synchronize);
     month = parseInt(period.substr(4, 5), 10);
     year = parseInt(period.substr(0, 4), 10);
-    typeSync = now.getFullYear() >= year && now.getMonth() + 1 > month ? 'Priority' : 'Automatic';
+    typeSync = now.getFullYear() > year || (now.getFullYear() === year && now.getMonth() + 1) > month ? 'Priority' : 'Automatic';
   } else {
     month = now.getMonth() + 1;
     year = now.getFullYear();
   }
   // Se procede a actualizar la cola en caso de cambiar la prioridad
-  synchronizeUpdate(transaction, month < 12 ? year : year + 1, month < 12 ? month + 1 : 0, typeSync)
+  synchronizeUpdate(transaction, month < 12 ? year : year + 1, month < 12 ? month + 1 : 1, typeSync)
     // Se procede a recorrer los tipos de documentos de Compra y Venta que se necesitan
     .then(() => {
+      const executions = [];
       documents.forEach((document) => {
-        document.list.forEach((row) => {
+        document.list.forEach(async (row) => {
+          const execution = {
+            code: `${document.key}.${row}`,
+            period: `${year}${month < 10 ? `0${month}` : month}`,
+            types: [],
+          };
           // Se procede a obtener la cantidad de documentos de un tipo de operacion
-          getSummary(transaction, {
+          await getSummary(transaction, {
             operation: document.key,
             state: row,
             url: document.url,
           }, year, month < 10 ? `${0}${month}` : month)
-            .then((responseGetService) => {
-              responseGetService.forEach((type) => {
+            .then((responseGetSummary) => {
+              // Se obtienen la cantidad de documentos por cada una de las categorias consultadas
+              if (Array.isArray(responseGetSummary) && responseGetSummary.length > 0) {
+                responseGetSummary.forEach((aux) => {
+                  if (aux.rsmnTotDoc && aux.rsmnTotDoc > 0) {
+                    execution.types.push({
+                      code: aux.rsmnTipoDocInteger,
+                      count: aux.rsmnTotDoc,
+                    });
+                  }
+                });
+              }
+              responseGetSummary.forEach((type) => {
                 // Se procede a obtener los documentos de un tipo de operacion
                 getDocuments(transaction, {
                   document: String(type.rsmnTipoDocInteger),
@@ -409,16 +522,33 @@ function getService(transaction) {
                   state: row,
                   url: document.url,
                 }, year, month < 10 ? `${0}${month}` : month)
-                  .then((responseGetDocuments) => {
+                  .then(async (responseGetDocuments) => {
                     if (Array.isArray(responseGetDocuments)) {
-                      responseGetDocuments.forEach((rowDocument) => {
+                      const list = await responseGetDocuments.map((rowDocument) => {
                         // Se procede a procesar el documento obtenido
-                        documentCreate(mapperDocument(rowDocument, type.rsmnTipoDocInteger, document.key, transaction.user, transaction.queue));
+                        return mapperDocument(rowDocument, type.rsmnTipoDocInteger, document.key, transaction.user, transaction.queue);
                       });
+                      const limit = limitSynchronization.saveMany;
+                      const counter = list.length;
+                      for (let i = 0; i * limit < counter; i += 1) {
+                        documentCreate(list.slice(i * limit, i * limit + limit));
+                      }
                     }
+                  })
+                  // Se procede a notificar en caso de que se presente algun error al obtener los documentos del periodo tributario
+                  .catch((errorGetDocuments) => {
+                    errorTraceRaven(errorGetDocuments);
                   });
               });
+            })
+            // Se procede a notificar en caso de que se presente algun error al obtener el resumen del periodo tributario
+            .catch((errorGetSummary) => {
+              errorTraceRaven(errorGetSummary);
             });
+          await executions.push(execution);
+          if (executions.length === 5) {
+            await queueExecutions(transaction.queue, executions);
+          }
         });
       });
     })
@@ -429,13 +559,83 @@ function getService(transaction) {
 }
 
 /**
+ * Function queueExecutions
+ * Parametros de entrada
+ * queue => Identificador de la cola
+ * executions => Arreglo de objetos con los datos del periodo tributario
+ */
+function queueExecutions(queue, executions) {
+  // Configuramos la peticion de la llamada para obtener una cola
+  let options = {
+    body: {},
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    json: true,
+    method: 'GET',
+    resolveWithFullResponse: true,
+    uri: `${apiUrl}/sii/queue/${queue}`,
+  };
+  request(options)
+    // Se procede a actualizar la cola
+    .then(async (response) => {
+      await response.body.executions.forEach(async (row, key) => {
+        await executions.forEach(async (execution) => {
+          if (row.period === execution.period && row.code === execution.code) {
+            response.body.executions[key].types = execution.types;
+          }
+        });
+      });
+      await executions.forEach(async (execution) => {
+        let exist = false;
+        await response.body.executions.forEach(async (row) => {
+          if (row.period === execution.period && row.code === execution.code) {
+            exist = true;
+          }
+        });
+        if (!exist) {
+          response.body.executions.push(execution);
+        }
+      });
+      // Configuramos la peticion de la llamada para obtener una cola
+      options = {
+        body: response.body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        json: true,
+        method: 'PUT',
+        resolveWithFullResponse: true,
+        uri: `${apiUrl}/sii/queue/${queue}`,
+      };
+      request(options)
+        // Se procede a actualizar la cola
+        .then(() => {})
+        // Se procede a notificar en caso de que se presente algun error al obtener una cola
+        .catch((errorUpdate) => {
+          errorTraceRaven(errorUpdate);
+          errorUpdate = null;
+        });
+    })
+    // Se procede a notificar en caso de que se presente algun error al obtener una cola
+    .catch((error) => {
+      errorTraceRaven(error);
+      error = null;
+    })
+    // Se procede a eliminar las variables temporales de la ejecucion
+    .finally(() => {
+      executions = options = queue = null;
+    });
+}
+
+/**
  * Function synchronizeUpdate
  * Parametros de entrada
  * transaction => Objeto completo del servicio API /queue/:id
  * year => yyyy
  * month => mm
  * type => ['Automatic', 'Priority']
-*/
+ */
 function queueStop(queueId) {
   return new Promise((resolve, reject) => {
     // Actualizamos la cola de sincronizacion
@@ -475,7 +675,7 @@ function queueStop(queueId) {
  * year => yyyy
  * month => mm
  * type => ['Automatic', 'Priority']
-*/
+ */
 function synchronizeUpdate(transaction, year, month, type = 'Automatic') {
   return new Promise((resolve, reject) => {
     // Actualizamos la cola de sincronizacion
@@ -516,7 +716,7 @@ function synchronizeUpdate(transaction, year, month, type = 'Automatic') {
  * Function tokenUpdate
  * Parametros de entrada
  * credential => Objeto completo del servicio API /credential
-*/
+ */
 function tokenUpdate(credential) {
   return new Promise((resolve, reject) => {
     // Se desencripta la clave protegida

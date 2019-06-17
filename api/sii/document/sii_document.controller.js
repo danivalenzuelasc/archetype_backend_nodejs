@@ -119,6 +119,25 @@ exports.list = (req, res) => {
 };
 
 /**
+ * Metodo Multiple
+ * URI: /sii/queue/multiple
+ * Method: POST
+ */
+exports.multiple = (req, res) => {
+  // Se procede a almacenar el documento en la coleccion
+  SiiDocument.insertMany(req.body)
+    .then((response) => {
+      // Se retorna la respuesta de los documentos almacenados
+      res.status(201).json(response);
+    })
+    .catch((error) => {
+      // Se retorna la respuesta con problemas
+      errorTraceRaven(error);
+      res.status(400).json(errorResponse('create').response);
+    });
+};
+
+/**
  * Metodo Remove
  * URI: /sii/queue/:id
  * Method: DELETE

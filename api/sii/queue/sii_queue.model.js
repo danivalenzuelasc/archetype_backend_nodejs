@@ -31,17 +31,8 @@ const SiiQueueSchema = new mongoose.Schema({
             default: 0,
             type: Number,
           },
-          processed: {
-            default: 0,
-            type: Number,
-          },
         },
       ],
-      value: {
-        required: true,
-        trim: true,
-        type: String,
-      },
     },
   ],
   logs: {

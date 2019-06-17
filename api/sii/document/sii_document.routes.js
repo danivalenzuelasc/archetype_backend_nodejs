@@ -7,5 +7,6 @@ module.exports = (app) => {
   app.get('/sii/document', controllerSiiDocument.list);
   app.get('/sii/document/:id', controllerSiiDocument.view);
   app.post('/sii/document', controllerSiiDocument.create);
+  app.post('/sii/document/multiple', controllerSiiDocument.multiple);
   app.put('/sii/document/:id', controllerSiiDocument.update);
 };

@@ -25,7 +25,6 @@ module.exports = [
         code: 'Code 02',
         period: '201902',
         types: [],
-        value: 'Value 02',
       },
     ],
     logs: {
@@ -49,10 +48,8 @@ module.exports = [
           {
             code: 1,
             count: 0,
-            processed: 0,
           },
         ],
-        value: 'Value 03',
       },
     ],
     logs: {
@@ -76,14 +73,11 @@ module.exports = [
           {
             code: 1,
             count: 0,
-            processed: 0,
           }, {
             code: 2,
             count: 0,
-            processed: 0,
           },
         ],
-        value: 'Value 04',
       },
     ],
     logs: {
