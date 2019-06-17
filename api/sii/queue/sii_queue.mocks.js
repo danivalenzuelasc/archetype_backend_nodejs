@@ -14,6 +14,7 @@ module.exports = [
     synchronize: {
       date: null,
       period: null,
+      status: false,
       type: 'Automatic',
     },
     user: '1-1',
@@ -34,6 +35,7 @@ module.exports = [
     synchronize: {
       date: null,
       period: null,
+      status: false,
       type: 'Automatic',
     },
     user: '1-2',
@@ -59,6 +61,7 @@ module.exports = [
     synchronize: {
       date: '2019-01-01T00:00:00.000Z',
       period: null,
+      status: false,
       type: 'Automatic',
     },
     user: '1-3',
@@ -87,6 +90,7 @@ module.exports = [
     synchronize: {
       date: '2019-01-01T00:00:00.000Z',
       period: null,
+      status: true,
       type: 'Automatic',
     },
     user: '1-4',
@@ -101,6 +105,7 @@ module.exports = [
     synchronize: {
       date: '2019-01-01T00:00:00.000Z',
       period: '201901',
+      status: true,
       type: 'Priority',
     },
     user: '1-5',
@@ -115,6 +120,7 @@ module.exports = [
     synchronize: {
       date: '2019-01-01T00:00:00.000Z',
       period: '201901',
+      status: true,
       type: 'Priority',
     },
     user: '1-6',
@@ -129,6 +135,7 @@ module.exports = [
     synchronize: {
       date: null,
       period: null,
+      status: false,
       type: null,
     },
     user: null,
@@ -143,6 +150,7 @@ module.exports = [
     synchronize: {
       date: null,
       period: null,
+      status: false,
       type: null,
     },
     user: null,
@@ -157,6 +165,7 @@ module.exports = [
     synchronize: {
       date: null,
       period: null,
+      status: false,
       type: null,
     },
     user: null,
@@ -171,6 +180,7 @@ module.exports = [
     synchronize: {
       date: null,
       period: null,
+      status: false,
       type: null,
     },
     user: null,

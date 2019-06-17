@@ -48,6 +48,7 @@ mocks.forEach(async (row) => {
           expect(response.body.synchronize).toBeDefined();
           expect(response.body.synchronize.date).toEqual(row.synchronize.date);
           expect(response.body.synchronize.period).toEqual(row.synchronize.period);
+          expect(response.body.synchronize.status).toEqual(row.synchronize.status);
           expect(response.body.synchronize.type).toEqual(row.synchronize.type);
           expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
@@ -95,6 +96,7 @@ mocks.forEach(async (row) => {
           expect(response.body.synchronize).toBeDefined();
           expect(response.body.synchronize.date).toEqual(row.synchronize.date);
           expect(response.body.synchronize.period).toEqual(row.synchronize.period);
+          expect(response.body.synchronize.status).toEqual(row.synchronize.status);
           expect(response.body.synchronize.type).toEqual(row.synchronize.type);
           expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
@@ -144,6 +146,7 @@ mocks.forEach(async (row) => {
           expect(response.body.synchronize).toBeDefined();
           expect(response.body.synchronize.date).toEqual(row.synchronize.date);
           expect(response.body.synchronize.period).toEqual(row.synchronize.period);
+          expect(response.body.synchronize.status).toEqual(row.synchronize.status);
           expect(response.body.synchronize.type).toEqual(row.synchronize.type);
           expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
@@ -191,6 +194,7 @@ mocks.forEach(async (row) => {
           expect(response.body.synchronize).toBeDefined();
           expect(response.body.synchronize.date).toEqual(row.synchronize.date);
           expect(response.body.synchronize.period).toEqual(row.synchronize.period);
+          expect(response.body.synchronize.status).toEqual(row.synchronize.status);
           expect(response.body.synchronize.type).toEqual(row.synchronize.type);
           expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
@@ -395,7 +399,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
     });
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async () => {
-  await request().get('/sii/queue?limit=5&page=-1&order=asc&logs=d,t&type=a')
+  await request().get('/sii/queue?limit=5&page=-1&order=asc&logs=d,t&type=a&send')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
@@ -403,7 +407,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
         expect(response.body.paging.limit).toEqual(5);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(6);
+        expect(response.body.paging.total).toEqual(3);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;

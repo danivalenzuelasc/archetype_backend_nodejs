@@ -69,6 +69,11 @@ const SiiQueueSchema = new mongoose.Schema({
       trim: true,
       type: String,
     },
+    status: {
+      default: false,
+      index: true,
+      type: Boolean,
+    },
     type: {
       default: 'Automatic',
       enum: [

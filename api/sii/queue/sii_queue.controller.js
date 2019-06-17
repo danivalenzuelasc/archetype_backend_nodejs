@@ -51,6 +51,7 @@ exports.list = (req, res) => {
   filters.query = Object.prototype.hasOwnProperty.call(req.query, 'short')
     ? '_id synchronize user'
     : '';
+  filters.send = Object.prototype.hasOwnProperty.call(req.query, 'send');
   filters.sort = req.query.order && req.query.order === 'desc'
     ? -1
     : 1;
@@ -81,6 +82,9 @@ exports.list = (req, res) => {
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   };
+  if (filters.send) {
+    query['synchronize.status'] = false;
+  }
   if (filters.type) {
     query['synchronize.type'] = filters.type;
   }
