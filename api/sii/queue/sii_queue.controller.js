@@ -21,10 +21,13 @@ exports.create = (req, res) => {
       // Se retorna la respuesta del documento almacenado
       res.status(201).json(response);
     })
-    .catch((error) => {
+    .catch((errorCreate) => {
       // Se retorna la respuesta con problemas
-      errorTraceRaven(error);
-      res.status(400).json(errorResponse('create').response);
+      errorTraceRaven(errorCreate);
+      res.status(400).json({
+        error: errorResponse('create').response,
+        errorTrace: errorCreate,
+      });
     });
 };
 
@@ -128,7 +131,10 @@ exports.list = (req, res) => {
         .catch((errorList) => {
           // Se retorna la respuesta con problemas
           errorTraceRaven(errorList);
-          res.status(404).json(errorResponse('list').response);
+          res.status(404).json({
+            error: errorResponse('list').response,
+            errorTrace: errorList,
+          });
         });
     });
 };
@@ -164,7 +170,10 @@ exports.remove = (req, res) => {
     .catch((errorFind) => {
       // Se retorna la respuesta con problemas
       errorTraceRaven(errorFind);
-      res.status(404).send(errorResponse('remove').response);
+      res.status(404).send({
+        error: errorResponse('remove').response,
+        errorTrace: errorFind,
+      });
     });
 };
 
@@ -214,11 +223,17 @@ exports.sync = (req, res) => {
       .catch((errorFind) => {
         // Se retorna la respuesta con problemas
         errorTraceRaven(errorFind);
-        res.status(404).send(errorResponse('view').response);
+        res.status(404).send({
+          error: errorResponse('view').response,
+          errorTrace: errorFind,
+        });
       });
   } else {
     // Se retorna la respuesta con problemas
-    res.status(404).send(errorResponse('view').response);
+    res.status(404).send({
+      error: errorResponse('view').response,
+      errorTrace: {},
+    });
   }
 };
 
@@ -252,7 +267,10 @@ exports.update = (req, res) => {
     .catch((errorFind) => {
       // Se retorna la respuesta con problemas
       errorTraceRaven(errorFind);
-      res.status(404).send(errorResponse('update').response);
+      res.status(404).send({
+        error: errorResponse('update').response,
+        errorTrace: errorFind,
+      });
     });
 };
 
@@ -275,6 +293,9 @@ exports.view = (req, res) => {
     .catch((errorFind) => {
       // Se retorna la respuesta con problemas
       errorTraceRaven(errorFind);
-      res.status(404).send(errorResponse('view').response);
+      res.status(404).send({
+        error: errorResponse('view').response,
+        errorTrace: errorFind,
+      });
     });
 };

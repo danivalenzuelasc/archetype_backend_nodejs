@@ -54,8 +54,10 @@ mocks.forEach(async (row) => {
         } else if (response.statusCode === 400) {
           const error = errorResponse('create').response;
           expect(response.body).toBeDefined();
-          expect(response.body.message).toEqual(error.message);
-          expect(response.body.status).toEqual(error.status);
+          expect(response.body.error).toBeDefined();
+          expect(response.body.error.message).toEqual(error.message);
+          expect(response.body.error.status).toEqual(error.status);
+          expect(response.body.errorTrace).toBeDefined();
         }
       });
   }, 10000);
@@ -102,8 +104,10 @@ mocks.forEach(async (row) => {
         } else if (response.statusCode === 400) {
           const error = errorResponse('view').response;
           expect(response.body).toBeDefined();
-          expect(response.body.message).toEqual(error.message);
-          expect(response.body.status).toEqual(error.status);
+          expect(response.body.error).toBeDefined();
+          expect(response.body.error.message).toEqual(error.message);
+          expect(response.body.error.status).toEqual(error.status);
+          expect(response.body.errorTrace).toBeDefined();
         }
       });
   }, 10000);
@@ -152,8 +156,10 @@ mocks.forEach(async (row) => {
         } else if (response.statusCode === 400) {
           const error = errorResponse('update').response;
           expect(response.body).toBeDefined();
-          expect(response.body.message).toEqual(error.message);
-          expect(response.body.status).toEqual(error.status);
+          expect(response.body.error).toBeDefined();
+          expect(response.body.error.message).toEqual(error.message);
+          expect(response.body.error.status).toEqual(error.status);
+          expect(response.body.errorTrace).toBeDefined();
         }
       });
   }, 10000);
@@ -200,8 +206,10 @@ mocks.forEach(async (row) => {
         } else if (response.statusCode === 400) {
           const error = errorResponse('remove').response;
           expect(response.body).toBeDefined();
-          expect(response.body.message).toEqual(error.message);
-          expect(response.body.status).toEqual(error.status);
+          expect(response.body.error).toBeDefined();
+          expect(response.body.error.message).toEqual(error.message);
+          expect(response.body.error.status).toEqual(error.status);
+          expect(response.body.errorTrace).toBeDefined();
         }
       });
   }, 10000);
@@ -224,8 +232,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
       } else if (response.statusCode === 400) {
         const error = errorResponse('view').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -241,8 +251,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
       } else if (response.statusCode === 400) {
         const error = errorResponse('view').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -258,8 +270,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
       } else if (response.statusCode === 400) {
         const error = errorResponse('view').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -275,8 +289,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
       } else if (response.statusCode === 400) {
         const error = errorResponse('view').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -292,8 +308,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (GET) [siiQueue.sync]`, () => {
       } else if (response.statusCode === 400) {
         const error = errorResponse('view').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -317,8 +335,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -336,8 +356,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -355,8 +377,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -374,8 +398,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -393,8 +419,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -412,8 +440,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -431,8 +461,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -450,8 +482,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -469,8 +503,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
@@ -488,8 +524,10 @@ test(`Prueba ${getCounter()} - Metodo /sii/queue (LIST) [siiQueue.list]`, async 
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
         expect(response.body).toBeDefined();
-        expect(response.body.message).toEqual(error.message);
-        expect(response.body.status).toEqual(error.status);
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
       }
     });
 }, 10000);
