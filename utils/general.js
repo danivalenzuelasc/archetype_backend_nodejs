@@ -1,5 +1,5 @@
 // Declaracion de dependencias
-const raven = require('raven');
+const sentry = require('@sentry/node');
 
 // Metodo responseValueInternal()
 function responseValueInternal(response = null, a = null, b = null, c = null) {
@@ -16,10 +16,8 @@ function responseValueInternal(response = null, a = null, b = null, c = null) {
 }
 
 // Se exporta el metodo errorTraceRaven()
-exports.errorTraceRaven = (response = null, error = null, force = false) => {
-  if (force) {
-    raven.captureException(responseValueInternal({}, response, error));
-  }
+exports.errorTraceRaven = (response = null, error = null) => {
+  sentry.captureException(responseValueInternal({}, response, error));
 };
 
 // Se exporta el metodo responseValue()

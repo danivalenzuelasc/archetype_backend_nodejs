@@ -1,11 +1,11 @@
 // Declaracion de dependencias
 const bodyParser = require('body-parser');
+const credentials = require('./config/credentials');
 const express = require('express');
 const expressPrettify = require('express-prettify');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
-const raven = require('raven');
-const credentials = require('./config/credentials');
+const sentry = require('@sentry/node');
 const settings = require('./config/settings');
 mongoose.Promise = require('bluebird');
 
@@ -18,11 +18,9 @@ const forceSsl = (req, res, next) => {
 };
 
 // Configuracion con SentryIO
-if (process.env.NODE_ENV === 'production') {
-  raven.config(credentials.sentry, {
-    environment: process.env.NODE_ENV,
-  }).install();
-}
+sentry.init({
+  dsn: credentials.sentry,
+});
 
 // Configuracion con MongoDB
 mongoose.connect(credentials.mongodb, {
@@ -31,7 +29,7 @@ mongoose.connect(credentials.mongodb, {
   useNewUrlParser: true,
 });
 mongoose.connection.on('error', (error) => {
-  raven.captureException(error);
+  sentry.captureException(error);
   process.exit(-1);
 });
 
