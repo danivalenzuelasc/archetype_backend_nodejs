@@ -24,9 +24,9 @@ module.exports = {
     saveMany: 20,
   },
   synchronization: {
-    credential: '',
-    document: '',
-    queue: '',
+    credential: 'http://10.233.32.249:7000/sii/credential',
+    document: 'http://10.233.32.249:7000/sii/document',
+    queue: 'http://10.233.32.249:7000/sii/done',
   },
   tokenExpires: 900000,
   typesOfDocuments: [
