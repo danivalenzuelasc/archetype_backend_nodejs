@@ -32,7 +32,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 01',
-      code: 1,
+      codeOffice: 1,
       codeSII: 1,
       containerDeposit: 1,
       foreign: {
@@ -141,7 +141,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 02',
-      code: 2,
+      codeOffice: 2,
       codeSII: 2,
       containerDeposit: 2,
       foreign: {
@@ -250,7 +250,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 03',
-      code: 3,
+      codeOffice: 3,
       codeSII: 3,
       containerDeposit: 3,
       foreign: {
@@ -365,7 +365,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 04',
-      code: 4,
+      codeOffice: 4,
       codeSII: 4,
       containerDeposit: 4,
       foreign: {
@@ -484,7 +484,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 05',
-      code: 5,
+      codeOffice: 5,
       codeSII: 5,
       containerDeposit: 5,
       foreign: {
@@ -611,7 +611,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 06',
-      code: 6,
+      codeOffice: 6,
       codeSII: 6,
       containerDeposit: 6,
       foreign: {
@@ -720,7 +720,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 07',
-      code: 7,
+      codeOffice: 7,
       codeSII: 7,
       containerDeposit: 7,
       foreign: {
@@ -829,8 +829,8 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 08',
-      code: null,
-      codeSII: 8,
+      codeOffice: 8,
+      codeSII: null,
       containerDeposit: 8,
       foreign: {
         dni: 'Foreign DNI 08',
@@ -938,7 +938,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 09',
-      code: 9,
+      codeOffice: 9,
       codeSII: 9,
       containerDeposit: 9,
       foreign: {
@@ -1047,7 +1047,7 @@ module.exports = [
     },
     document: {
       accountingStatement: 'State 010',
-      code: 10,
+      codeOffice: 10,
       codeSII: 10,
       containerDeposit: 10,
       foreign: {

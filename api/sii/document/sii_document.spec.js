@@ -49,7 +49,7 @@ mocks.forEach(async (row) => {
           expect(response.body.date.reclaimed).toEqual(row.date.reclaimed);
           expect(response.body.document).toBeDefined();
           expect(response.body.document.accountingStatement).toEqual(row.document.accountingStatement);
-          expect(response.body.document.code).toEqual(row.document.code);
+          expect(response.body.document.codeOffice).toEqual(row.document.codeOffice);
           expect(response.body.document.codeSII).toEqual(row.document.codeSII);
           expect(response.body.document.containerDeposit).toEqual(row.document.containerDeposit);
           expect(response.body.document.foreign).toBeDefined();
@@ -171,7 +171,7 @@ mocks.forEach(async (row) => {
           expect(response.body.date.reclaimed).toEqual(row.date.reclaimed);
           expect(response.body.document).toBeDefined();
           expect(response.body.document.accountingStatement).toEqual(row.document.accountingStatement);
-          expect(response.body.document.code).toEqual(row.document.code);
+          expect(response.body.document.codeOffice).toEqual(row.document.codeOffice);
           expect(response.body.document.codeSII).toEqual(row.document.codeSII);
           expect(response.body.document.containerDeposit).toEqual(row.document.containerDeposit);
           expect(response.body.document.foreign).toBeDefined();
@@ -295,7 +295,7 @@ mocks.forEach(async (row) => {
           expect(response.body.date.reclaimed).toEqual(row.date.reclaimed);
           expect(response.body.document).toBeDefined();
           expect(response.body.document.accountingStatement).toEqual(row.document.accountingStatement);
-          expect(response.body.document.code).toEqual(row.document.code);
+          expect(response.body.document.codeOffice).toEqual(row.document.codeOffice);
           expect(response.body.document.codeSII).toEqual(row.document.codeSII);
           expect(response.body.document.containerDeposit).toEqual(row.document.containerDeposit);
           expect(response.body.document.foreign).toBeDefined();
@@ -418,7 +418,7 @@ mocks.forEach(async (row) => {
           expect(response.body.date.reclaimed).toEqual(row.date.reclaimed);
           expect(response.body.document).toBeDefined();
           expect(response.body.document.accountingStatement).toEqual(row.document.accountingStatement);
-          expect(response.body.document.code).toEqual(row.document.code);
+          expect(response.body.document.codeOffice).toEqual(row.document.codeOffice);
           expect(response.body.document.codeSII).toEqual(row.document.codeSII);
           expect(response.body.document.containerDeposit).toEqual(row.document.containerDeposit);
           expect(response.body.document.foreign).toBeDefined();

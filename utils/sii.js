@@ -210,8 +210,8 @@ exports.mapperDocument = (document, code = null, operation = null, user = null, 
       },
       document: {
         accountingStatement: document.dcvEstadoContab, // String => Estado contable del documento
-        code, // Number => Codigo del tipo de documento
-        codeSII: document.detCdgSIISucur, // Number => Codigo de la sucursal del SII
+        codeOffice: document.detCdgSIISucur, // Number => Codigo de la sucursal del SII
+        codeSII: code, // Number => Codigo del tipo de documento
         containerDeposit: document.detDepEnvase, // Number => Garantia de deposito de envases
         foreign: {
           dni: document.detExpNumId, // String => Numero de identificacion del receptor extranjero

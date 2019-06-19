@@ -97,15 +97,15 @@ const SiiDocumentSchema = new mongoose.Schema({
       trim: true,
       type: String,
     },
-    code: {
+    codeOffice: {
+      default: null,
+      type: Number,
+    },
+    codeSII: {
       index: true,
       required: true,
       type: Number,
       unique: true,
-    },
-    codeSII: {
-      default: null,
-      type: Number,
     },
     containerDeposit: {
       default: null,
@@ -385,7 +385,7 @@ const SiiDocumentSchema = new mongoose.Schema({
 // Se crean los indices del esquema
 SiiDocumentSchema.index({
   'business.rut': 1,
-  'document.code': 1,
+  'document.codeSII': 1,
   'document.id': 1,
 }, {
   unique: true,

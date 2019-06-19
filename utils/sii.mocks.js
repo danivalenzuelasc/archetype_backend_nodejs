@@ -365,8 +365,8 @@ exports.outputMapperDocument = [
     },
     document: {
       accountingStatement: null,
-      code: 1,
-      codeSII: 0,
+      codeOffice: 0,
+      codeSII: 1,
       containerDeposit: null,
       foreign: {
         dni: null,
@@ -456,8 +456,8 @@ exports.outputMapperDocument = [
     },
     document: {
       accountingStatement: null,
-      code: 2,
-      codeSII: 80313898,
+      codeOffice: 80313898,
+      codeSII: 2,
       containerDeposit: null,
       foreign: {
         dni: null,
@@ -547,8 +547,8 @@ exports.outputMapperDocument = [
     },
     document: {
       accountingStatement: null,
-      code: null,
-      codeSII: 80313898,
+      codeOffice: 80313898,
+      codeSII: null,
       containerDeposit: null,
       foreign: {
         dni: null,
@@ -638,8 +638,8 @@ exports.outputMapperDocument = [
     },
     document: {
       accountingStatement: null,
-      code: null,
-      codeSII: 0,
+      codeOffice: 0,
+      codeSII: null,
       containerDeposit: null,
       foreign: {
         dni: null,

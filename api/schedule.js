@@ -335,10 +335,10 @@ function connectAPIFacturaQueue(queue, user) {
  * Parametros de entrada
  * document => Documento a guardar en la base de datos
  */
-function documentCreate(document) {
+function documentCreate(listDocuments) {
   // Configuramos la peticion de la llamada de creacion de un documento
   const options = {
-    body: document,
+    body: listDocuments,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -352,7 +352,7 @@ function documentCreate(document) {
     .then(() => {})
     // Se procede a notificar en caso de que se presente algun error al crear un documento
     .catch((error) => {
-      documentCreate(document);
+      documentCreate(listDocuments);
       errorTraceRaven(error);
       error = null;
     });
