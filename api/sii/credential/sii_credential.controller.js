@@ -254,12 +254,17 @@ exports.verify = (req, res) => {
         // Se retorna la respuesta de las credenciales verificadas
         res.status(200).json(response);
       } else {
-        // Se retorna la respuesta con problemas
-        res.status(400).json({
-          error: errorResponse('create').response,
-          errorTrace: {},
-        });
+        // Se verifica que el documento no presente fallas, en caso de contar con fallas se retorna un error
+        throw new Error();
       }
+    })
+    .catch((errorGetCredentials) => {
+      // Se retorna la respuesta con problemas
+      errorTraceRaven(errorGetCredentials);
+      res.status(400).json({
+        error: errorResponse('create').response,
+        errorTrace: {},
+      });
     });
 };
 

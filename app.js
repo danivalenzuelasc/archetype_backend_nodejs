@@ -20,6 +20,7 @@ const forceSsl = (req, res, next) => {
 // Configuracion con SentryIO
 sentry.init({
   dsn: credentials.sentry,
+  environment: process.env.NODE_ENV || 'development',
 });
 
 // Configuracion con MongoDB
