@@ -280,8 +280,8 @@ function connectAPIFacturaDocument(document, method) {
       documentSend(document._id, {
         execute: true,
         error: {
-          code: 0,
-          message: 'Error',
+          code: error.status,
+          message: error.type,
         },
       });
       errorTraceRaven(error);
@@ -303,8 +303,10 @@ function connectAPIFacturaQueue(queue, user) {
   // Configuramos la peticion de la llamada de sincronizacion de colas
   let options = {
     body: {
-      queue,
-      user,
+      transaction: {
+        queue,
+        user,
+      },
     },
     headers: {
       'Content-Type': 'application/json',
