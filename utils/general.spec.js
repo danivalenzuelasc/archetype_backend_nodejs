@@ -18,22 +18,22 @@ test(`Prueba ${getCounter()} - Metodo errorTraceRaven()`, async () => {
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo errorTraceRaven()`, async () => {
   counter += 1;
-  const response = await errorTraceRaven(null, null, true);
+  const response = await errorTraceRaven(null, null);
   expect(response).toBeUndefined();
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo errorTraceRaven()`, async () => {
   counter += 1;
-  const response = await errorTraceRaven({}, null, true);
+  const response = await errorTraceRaven({}, null);
   expect(response).toBeUndefined();
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo errorTraceRaven()`, async () => {
   counter += 1;
-  const response = await errorTraceRaven(null, {}, true);
+  const response = await errorTraceRaven(null, {});
   expect(response).toBeUndefined();
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo errorTraceRaven()`, async () => {
   counter += 1;
-  const response = await errorTraceRaven({}, {}, true);
+  const response = await errorTraceRaven({}, {});
   expect(response).toBeUndefined();
 }, 10000);
 
@@ -48,39 +48,39 @@ test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
   counter += 1;
-  const response = responseValue(null, 1, 2);
+  const response = responseValue(null, 1);
   expect(response).toBeDefined();
   expect(response).toEqual(1);
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
   counter += 1;
-  const response = responseValue(null, 1, 2, 3);
+  const response = responseValue(null, 2);
+  expect(response).toBeDefined();
+  expect(response).toEqual(2);
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
+  counter += 1;
+  const response = responseValue(null, null);
+  expect(response).toBeDefined();
+  expect(response).toEqual({});
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
+  counter += 1;
+  const response = responseValue(1, null);
   expect(response).toBeDefined();
   expect(response).toEqual(1);
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
   counter += 1;
-  const response = responseValue(null, null, 2);
+  const response = responseValue(1, 2);
   expect(response).toBeDefined();
-  expect(response).toEqual(2);
-}, 10000);
-test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
-  counter += 1;
-  const response = responseValue(null, null, 2, 3);
-  expect(response).toBeDefined();
-  expect(response).toEqual(2);
-}, 10000);
-test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
-  counter += 1;
-  const response = responseValue(null, null, null, 3);
-  expect(response).toBeDefined();
-  expect(response).toEqual(3);
+  expect(response).toEqual(1);
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo responseValue()`, () => {
   counter += 1;
   const response = responseValue();
   expect(response).toBeDefined();
-  expect(response).toBeNull();
+  expect(response).toEqual({});
 }, 10000);
 
 /**
