@@ -1,7 +1,7 @@
 // Declaracion de dependencias
 const cryptr = require('cryptr');
 const moment = require('moment');
-const request = require('request-promise');
+const request = require('request');
 const settings = require('./../config/settings');
 const Cryptr = new cryptr(settings.endpoint.crypt);
 const { url } = require('./../config/sii');
@@ -37,7 +37,7 @@ exports.generateUUID = generateUUIDInternal;
 // Se exporta el metodo getCredentials()
 exports.getCredentials = (dni, password, transaction = false) => {
   if (process.env.NODE_ENV === 'production' || transaction) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       let aux0;
       let aux1;
       let list = {};
@@ -57,22 +57,27 @@ exports.getCredentials = (dni, password, transaction = false) => {
         resolveWithFullResponse: true,
         uri: url.credential.uri,
       };
-      request(options)
-        .then((response) => {
-          if (response && response.headers && response.headers['set-cookie']) {
-            response.headers['set-cookie'].forEach((cookie) => {
-              aux0 = cookie.split(';')[0].split('=')[0];
-              aux1 = cookie.split(';')[0].split('=')[1];
-              list[aux0] = aux1;
-            });
-            resolve(list);
-          } else {
-            resolve({});
-          }
-        })
-        .finally(() => {
-          aux0 = aux1 = dni = list = password = options = transaction = null;
-        });
+      request(options, (error, response) => {
+        /* istanbul ignore next */
+        if (error) {
+          /* istanbul ignore next */
+          aux0 = aux1 = dni = list = options = password = response = transaction = null;
+          /* istanbul ignore next */
+          reject(error);
+        }
+        if (response && response.headers && response.headers['set-cookie']) {
+          response.headers['set-cookie'].forEach((cookie) => {
+            aux0 = cookie.split(';')[0].split('=')[0];
+            aux1 = cookie.split(';')[0].split('=')[1];
+            list[aux0] = aux1;
+          });
+          aux0 = aux1 = dni = error = options = password = transaction = null;
+          resolve(list);
+        } else {
+          aux0 = aux1 = dni = error = list = options = password = response = transaction = null;
+          resolve({});
+        }
+      });
     });
   }
   return new Promise((resolve, reject) => {
@@ -118,22 +123,22 @@ exports.getDocuments = (transaction, data, year, month) => {
       resolveWithFullResponse: true,
       uri: `${url.document.uri}/${data.url}`,
     };
-    request(options)
-      .then((response) => {
-        if (response && response.body && Array.isArray(response.body.data) && response.body.data.length > 0) {
-          resolve(response.body.data);
-          response = null;
-        } else {
-          resolve([]);
-        }
-      })
-      .catch(() => {
+    request(options, (error, response) => {
+      /* istanbul ignore next */
+      if (error) {
         /* istanbul ignore next */
-        reject(new Error(''));
-      })
-      .finally(() => {
-        data = month = options = transaction = year = null;
-      });
+        data = error = month = options = response = transaction = year = null;
+        /* istanbul ignore next */
+        reject(error);
+      }
+      if (response && response.body && Array.isArray(response.body.data) && response.body.data.length > 0) {
+        data = error = month = options = transaction = year = null;
+        resolve(response.body.data);
+      } else {
+        data = error = month = options = response = transaction = year = null;
+        resolve([]);
+      }
+    });
   });
 };
 
@@ -167,18 +172,22 @@ exports.getSummary = (transaction, data, year, month) => {
       resolveWithFullResponse: true,
       uri: url.summary.uri,
     };
-    request(options)
-      .then((response) => {
-        resolve(response.body.data ? response.body.data : []);
-        response = null;
-      })
-      .catch(() => {
+    request(options, (error, response) => {
+      /* istanbul ignore next */
+      if (error) {
         /* istanbul ignore next */
-        reject(new Error(''));
-      })
-      .finally(() => {
-        data = month = options = transaction = year = null;
-      });
+        data = month = options = response = transaction = year = null;
+        /* istanbul ignore next */
+        reject(error);
+      }
+      if (response && response.body && Array.isArray(response.body.data) && response.body.data.length > 0) {
+        data = error = month = options = transaction = year = null;
+        resolve(response.body.data);
+      } else {
+        data = error = month = options = response = transaction = year = null;
+        resolve([]);
+      }
+    });
   });
 };
 
