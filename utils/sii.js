@@ -120,14 +120,15 @@ exports.getDocuments = (transaction, data, year, month) => {
     };
     request(options)
       .then((response) => {
-        if (response && response.body && response.body.data) {
+        if (response && response.body && Array.isArray(response.body.data) && response.body.data.length > 0) {
           resolve(response.body.data);
           response = null;
         } else {
-          reject(new Error(''));
+          resolve([]);
         }
       })
       .catch(() => {
+        /* istanbul ignore next */
         reject(new Error(''));
       })
       .finally(() => {

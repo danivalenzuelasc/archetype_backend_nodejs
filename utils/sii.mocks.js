@@ -639,7 +639,7 @@ exports.outputMapperDocument = [
     document: {
       accountingStatement: null,
       codeOffice: 0,
-      codeSII: null,
+      codeSII: 1,
       containerDeposit: null,
       foreign: {
         dni: null,
@@ -651,7 +651,7 @@ exports.outputMapperDocument = [
         service: null,
       },
       internalSII: null,
-      operation: null,
+      operation: 'COMPRA',
       passage: {
         international: null,
         national: null,
@@ -699,8 +699,8 @@ exports.outputMapperDocument = [
       vehicles: 0,
     },
     transaction: {
-      queue: null,
-      user: null,
+      queue: '1234567890',
+      user: '1-1',
     },
   },
 ];
