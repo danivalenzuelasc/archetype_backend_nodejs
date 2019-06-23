@@ -2,22 +2,22 @@
 const sentry = require('@sentry/node');
 
 // Metodo responseValueInternal()
-function responseValueInternal(response = null, a = null, b = null, c = null) {
-  if (a) {
-    return a;
+function responseValueInternal(response = null, error = null) {
+  if (response) {
+    return response;
   }
-  if (b) {
-    return b;
+  if (error) {
+    return error;
   }
-  if (c) {
-    return c;
-  }
-  return response;
+  return {};
 }
 
 // Se exporta el metodo errorTraceRaven()
 exports.errorTraceRaven = (response = null, error = null) => {
-  sentry.captureException(responseValueInternal({}, response, error));
+  /* istanbul ignore next */
+  if (process.env.NODE_ENV !== 'testing') {
+    sentry.captureException(responseValueInternal(response, error));
+  }
 };
 
 // Se exporta el metodo responseValue()
