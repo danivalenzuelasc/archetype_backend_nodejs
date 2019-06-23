@@ -172,6 +172,7 @@ exports.getSummary = (transaction, data, year, month) => {
         response = null;
       })
       .catch(() => {
+        /* istanbul ignore next */
         reject(new Error(''));
       })
       .finally(() => {

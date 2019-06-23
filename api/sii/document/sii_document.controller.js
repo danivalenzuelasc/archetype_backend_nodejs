@@ -51,7 +51,7 @@ exports.list = (req, res) => {
       : filters.limit * (parseInt(req.query.page, 10) - 1)
     : 0;
   filters.query = Object.prototype.hasOwnProperty.call(req.query, 'short')
-    ? '_id document execute'
+    ? '_id business.rut document.codeSII document.id'
     : '';
   filters.send = Object.prototype.hasOwnProperty.call(req.query, 'send');
   filters.sort = req.query.order && req.query.order === 'desc'

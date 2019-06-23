@@ -165,14 +165,14 @@ module.exports = {
   },
   users: [
     {
-      password: '222422',
-      user: '17.052.424-1',
+      password: 'b224d50fbf45468c4b908803cd54de5786c623651007',
+      user: 'fa2383734fab8c3623a3ef1aef45688504e7030881440138996534f6',
     }, {
-      password: 'isidora',
-      user: '76.973.499-6',
+      password: '0a7d23fda1250685d4f8903f706f95b880dd21b91b5366',
+      user: '709b9088486fdec9b4ff05886b69247f322327d4c45bdda037b54cd7',
     }, {
-      password: 'Nubox.2019',
-      user: '76.103.915-6',
+      password: '5d200e84ea182d8ab475288eba41829e529bfd659f984a1a95ba',
+      user: 'c846b0781676ebb7f8b17b29b48e9f0dbc26cc8a84d65cecfe2dbfae',
     },
   ],
 };
