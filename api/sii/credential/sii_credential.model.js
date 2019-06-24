@@ -57,7 +57,6 @@ const SiiCredentialSchema = new mongoose.Schema({
     required: true,
     trim: true,
     type: String,
-    unique: true,
   },
 });
 
@@ -65,6 +64,7 @@ const SiiCredentialSchema = new mongoose.Schema({
 SiiCredentialSchema.index({
   user: 1,
 }, {
+  name: 'duplicate',
   unique: true,
 });
 

@@ -25,7 +25,9 @@ sentry.init({
 
 // Configuracion con MongoDB
 mongoose.connect(credentials.mongodb, {
-  autoIndex: false,
+  autoCreate: true,
+  autoIndex: true,
+  useCreateIndex: true,
   useFindAndModify: false,
   useNewUrlParser: true,
 });

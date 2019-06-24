@@ -70,7 +70,6 @@ const SiiDocumentSchema = new mongoose.Schema({
       index: true,
       required: true,
       type: Number,
-      unique: true,
     },
   },
   date: {
@@ -105,7 +104,6 @@ const SiiDocumentSchema = new mongoose.Schema({
       index: true,
       required: true,
       type: Number,
-      unique: true,
     },
     containerDeposit: {
       default: null,
@@ -127,7 +125,6 @@ const SiiDocumentSchema = new mongoose.Schema({
       index: true,
       required: true,
       type: Number,
-      unique: true,
     },
     indicator: {
       freeCharge: {
@@ -388,6 +385,7 @@ SiiDocumentSchema.index({
   'document.codeSII': 1,
   'document.id': 1,
 }, {
+  name: 'duplicate',
   unique: true,
 });
 

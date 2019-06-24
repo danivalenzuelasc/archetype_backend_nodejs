@@ -91,7 +91,6 @@ const SiiQueueSchema = new mongoose.Schema({
     required: true,
     trim: true,
     type: String,
-    unique: true,
   },
 });
 
@@ -99,6 +98,7 @@ const SiiQueueSchema = new mongoose.Schema({
 SiiQueueSchema.index({
   user: 1,
 }, {
+  name: 'duplicate',
   unique: true,
 });
 
