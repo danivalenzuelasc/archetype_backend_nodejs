@@ -47,6 +47,7 @@
       "config/sii.js",
       "coverage",
       "node_modules",
+      "nodeWindows.js",
       "public",
       "task/pretest.js"
     ],
