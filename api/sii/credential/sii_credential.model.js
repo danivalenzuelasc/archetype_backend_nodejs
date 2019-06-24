@@ -57,16 +57,12 @@ const SiiCredentialSchema = new mongoose.Schema({
     required: true,
     trim: true,
     type: String,
+    unique: true,
   },
 });
 
 // Se crean los indices del esquema
-SiiCredentialSchema.index({
-  user: 1,
-}, {
-  name: 'duplicate',
-  unique: true,
-});
+SiiCredentialSchema.index({});
 
 // Se exporta el esquema SiiCredential
 module.exports = mongoose.model('SiiCredential', SiiCredentialSchema);

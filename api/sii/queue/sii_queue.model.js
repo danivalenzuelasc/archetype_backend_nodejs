@@ -91,16 +91,12 @@ const SiiQueueSchema = new mongoose.Schema({
     required: true,
     trim: true,
     type: String,
+    unique: true,
   },
 });
 
 // Se crean los indices del esquema
-SiiQueueSchema.index({
-  user: 1,
-}, {
-  name: 'duplicate',
-  unique: true,
-});
+SiiQueueSchema.index({});
 
 // Se exporta el esquema SiiQueue
 module.exports = mongoose.model('SiiQueue', SiiQueueSchema);
