@@ -487,3 +487,26 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
       }
     });
 }, 10000);
+
+/**
+ * Prueba del metodo Remove
+ * URI: /sii/credential/:id
+ * Method: DELETE
+ */
+mocks.forEach(async (row) => {
+  await test(`Prueba ${getCounter()} - Metodo /sii/credential/:id (DELETE) [siiCredential.remove]`, async () => {
+    await request().delete(`/sii/credential/delete/${row.user}`)
+      .then((response) => {
+        if (response.statusCode === 200) {
+          expect(response.body).toEqual({});
+        } else if (response.statusCode === 400) {
+          const error = errorResponse('remove').response;
+          expect(response.body).toBeDefined();
+          expect(response.body.error).toBeDefined();
+          expect(response.body.error.message).toEqual(error.message);
+          expect(response.body.error.status).toEqual(error.status);
+          expect(response.body.errorTrace).toBeDefined();
+        }
+      });
+  }, 10000);
+});

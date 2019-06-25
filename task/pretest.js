@@ -9,7 +9,7 @@ app.listen(() => {
   const promises = [];
   Object.keys(collections()).forEach((collection) => {
     const promise = new Promise((resolve, reject) => {
-      collections()[collection].model.deleteMany({ 'logs.test': true })
+      collections()[collection].model.deleteMany({})
         .then(() => {
           console.info(`-> Eliminando datos de prueba de la colección '${collection}'`);
           resolve();

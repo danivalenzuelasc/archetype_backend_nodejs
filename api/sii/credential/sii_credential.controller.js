@@ -8,6 +8,8 @@ const { getCredentials } = require('./../../../utils/sii');
 
 // Declaracion del esquema
 const SiiCredential = mongoose.model('SiiCredential');
+const SiiDocument = mongoose.model('SiiDocument');
+const SiiQueue = mongoose.model('SiiQueue');
 
 // Declaracion de variables auxiliares
 const Cryptr = new cryptr(settings.endpoint.crypt);
@@ -47,6 +49,56 @@ exports.create = (req, res) => {
       errorTraceRaven(errorCredential);
       res.status(400).json({
         error: errorResponse('create').response,
+        errorTrace: errorCredential,
+      });
+    });
+};
+
+/**
+ * Metodo Delete
+ * URI: /sii/credential/delete/:user
+ * Method: DELETE
+ */
+exports.delete = (req, res) => {
+  // Se verifica que exista el documento en la coleccion
+  SiiCredential.deleteMany({ user: req.params.user })
+    .then(() => {
+      SiiDocument.deleteMany({ 'transaction.user': req.params.user })
+        .then(() => {
+          SiiQueue.deleteMany({ user: req.params.user })
+            .then(() => {
+              // Se retorna la respuesta del documento actualizado
+              res.status(200).json({});
+            })
+            .catch((errorQueue) => {
+              // Se retorna la respuesta con problemas
+              /* istanbul ignore next */
+              errorTraceRaven(errorQueue);
+              /* istanbul ignore next */
+              res.status(404).send({
+                error: errorResponse('remove').response,
+                errorTrace: errorQueue,
+              });
+            });
+        })
+        .catch((errorDocument) => {
+          // Se retorna la respuesta con problemas
+          /* istanbul ignore next */
+          errorTraceRaven(errorDocument);
+          /* istanbul ignore next */
+          res.status(404).send({
+            error: errorResponse('remove').response,
+            errorTrace: errorDocument,
+          });
+        });
+    })
+    .catch((errorCredential) => {
+      // Se retorna la respuesta con problemas
+      /* istanbul ignore next */
+      errorTraceRaven(errorCredential);
+      /* istanbul ignore next */
+      res.status(404).send({
+        error: errorResponse('remove').response,
         errorTrace: errorCredential,
       });
     });
