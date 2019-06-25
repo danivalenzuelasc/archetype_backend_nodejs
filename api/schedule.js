@@ -280,8 +280,8 @@ function connectAPIFacturaDocument(document, method) {
       documentSend(document._id, {
         execute: true,
         error: {
-          code: error.status,
-          message: error.type,
+          code: error.status || 0,
+          message: error.type || 'Generic Response Error',
         },
       });
       errorTraceRaven(error);
