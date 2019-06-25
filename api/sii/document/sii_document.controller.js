@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const settings = require('../../../config/settings');
 const { errorResponse } = require('../../../utils/errors');
-const { errorTraceRaven, responseValue } = require('../../../utils/general');
+const { errorTraceRaven } = require('../../../utils/general');
 
 // Declaracion del esquema
 const SiiDocument = mongoose.model('SiiDocument');

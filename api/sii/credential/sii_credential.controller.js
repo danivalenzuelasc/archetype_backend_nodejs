@@ -3,7 +3,7 @@ const cryptr = require('cryptr');
 const mongoose = require('mongoose');
 const settings = require('../../../config/settings');
 const { errorResponse } = require('../../../utils/errors');
-const { errorTraceRaven, responseValue } = require('../../../utils/general');
+const { errorTraceRaven } = require('../../../utils/general');
 const { getCredentials } = require('./../../../utils/sii');
 
 // Declaracion del esquema
