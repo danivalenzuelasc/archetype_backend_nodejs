@@ -345,11 +345,11 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toBeDefined();
+        expect(response.body.paging.count).toEqual(0);
         expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toBeDefined();
+        expect(response.body.paging.total).toEqual(0);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -366,11 +366,11 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toBeDefined();
+        expect(response.body.paging.count).toEqual(0);
         expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toBeDefined();
+        expect(response.body.paging.total).toEqual(0);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -387,7 +387,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toBeDefined();
+        expect(response.body.paging.count).toEqual(5);
         expect(response.body.paging.limit).toEqual(5);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
@@ -429,7 +429,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toBeDefined();
+        expect(response.body.paging.count).toEqual(3);
         expect(response.body.paging.limit).toEqual(3);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
@@ -450,7 +450,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toBeDefined();
+        expect(response.body.paging.count).toEqual(1);
         expect(response.body.paging.limit).toEqual(500);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
@@ -471,7 +471,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toBeDefined();
+        expect(response.body.paging.count).toEqual(1);
         expect(response.body.paging.limit).toEqual(1);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);

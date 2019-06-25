@@ -1,5 +1,6 @@
 // Declaracion de dependencias
 const service = require('node-windows').Service;
+const settings = require('./config/settings');
 
 // Se configura el servicio Windows que ejecuta el demonio
 var svc = new service({
@@ -7,9 +8,9 @@ var svc = new service({
   name: 'Integraciones Backend CL',
   nodeOptions: [
     '--harmony',
-    '--max_old_space_size=2048'
+    '--max_old_space_size=1024'
   ],
-  script: 'C:\\path\\to\\app.js',
+  script: settings.windowsService,
 });
 
 // Se evalua el evento 'Install' que indica que el proceso está disponible como un servicio

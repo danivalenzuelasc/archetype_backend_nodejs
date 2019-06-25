@@ -3,10 +3,10 @@ const sentry = require('@sentry/node');
 
 // Metodo responseValueInternal()
 function responseValueInternal(response = null, error = null) {
-  if (response) {
+  if (!!response) {
     return response;
   }
-  if (error) {
+  if (!!error) {
     return error;
   }
   return {};

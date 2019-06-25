@@ -122,7 +122,7 @@ exports.list = (req, res) => {
                 limit: filters.limit,
                 order: filters.sort === 1 ? 'asc' : 'desc',
                 page: (filters.page / filters.limit) + 1,
-                total: responseValue(0, responseCount, 0),
+                total: responseCount,
               },
               results: responseList,
             });

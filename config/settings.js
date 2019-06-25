@@ -7,4 +7,5 @@ module.exports = {
     limit: process.env.LIMIT || 500,
   },
   port: process.env.PORT || 4000,
+  windowsService: 'C:\\Nubox\\integraciones_backend_cl\\app.js',
 };
