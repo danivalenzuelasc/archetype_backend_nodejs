@@ -13,6 +13,10 @@ const SiiQueue = mongoose.model('SiiQueue');
  * Method: POST
  */
 exports.create = (req, res) => {
+  // Se verifica que exista un parametro de tipo user para eliminar los puntos en el string
+  if (req.body.user) {
+    req.body.user = req.body.user.replace(/\./g, '');
+  }
   // Se genera una instancia del esquema
   const newSiiQueue = new SiiQueue(req.body);
   // Se procede a almacenar el documento en la coleccion
@@ -243,6 +247,10 @@ exports.sync = (req, res) => {
  * Method: PUT
  */
 exports.update = (req, res) => {
+  // Se verifica que exista un parametro de tipo user para eliminar los puntos en el string
+  if (req.body.user) {
+    req.body.user = req.body.user.replace(/\./g, '');
+  }
   // Se verifica que exista el documento en la coleccion
   SiiQueue.findById(req.params.id)
     .then((responseFind) => {

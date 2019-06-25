@@ -24,6 +24,10 @@ exports.create = (req, res) => {
   if (req.body.password) {
     req.body.password = Cryptr.encrypt(req.body.password);
   }
+  // Se verifica que exista un parametro de tipo user para eliminar los puntos en el string
+  if (req.body.user) {
+    req.body.user = req.body.user.replace(/\./g, '');
+  }
   // Se genera una instancia del esquema
   const newSiiCredential = new SiiCredential(req.body);
   // Se verifican las credenciales contra el SII
@@ -61,38 +65,9 @@ exports.create = (req, res) => {
  */
 exports.delete = (req, res) => {
   // Se verifica que exista el documento en la coleccion
-  SiiCredential.deleteMany({ user: req.params.user })
-    .then(() => {
-      SiiDocument.deleteMany({ 'transaction.user': req.params.user })
-        .then(() => {
-          SiiQueue.deleteMany({ user: req.params.user })
-            .then(() => {
-              // Se retorna la respuesta del documento actualizado
-              res.status(200).json({});
-            })
-            .catch((errorQueue) => {
-              // Se retorna la respuesta con problemas
-              /* istanbul ignore next */
-              errorTraceRaven(errorQueue);
-              /* istanbul ignore next */
-              res.status(404).send({
-                error: errorResponse('remove').response,
-                errorTrace: errorQueue,
-              });
-            });
-        })
-        .catch((errorDocument) => {
-          // Se retorna la respuesta con problemas
-          /* istanbul ignore next */
-          errorTraceRaven(errorDocument);
-          /* istanbul ignore next */
-          res.status(404).send({
-            error: errorResponse('remove').response,
-            errorTrace: errorDocument,
-          });
-        });
-    })
-    .catch((errorCredential) => {
+  SiiCredential.deleteMany({ user: req.params.user }, (errorCredential) => {
+    /* istanbul ignore next */
+    if (errorCredential) {
       // Se retorna la respuesta con problemas
       /* istanbul ignore next */
       errorTraceRaven(errorCredential);
@@ -101,7 +76,39 @@ exports.delete = (req, res) => {
         error: errorResponse('remove').response,
         errorTrace: errorCredential,
       });
-    });
+    } else {
+      SiiDocument.deleteMany({ 'transaction.user': req.params.user }, (errorDocument) => {
+        /* istanbul ignore next */
+        if (errorDocument) {
+          // Se retorna la respuesta con problemas
+          /* istanbul ignore next */
+          errorTraceRaven(errorDocument);
+          /* istanbul ignore next */
+          res.status(404).send({
+            error: errorResponse('remove').response,
+            errorTrace: errorDocument,
+          });
+        } else {
+          SiiQueue.deleteMany({ user: req.params.user }, (errorQueue) => {
+            /* istanbul ignore next */
+            if (errorQueue) {
+              // Se retorna la respuesta con problemas
+              /* istanbul ignore next */
+              errorTraceRaven(errorQueue);
+              /* istanbul ignore next */
+              res.status(404).send({
+                error: errorResponse('remove').response,
+                errorTrace: errorQueue,
+              });
+            } else {
+              // Se retorna la respuesta del documento actualizado
+              res.status(200).json({});
+            }
+          });
+        }
+      });
+    }
+  });
 };
 
 /**
