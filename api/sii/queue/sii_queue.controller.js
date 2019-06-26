@@ -17,6 +17,10 @@ exports.create = (req, res) => {
   if (req.body.user) {
     req.body.user = req.body.user.replace(/\./g, '');
   }
+  // Se verifica que exista un parametro de tipo user para eliminar los puntos en el string
+  if (req.body.user) {
+    req.body.user = req.body.user.replace(/\./g, '');
+  }
   // Se genera una instancia del esquema
   const newSiiQueue = new SiiQueue(req.body);
   // Se procede a almacenar el documento en la coleccion

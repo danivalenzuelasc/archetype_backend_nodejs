@@ -262,6 +262,10 @@ exports.update = (req, res) => {
       if (req.body.password) {
         body.password = Cryptr.encrypt(req.body.password);
       }
+      // Se verifica que exista un parametro de tipo user para eliminar los puntos en el string
+      if (req.body.user) {
+        req.body.user = req.body.user.replace(/\./g, '');
+      }
       body.logs.updatedAt = new Date();
       // Se verifican las credenciales contra el SII
       getCredentials(body.user, body.password)
