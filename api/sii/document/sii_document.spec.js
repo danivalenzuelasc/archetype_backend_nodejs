@@ -700,12 +700,54 @@ test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, 
     });
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
-  await request().get('/sii/document?limit=1&page=-1&order=asc&logs=d,t')
+  await request().get('/sii/document?limit=1&page=-1&order=asc&logs=d,t&type=details')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(1);
         expect(response.body.paging.limit).toEqual(1);
+        expect(response.body.paging.order).toEqual('asc');
+        expect(response.body.paging.page).toEqual(1);
+        expect(response.body.paging.total).toEqual(6);
+        expect(response.body.results).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('list').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
+  await request().get('/sii/document?limit=5&page=-1&order=asc&logs=d,t&type=xml')
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(response.body.paging.count).toEqual(5);
+        expect(response.body.paging.limit).toEqual(5);
+        expect(response.body.paging.order).toEqual('asc');
+        expect(response.body.paging.page).toEqual(1);
+        expect(response.body.paging.total).toEqual(6);
+        expect(response.body.results).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('list').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
+  await request().get('/sii/document?limit=2&page=-1&order=asc&logs=d,t&type')
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(response.body.paging.count).toEqual(2);
+        expect(response.body.paging.limit).toEqual(2);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(6);

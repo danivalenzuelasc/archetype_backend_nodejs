@@ -99,6 +99,7 @@ mocks.forEach(async (row, key) => {
     data.password += ' - Update';
     if (key === 5) {
       data.password = null;
+      delete data.user;
     }
     await request().put(`/sii/credential/${row._id}`).send(data)
       .then((response) => {
@@ -149,13 +150,14 @@ mocks.forEach(async (row, key) => {
           expect(response.body.logs.updatedAt).toBeDefined();
           if (key !== 5) {
             expect(Cryptr.decrypt(response.body.password)).toEqual(row.password);
+            expect(response.body.user).toEqual(row.user);
           } else {
             expect(null).toEqual(row.password);
+            expect(undefined).toEqual(row.user);
           }
           expect(response.body.session).toBeDefined();
           expect(response.body.session.expires).toEqual(row.session.expires);
           expect(response.body.session.token).toEqual(row.session.token);
-          expect(response.body.user).toEqual(row.user);
         } else if (response.statusCode === 400) {
           const error = errorResponse('remove').response;
           expect(response.body).toBeDefined();

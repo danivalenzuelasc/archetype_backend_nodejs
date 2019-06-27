@@ -158,6 +158,10 @@ module.exports = {
       namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService',
       uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService',
     },
+    dte: {
+      namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getDetalleDTE',
+      uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getDetalleDTE',
+    },
     summary: {
       namespace: 'cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getResumen',
       uri: 'https://www4.sii.cl/consdcvinternetui/services/data/facadeService/getResumen',

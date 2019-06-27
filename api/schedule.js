@@ -427,7 +427,7 @@ function getCredential(user) {
  * limit => Limite de busqueda de documentos pendientes de sincronizacion
  * user => Usuario del documento
  */
-function getDocument(limit, user = null) {
+function getDocument(limit, user = null, send = true) {
   return new Promise((resolve, reject) => {
     // Configuramos la peticion de la llamada de obtencion de una credencial
     const options = {
@@ -438,7 +438,7 @@ function getDocument(limit, user = null) {
       json: true,
       method: 'GET',
       resolveWithFullResponse: true,
-      uri: `${apiUrl}/sii/document?limit=${limit}&page=1&order=asc&send`,
+      uri: `${apiUrl}/sii/document?limit=${limit}&page=1&order=asc&${send ? 'send' : ''}`,
     };
     if (user) {
       options.uri += `&user=${user.replace(/\./g, '')}`;

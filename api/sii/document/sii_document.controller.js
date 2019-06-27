@@ -58,6 +58,7 @@ exports.list = (req, res) => {
     ? -1
     : 1;
   filters.test = false;
+  filters.type = Object.prototype.hasOwnProperty.call(req.query, 'type') ? req.query.type : null;
   filters.user = Object.prototype.hasOwnProperty.call(req.query, 'user');
   // Se aplican los filtros de logeo para el listado
   if (req.query.logs) {
@@ -84,6 +85,12 @@ exports.list = (req, res) => {
   };
   if (filters.send) {
     query['send.execute'] = false;
+  }
+  if (filters.type === 'details') {
+    query['execute.details'] = false;
+  }
+  if (filters.type === 'xml') {
+    query['execute.xml'] = false;
   }
   if (filters.user) {
     query['transaction.user'] = req.query.user;

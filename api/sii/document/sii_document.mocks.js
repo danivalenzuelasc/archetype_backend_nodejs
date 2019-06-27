@@ -68,8 +68,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -177,8 +177,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -286,8 +286,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -401,8 +401,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -520,8 +520,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -647,8 +647,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -756,8 +756,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -865,8 +865,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -974,8 +974,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
@@ -1083,8 +1083,8 @@ module.exports = [
       },
     },
     execute: {
-      details: true,
-      xml: true,
+      details: false,
+      xml: false,
     },
     logs: {
       isDeleted: false,
