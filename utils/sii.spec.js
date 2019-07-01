@@ -22,30 +22,55 @@ function getCounter() {
 /**
  * Pruebas del metodo getCredentials()
  */
-test(`Prueba ${getCounter()} - Metodo getCredentials()`, async () => {
+test(`Prueba ${getCounter()} - Metodo getCredentials()`, () => {
   counter += 1;
-  const response = await getCredentials(Cryptr.decrypt(users[0].user), users[0].password, true);
-  expect(Object.keys(response).length).toBeGreaterThan(0);
+  getCredentials(Cryptr.decrypt(users[0].user), users[0].password, true)
+    .then((response) => {
+      expect(Object.keys(response).length).toBeGreaterThan(0);
+    })
+    .catch((error) => {
+      expect(error).toEqual(null);
+    });
 }, 10000);
-test(`Prueba ${getCounter()} - Metodo getCredentials()`, async () => {
+test(`Prueba ${getCounter()} - Metodo getCredentials()`, () => {
   counter += 1;
-  const response = await getCredentials(Cryptr.decrypt(users[1].user), users[1].password, true);
-  expect(Object.keys(response).length).toBeGreaterThan(0);
+  getCredentials(Cryptr.decrypt(users[1].user), users[1].password, true)
+    .then((response) => {
+      expect(Object.keys(response).length).toBeGreaterThan(0);
+    })
+    .catch((error) => {
+      expect(error).toEqual(null);
+    });
 }, 10000);
-test(`Prueba ${getCounter()} - Metodo getCredentials()`, async () => {
+test(`Prueba ${getCounter()} - Metodo getCredentials()`, () => {
   counter += 1;
-  const response = await getCredentials(Cryptr.decrypt(users[2].user), users[2].password, true);
-  expect(Object.keys(response).length).toBeGreaterThan(0);
+  getCredentials(Cryptr.decrypt(users[2].user), users[2].password, true)
+    .then((response) => {
+      expect(Object.keys(response).length).toBeGreaterThan(0);
+    })
+    .catch((error) => {
+      expect(error).toEqual(null);
+    });
 }, 10000);
-test(`Prueba ${getCounter()} - Metodo getCredentials()`, async () => {
+test(`Prueba ${getCounter()} - Metodo getCredentials()`, () => {
   counter += 1;
-  const response = await getCredentials(Cryptr.decrypt(users[0].user), users[2].password, true);
-  expect(Object.keys(response).length > 0).toEqual(false);
+  getCredentials(Cryptr.decrypt(users[1].user), users[0].password, true)
+    .then((response) => {
+      expect(Object.keys(response).length > 0).toEqual(false);
+    })
+    .catch((error) => {
+      expect(error).toEqual(null);
+    });
 }, 10000);
-test(`Prueba ${getCounter()} - Metodo getCredentials()`, async () => {
+test(`Prueba ${getCounter()} - Metodo getCredentials()`, () => {
   counter += 1;
-  const response = await getCredentials(Cryptr.decrypt(users[1].user), users[0].password, true);
-  expect(Object.keys(response).length > 0).toEqual(false);
+  getCredentials(Cryptr.decrypt(users[1].user), users[0].password, true)
+    .then((response) => {
+      expect(Object.keys(response).length > 0).toEqual(false);
+    })
+    .catch((error) => {
+      expect(error).toEqual(null);
+    });
 }, 10000);
 
 /**

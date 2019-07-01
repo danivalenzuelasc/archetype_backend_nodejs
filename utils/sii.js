@@ -75,7 +75,7 @@ exports.getCredentials = (dni, password, transaction = false) => {
           resolve(list);
         } else {
           aux0 = aux1 = dni = error = list = options = password = response = transaction = null;
-          resolve({});
+          reject(error);
         }
       });
     });
