@@ -1,0 +1,52 @@
+# Se escoge el lenguaje de programacion
+language: node_js
+
+# Se escogen las versiones del lenguaje de programacion a verificar
+node_js:
+  - "stable"
+  - "10"
+  - "8"
+
+# Se detallan los directorios que se almacenaran en cache
+cache:
+  directories:
+    - node_modules
+
+# Se detallan las variables de entorno de las pruebas
+env:
+  - NODE_ENV=testing
+
+# Se detallan los correos electronicos donde se enviaran las notificaciones del proceso de integracion continua
+notifications:
+  email:
+    recipients:
+      - cristian.rodriguez@nubox.com
+      - daniel.valenzuela@nubox.com
+      - gianni.gellona@nubox.com
+      - lucas.mayoni@colppy.com
+      - marco.bahamondes@nubox.com
+
+# Se configuran los servicios necesarios en el contenedor de integracion
+services:
+  - mongodb
+
+# Se detallan las librerias previas necesaria para las pruebas
+before_script:
+  - npm i -g typescript
+  - npm i -g coveralls
+  - npm i -g yarn
+
+# Se instalan las librerias necesaria para las pruebas
+install:
+  - yarn install
+
+# Se ejecutan las pruebas de estandarizacion, unitarias y funcionales
+script:
+  - yarn lint
+  - yarn test
+
+# Se ejecutan las instrucciones posteriores a la realizacion de las pruebas
+after_success:
+  - |
+    # Se envia los resultados de cobertura de a Coveralls
+    # coveralls < ./coverage/lcov.info
