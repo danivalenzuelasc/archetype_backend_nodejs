@@ -5,7 +5,6 @@ language: node_js
 node_js:
   - "stable"
   - "10"
-  - "8"
 
 # Se detallan los directorios que se almacenaran en cache
 cache:
