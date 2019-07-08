@@ -1,7 +1,7 @@
 {
   "name": "integraciones_backend_cl",
   "version": "1.0.0",
-  "description": "API Restful de integraciones para Chile (NodeJS)",
+  "description": "Proyecto Matrix - API Restful de integraciones para Chile (NodeJS)",
   "keywords": [
     "API",
     "Restfull",
