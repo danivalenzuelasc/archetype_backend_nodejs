@@ -1,0 +1,5 @@
+# Se configura el token del repositorio en Coveralls
+repo_token: qwerty12345
+
+# Se configura la herramienta de versionamiento de codigo fuente que se ocupa en el proyecto
+service_name: travis-pro
