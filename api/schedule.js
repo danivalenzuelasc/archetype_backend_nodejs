@@ -8,7 +8,7 @@ const {
 } = require('./../config/sii');
 const { errorTraceRaven } = require('./../utils/general');
 const {
-  getCredentials, getDocuments, getSummary, mapperDocument,
+  getCredentials, getDocuments, getSummary, getTaxs, mapperDocument,
 } = require('./../utils/sii');
 const Cryptr = new cryptr(settings.endpoint.crypt);
 
@@ -49,6 +49,71 @@ exports.init = () => {
         // Se envia una solicitud de sincronizacion del documento
         responseGetDocument.results.forEach((document) => {
           connectAPIFacturaDocument(document, 'POST');
+        });
+      })
+      // Se procede a notificar en caso de que se presente algun error al obtener los documentos pendientes de sincronizacion
+      .catch((errorGetDocument) => {
+        errorTraceRaven(errorGetDocument);
+        errorGetDocument = null;
+      });
+    // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
+    getDocument(limitSynchronization.document, null, false)
+      .then((responseGetDocument) => {
+        // Se envia una solicitud de sincronizacion del documento
+        responseGetDocument.results.forEach((document) => {
+          // Se procede a realizar la llamada para obtener las credenciales del acceso al SII
+          getCredential(document.transaction.user)
+            // Se procede en caso de obtener las credenciales
+            .then((responseCredential) => {
+              if (responseCredential.paging.count > 0) {
+                // Se procede a generar la estructura con los datos para el procesamiento
+                let transaction = {
+                  certificate: responseCredential.results[0].certificate,
+                  id: responseCredential.results[0]._id,
+                  password: responseCredential.results[0].password,
+                  session: responseCredential.results[0].session,
+                  user: document.transaction.user,
+                };
+                // Se procede a verificar si se posee el token del SII
+                if (transaction.session.token && new Date(transaction.session.expires) > new Date()) {
+                  getTaxs(document, transaction);
+                  document = transaction = null;
+                } else {
+                  getCredentials(transaction.user, transaction.password, true)
+                    // Se procede a verificar si se realizo correctamente el ingreso al SII
+                    .then((responseSession) => {
+                      if (Object.keys(responseSession).length > 0) {
+                        transaction.session.expires = new Date(Date.now() + tokenExpires);
+                        transaction.session.token = responseSession.TOKEN;
+                        // Se procede a actualizar el token del SII
+                        tokenUpdate(transaction)
+                          // Se procede a obtener los documentos del periodo tributario correspondiente
+                          .then(() => {
+                            getTaxs(document, transaction);
+                            document = transaction = null;
+                          })
+                          // Se procede a notificar en caso de que se presente algun error al actualizar el token
+                          .catch((errorUpdateToken) => {
+                            errorTraceRaven(errorUpdateToken);
+                            errorUpdateToken = null;
+                          });
+                      }
+                      responseSession = null;
+                    })
+                    // Se procede a notificar en caso de que se presente algun error al obtener el token
+                    .catch((errorSession) => {
+                      errorTraceRaven(errorSession);
+                      errorSession = null;
+                    });
+                }
+              }
+              responseCredential = null;
+            })
+            // Se procede a notificar en caso de que se presente algun error al obtener las credenciales
+            .catch((errorCredential) => {
+              errorTraceRaven(errorCredential);
+              errorCredential = null;
+            });
         });
       })
       // Se procede a notificar en caso de que se presente algun error al obtener los documentos pendientes de sincronizacion

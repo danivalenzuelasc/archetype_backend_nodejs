@@ -105,6 +105,16 @@ const SiiDocumentSchema = new mongoose.Schema({
       required: true,
       type: Number,
     },
+    codes: {
+      dcv: {
+        default: null,
+        type: Number,
+      },
+      det: {
+        default: null,
+        type: Number,
+      },
+    },
     containerDeposit: {
       default: null,
       type: Number,
@@ -186,6 +196,10 @@ const SiiDocumentSchema = new mongoose.Schema({
       },
     },
     senderNote: {
+      default: null,
+      type: Number,
+    },
+    shippingIdentifier: {
       default: null,
       type: Number,
     },

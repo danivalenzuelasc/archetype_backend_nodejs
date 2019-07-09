@@ -51,6 +51,9 @@ mocks.forEach(async (row) => {
           expect(response.body.document.accountingStatement).toEqual(row.document.accountingStatement);
           expect(response.body.document.codeOffice).toEqual(row.document.codeOffice);
           expect(response.body.document.codeSII).toEqual(row.document.codeSII);
+          expect(response.body.document.codes).toBeDefined();
+          expect(response.body.document.codes.dcv).toEqual(row.document.codes.dcv);
+          expect(response.body.document.codes.det).toEqual(row.document.codes.det);
           expect(response.body.document.containerDeposit).toEqual(row.document.containerDeposit);
           expect(response.body.document.foreign).toBeDefined();
           expect(response.body.document.foreign.dni).toEqual(row.document.foreign.dni);
@@ -72,6 +75,7 @@ mocks.forEach(async (row) => {
           expect(response.body.document.reference.id).toEqual(row.document.reference.id);
           expect(response.body.document.reference.type).toEqual(row.document.reference.type);
           expect(response.body.document.senderNote).toEqual(row.document.senderNote);
+          expect(response.body.document.shippingIdentifier).toEqual(row.document.shippingIdentifier);
           expect(response.body.document.specialCredit).toEqual(row.document.specialCredit);
           expect(response.body.document.status).toEqual(row.document.status);
           expect(response.body.document.transaction).toBeDefined();
@@ -173,6 +177,9 @@ mocks.forEach(async (row) => {
           expect(response.body.document.accountingStatement).toEqual(row.document.accountingStatement);
           expect(response.body.document.codeOffice).toEqual(row.document.codeOffice);
           expect(response.body.document.codeSII).toEqual(row.document.codeSII);
+          expect(response.body.document.codes).toBeDefined();
+          expect(response.body.document.codes.dcv).toEqual(row.document.codes.dcv);
+          expect(response.body.document.codes.det).toEqual(row.document.codes.det);
           expect(response.body.document.containerDeposit).toEqual(row.document.containerDeposit);
           expect(response.body.document.foreign).toBeDefined();
           expect(response.body.document.foreign.dni).toEqual(row.document.foreign.dni);
@@ -194,6 +201,7 @@ mocks.forEach(async (row) => {
           expect(response.body.document.reference.id).toEqual(row.document.reference.id);
           expect(response.body.document.reference.type).toEqual(row.document.reference.type);
           expect(response.body.document.senderNote).toEqual(row.document.senderNote);
+          expect(response.body.document.shippingIdentifier).toEqual(row.document.shippingIdentifier);
           expect(response.body.document.specialCredit).toEqual(row.document.specialCredit);
           expect(response.body.document.status).toEqual(row.document.status);
           expect(response.body.document.transaction).toBeDefined();
@@ -297,6 +305,9 @@ mocks.forEach(async (row) => {
           expect(response.body.document.accountingStatement).toEqual(row.document.accountingStatement);
           expect(response.body.document.codeOffice).toEqual(row.document.codeOffice);
           expect(response.body.document.codeSII).toEqual(row.document.codeSII);
+          expect(response.body.document.codes).toBeDefined();
+          expect(response.body.document.codes.dcv).toEqual(row.document.codes.dcv);
+          expect(response.body.document.codes.det).toEqual(row.document.codes.det);
           expect(response.body.document.containerDeposit).toEqual(row.document.containerDeposit);
           expect(response.body.document.foreign).toBeDefined();
           expect(response.body.document.foreign.dni).toEqual(row.document.foreign.dni);
@@ -318,6 +329,7 @@ mocks.forEach(async (row) => {
           expect(response.body.document.reference.id).toEqual(row.document.reference.id);
           expect(response.body.document.reference.type).toEqual(row.document.reference.type);
           expect(response.body.document.senderNote).toEqual(row.document.senderNote);
+          expect(response.body.document.shippingIdentifier).toEqual(row.document.shippingIdentifier);
           expect(response.body.document.specialCredit).toEqual(row.document.specialCredit);
           expect(response.body.document.status).toEqual(row.document.status);
           expect(response.body.document.transaction).toBeDefined();
@@ -420,6 +432,9 @@ mocks.forEach(async (row) => {
           expect(response.body.document.accountingStatement).toEqual(row.document.accountingStatement);
           expect(response.body.document.codeOffice).toEqual(row.document.codeOffice);
           expect(response.body.document.codeSII).toEqual(row.document.codeSII);
+          expect(response.body.document.codes).toBeDefined();
+          expect(response.body.document.codes.dcv).toEqual(row.document.codes.dcv);
+          expect(response.body.document.codes.det).toEqual(row.document.codes.det);
           expect(response.body.document.containerDeposit).toEqual(row.document.containerDeposit);
           expect(response.body.document.foreign).toBeDefined();
           expect(response.body.document.foreign.dni).toEqual(row.document.foreign.dni);
@@ -441,6 +456,7 @@ mocks.forEach(async (row) => {
           expect(response.body.document.reference.id).toEqual(row.document.reference.id);
           expect(response.body.document.reference.type).toEqual(row.document.reference.type);
           expect(response.body.document.senderNote).toEqual(row.document.senderNote);
+          expect(response.body.document.shippingIdentifier).toEqual(row.document.shippingIdentifier);
           expect(response.body.document.specialCredit).toEqual(row.document.specialCredit);
           expect(response.body.document.status).toEqual(row.document.status);
           expect(response.body.document.transaction).toBeDefined();
