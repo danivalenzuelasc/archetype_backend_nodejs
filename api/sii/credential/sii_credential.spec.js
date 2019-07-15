@@ -194,7 +194,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 25000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
   await request().post('/sii/credential/verify').send({
     production: true,
@@ -212,7 +212,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 25000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
   await request().post('/sii/credential/verify').send({
     password: 'password03',
@@ -230,7 +230,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 25000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
   await request().post('/sii/credential/verify').send({
     password: Cryptr.decrypt(users[0].password),
@@ -249,7 +249,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 25000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
   await request().post('/sii/credential/verify').send({
     password: Cryptr.decrypt(users[2].password),
@@ -268,7 +268,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 25000);
 
 /**
  * Prueba del metodo List
