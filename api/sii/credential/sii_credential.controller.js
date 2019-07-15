@@ -65,7 +65,7 @@ exports.create = (req, res) => {
  */
 exports.delete = (req, res) => {
   // Se verifica que exista el documento en la coleccion
-  SiiCredential.deleteMany({ user: req.params.user }, (errorCredential) => {
+  SiiCredential.deleteMany({ user: req.params.user.replace(/\./g, '') }, (errorCredential) => {
     /* istanbul ignore next */
     if (errorCredential) {
       // Se retorna la respuesta con problemas
@@ -77,7 +77,7 @@ exports.delete = (req, res) => {
         errorTrace: errorCredential,
       });
     } else {
-      SiiDocument.deleteMany({ 'transaction.user': req.params.user }, (errorDocument) => {
+      SiiDocument.deleteMany({ 'transaction.user': req.params.user.replace(/\./g, '') }, (errorDocument) => {
         /* istanbul ignore next */
         if (errorDocument) {
           // Se retorna la respuesta con problemas
@@ -89,7 +89,7 @@ exports.delete = (req, res) => {
             errorTrace: errorDocument,
           });
         } else {
-          SiiQueue.deleteMany({ user: req.params.user }, (errorQueue) => {
+          SiiQueue.deleteMany({ user: req.params.user.replace(/\./g, '') }, (errorQueue) => {
             /* istanbul ignore next */
             if (errorQueue) {
               // Se retorna la respuesta con problemas
@@ -312,9 +312,9 @@ exports.verify = (req, res) => {
   }
   // Se verifican las credenciales contra el SII
   getCredentials(req.body.user, req.body.password, true)
-    .then((response) => {
+    .then(() => {
       // Se retorna la respuesta de las credenciales verificadas
-      res.status(200).json(response);
+      res.status(200).json({});
     })
     .catch((errorGetCredentials) => {
       // Se retorna la respuesta con problemas

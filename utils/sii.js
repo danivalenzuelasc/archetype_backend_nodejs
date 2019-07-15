@@ -36,7 +36,7 @@ exports.generateUUID = generateUUIDInternal;
 
 // Se exporta el metodo getCredentials()
 exports.getCredentials = (dni, password, transaction = false) => {
-  if (process.env.NODE_ENV === 'production' || transaction) {
+  if (process.env.NODE_ENV !== 'testing' || transaction) {
     return new Promise((resolve, reject) => {
       let aux0;
       let aux1;
@@ -142,6 +142,56 @@ exports.getDocuments = (transaction, data, year, month) => {
   });
 };
 
+// Se exporta el metodo getDTE()
+exports.getDTE = (transaction, data) => {
+  return new Promise((resolve, reject) => {
+    let options = {
+      body: {
+        data: {
+          codTipoDoc: String(data.document.codeSII),
+          dcvNroDoc: data.document.codes.dcv,
+          detCodigo: data.document.codes.det,
+          dhdrCodigo: data.document.shippingIdentifier,
+          dvDoc: data.business.dv,
+          dvEmisor: transaction.user.replace(/\./g, '').split('-')[1],
+          operacion: data.document.operation,
+          rcvPcarga: Number(data.document.period),
+          rutAutenticado: transaction.user.replace(/\./g, '').split('-')[0],
+          rutDoc: data.business.rut,
+          rutEmisor: transaction.user.replace(/\./g, '').split('-')[0],
+        },
+        metaData: {
+          conversationId: transaction.session.token,
+          namespace: url.dte.namespace,
+          page: null,
+          transactionId: generateUUIDInternal(),
+        },
+      },
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        Cookie: `TOKEN=${transaction.session.token}`,
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+      },
+      json: true,
+      method: 'POST',
+      resolveWithFullResponse: true,
+      uri: url.dte.uri,
+    };
+    request(options, (error, response) => {
+      /* istanbul ignore next */
+      if (error) {
+        /* istanbul ignore next */
+        data = options = response = transaction = null;
+        /* istanbul ignore next */
+        reject(error);
+      }
+      data = error = options = transaction = null;
+      resolve(response.body);
+    });
+  });
+};
+
 // Se exporta el metodo getSummary()
 exports.getSummary = (transaction, data, year, month) => {
   return new Promise((resolve, reject) => {
@@ -221,6 +271,10 @@ exports.mapperDocument = (document, code = null, operation = null, user = null, 
       },
       document: {
         accountingStatement: document.dcvEstadoContab, // String => Estado contable del documento
+        codes: {
+          dcv: document.dcvCodigo, // Identificador DCV
+          det: document.detCodigo, // Identificador DET
+        },
         codeOffice: document.detCdgSIISucur, // Number => Codigo de la sucursal del SII
         codeSII: code, // Number => Codigo del tipo de documento
         containerDeposit: document.detDepEnvase, // Number => Garantia de deposito de envases
@@ -249,6 +303,7 @@ exports.mapperDocument = (document, code = null, operation = null, user = null, 
           type: document.detTipoDocRef, // Number => Tipo de referencia a otro documento
         },
         senderNote: document.detEmisorNota, // Number => Codigo de la nota del emisor
+        shippingIdentifier: document.dhdrCodigo, // Number => Identificador de envio
         specialCredit: document.detCredEc, // Number => Credito especial de la empresa constructora
         status: document.detAnulado, // Boolean => Estado del documento
         transaction: {

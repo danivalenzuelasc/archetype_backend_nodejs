@@ -4,210 +4,285 @@ const nodeSchedule = require('node-schedule');
 const request = require('request-promise');
 const settings = require('./../config/settings');
 const {
-  documents, limitSynchronization, synchronization, tokenExpires,
+  daemon, documents, limitSynchronization, synchronization, tokenExpires,
 } = require('./../config/sii');
 const { errorTraceRaven } = require('./../utils/general');
 const {
-  getCredentials, getDocuments, getSummary, mapperDocument,
+  getCredentials, getDTE, getDocuments, getSummary, mapperDocument,
 } = require('./../utils/sii');
 const Cryptr = new cryptr(settings.endpoint.crypt);
 
 // Configuracion de la URL del entorno de la API
-const apiUrl = process.env.NODE_ENV === 'production' ? `${settings.api}:${settings.port}` : `http://localhost:${settings.port}`;
+const apiUrl = `http://localhost:${settings.port}`;
 
 // Se inicializan los demonios
 exports.init = () => {
   // Se realiza ejecucion del demonio [cada 10 segundos]
   nodeSchedule.scheduleJob('*/10 * * * * *', () => {
     // Se procede a realizar la llamada para obtener las colas pendientes de notificacion para sincronizacion finalizada
-    getQueue('', limitSynchronization.queue, true)
-      .then((responseGetQueue) => {
-        responseGetQueue.results.forEach((queue) => {
-          // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
-          getDocument(1, queue.user)
-            .then((responseGetDocument) => {
-              // Se procede a notificar que se acaba de sincronizar todos los documentos del cliente
-              if (responseGetDocument.paging.count === 0) {
-                connectAPIFacturaQueue(queue._id, queue.user);
-              }
-            })
-            // Se procede a notificar en caso de que se presente algun error al obtener las colas pendientes de notificacion para la sincronizacion finalizada
-            .catch((errorGetDocument) => {
-              errorTraceRaven(errorGetDocument);
-              errorGetDocument = null;
-            });
-        });
-      })
-      // Se procede a notificar en caso de que se presente algun error al obtener las colas pendientes de notificacion para la sincronizacion finalizada
-      .catch((errorGetQueue) => {
-        errorTraceRaven(errorGetQueue);
-        errorGetQueue = null;
-      });
-    // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
-    getDocument(limitSynchronization.document)
-      .then((responseGetDocument) => {
-        // Se envia una solicitud de sincronizacion del documento
-        responseGetDocument.results.forEach((document) => {
-          connectAPIFacturaDocument(document, 'POST');
-        });
-      })
-      // Se procede a notificar en caso de que se presente algun error al obtener los documentos pendientes de sincronizacion
-      .catch((errorGetDocument) => {
-        errorTraceRaven(errorGetDocument);
-        errorGetDocument = null;
-      });
-    // Se procede a realizar la llamada para obtener las colas Prioritarias que se deben ejecutar
-    getQueue('Priority', 5)
-      // Se procede en caso de obtener las colas
-      .then((responseQueue) => {
-        // Se procede a ejecutar cada cola del listado
-        responseQueue.results.forEach((queue) => {
-          // Se procede a realizar la llamada para obtener las credenciales del acceso al SII
-          getCredential(queue.user)
-            // Se procede en caso de obtener las credenciales
-            .then((responseCredential) => {
-              if (responseCredential.paging.count > 0) {
-                // Se procede a generar la estructura con los datos para el procesamiento
-                let transaction = {
-                  certificate: responseCredential.results[0].certificate,
-                  id: responseCredential.results[0]._id,
-                  password: responseCredential.results[0].password,
-                  queue: queue._id,
-                  session: responseCredential.results[0].session,
-                  synchronize: queue.synchronize,
-                  user: queue.user,
-                };
-                // Se procede a verificar si se posee el token del SII
-                if (transaction.session.token && new Date(transaction.session.expires) > new Date()) {
-                  getService(transaction);
-                  transaction = null;
-                } else {
-                  getCredentials(transaction.user, transaction.password, true)
-                    // Se procede a verificar si se realizo correctamente el ingreso al SII
-                    .then((responseSession) => {
-                      if (Object.keys(responseSession).length > 0) {
-                        transaction.session.expires = new Date(Date.now() + tokenExpires);
-                        transaction.session.token = responseSession.TOKEN;
-                        // Se procede a actualizar el token del SII
-                        tokenUpdate(transaction)
-                          // Se procede a obtener los documentos del periodo tributario correspondiente
-                          .then(() => {
-                            getService(transaction);
-                            transaction = null;
-                          })
-                          // Se procede a notificar en caso de que se presente algun error al actualizar el token
-                          .catch((errorUpdateToken) => {
-                            errorTraceRaven(errorUpdateToken);
-                            errorUpdateToken = null;
-                          });
-                      }
-                      responseSession = null;
-                    })
-                    // Se procede a notificar en caso de que se presente algun error al obtener el token
-                    .catch((errorSession) => {
-                      errorTraceRaven(errorSession);
-                      errorSession = null;
-                    });
+    if (daemon.queue) {
+      getQueue('', limitSynchronization.queue, true)
+        .then((responseGetQueue) => {
+          responseGetQueue.results.forEach((queue) => {
+            // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
+            getDocument(1, queue.user)
+              .then((responseGetDocument) => {
+                // Se procede a notificar que se acaba de sincronizar todos los documentos del cliente
+                if (responseGetDocument.paging.count === 0) {
+                  connectAPIFacturaQueue(queue._id, queue.user);
                 }
-              }
-              responseCredential = null;
-            })
-            // Se procede a notificar en caso de que se presente algun error al obtener las credenciales
-            .catch((errorCredential) => {
-              errorTraceRaven(errorCredential);
-              errorCredential = null;
-            });
+              })
+              // Se procede a notificar en caso de que se presente algun error al obtener las colas pendientes de notificacion para la sincronizacion finalizada
+              .catch((errorGetDocument) => {
+                errorTraceRaven(errorGetDocument);
+                errorGetDocument = null;
+              });
+          });
+        })
+        // Se procede a notificar en caso de que se presente algun error al obtener las colas pendientes de notificacion para la sincronizacion finalizada
+        .catch((errorGetQueue) => {
+          errorTraceRaven(errorGetQueue);
+          errorGetQueue = null;
         });
-      })
-      // Se procede a notificar en caso de que se presente algun error al obtener las colas
-      .catch((errorQueue) => {
-        errorTraceRaven(errorQueue);
-        errorQueue = null;
-      });
+    }
+    // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
+    if (daemon.document) {
+      getDocument(limitSynchronization.document)
+        .then((responseGetDocument) => {
+          // Se envia una solicitud de sincronizacion del documento
+          responseGetDocument.results.forEach((document) => {
+            connectAPIFacturaDocument(document, 'POST');
+          });
+        })
+        // Se procede a notificar en caso de que se presente algun error al obtener los documentos pendientes de sincronizacion
+        .catch((errorGetDocument) => {
+          errorTraceRaven(errorGetDocument);
+          errorGetDocument = null;
+        });
+    }
+    // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
+    if (daemon.dte) {
+      getDocument(limitSynchronization.dte, null, false)
+        .then((responseGetDocument) => {
+          // Se envia una solicitud de sincronizacion del documento
+          responseGetDocument.results.forEach((document) => {
+            // Se procede a realizar la llamada para obtener las credenciales del acceso al SII
+            getCredential(document.transaction.user)
+              // Se procede en caso de obtener las credenciales
+              .then((responseCredential) => {
+                if (responseCredential.paging.count > 0) {
+                  // Se procede a generar la estructura con los datos para el procesamiento
+                  let transaction = {
+                    certificate: responseCredential.results[0].certificate,
+                    id: responseCredential.results[0]._id,
+                    password: responseCredential.results[0].password,
+                    session: responseCredential.results[0].session,
+                    user: document.transaction.user,
+                  };
+                  // Se procede a verificar si se posee el token del SII
+                  if (transaction.session.token && new Date(transaction.session.expires) > new Date()) {
+                    getDTE(transaction, document);
+                    document = transaction = null;
+                  } else {
+                    getCredentials(transaction.user, transaction.password, true)
+                      // Se procede a verificar si se realizo correctamente el ingreso al SII
+                      .then((responseSession) => {
+                        if (Object.keys(responseSession).length > 0) {
+                          transaction.session.expires = new Date(Date.now() + tokenExpires);
+                          transaction.session.token = responseSession.TOKEN;
+                          // Se procede a actualizar el token del SII
+                          tokenUpdate(transaction)
+                            // Se procede a obtener los documentos del periodo tributario correspondiente
+                            .then(() => {
+                              getDTE(transaction, document);
+                              document = transaction = null;
+                            })
+                            // Se procede a notificar en caso de que se presente algun error al actualizar el token
+                            .catch((errorUpdateToken) => {
+                              errorTraceRaven(errorUpdateToken);
+                              errorUpdateToken = null;
+                            });
+                        }
+                        responseSession = null;
+                      })
+                      // Se procede a notificar en caso de que se presente algun error al obtener el token
+                      .catch((errorSession) => {
+                        errorTraceRaven(errorSession);
+                        errorSession = null;
+                      });
+                  }
+                }
+                responseCredential = null;
+              })
+              // Se procede a notificar en caso de que se presente algun error al obtener las credenciales
+              .catch((errorCredential) => {
+                errorTraceRaven(errorCredential);
+                errorCredential = null;
+              });
+          });
+        })
+        // Se procede a notificar en caso de que se presente algun error al obtener los documentos pendientes de sincronizacion
+        .catch((errorGetDocument) => {
+          errorTraceRaven(errorGetDocument);
+          errorGetDocument = null;
+        });
+    }
+    // Se procede a realizar la llamada para obtener las colas Prioritarias que se deben ejecutar
+    if (daemon.synchronization) {
+      getQueue('Priority', 5)
+        // Se procede en caso de obtener las colas
+        .then((responseQueue) => {
+          // Se procede a ejecutar cada cola del listado
+          responseQueue.results.forEach((queue) => {
+            // Se procede a realizar la llamada para obtener las credenciales del acceso al SII
+            getCredential(queue.user)
+              // Se procede en caso de obtener las credenciales
+              .then((responseCredential) => {
+                if (responseCredential.paging.count > 0) {
+                  // Se procede a generar la estructura con los datos para el procesamiento
+                  let transaction = {
+                    certificate: responseCredential.results[0].certificate,
+                    id: responseCredential.results[0]._id,
+                    password: responseCredential.results[0].password,
+                    queue: queue._id,
+                    session: responseCredential.results[0].session,
+                    synchronize: queue.synchronize,
+                    user: queue.user,
+                  };
+                  // Se procede a verificar si se posee el token del SII
+                  if (transaction.session.token && new Date(transaction.session.expires) > new Date()) {
+                    getService(transaction);
+                    transaction = null;
+                  } else {
+                    getCredentials(transaction.user, transaction.password, true)
+                      // Se procede a verificar si se realizo correctamente el ingreso al SII
+                      .then((responseSession) => {
+                        if (Object.keys(responseSession).length > 0) {
+                          transaction.session.expires = new Date(Date.now() + tokenExpires);
+                          transaction.session.token = responseSession.TOKEN;
+                          // Se procede a actualizar el token del SII
+                          tokenUpdate(transaction)
+                            // Se procede a obtener los documentos del periodo tributario correspondiente
+                            .then(() => {
+                              getService(transaction);
+                              transaction = null;
+                            })
+                            // Se procede a notificar en caso de que se presente algun error al actualizar el token
+                            .catch((errorUpdateToken) => {
+                              errorTraceRaven(errorUpdateToken);
+                              errorUpdateToken = null;
+                            });
+                        }
+                        responseSession = null;
+                      })
+                      // Se procede a notificar en caso de que se presente algun error al obtener el token
+                      .catch((errorSession) => {
+                        errorTraceRaven(errorSession);
+                        errorSession = null;
+                      });
+                  }
+                }
+                responseCredential = null;
+              })
+              // Se procede a notificar en caso de que se presente algun error al obtener las credenciales
+              .catch((errorCredential) => {
+                errorTraceRaven(errorCredential);
+                errorCredential = null;
+              });
+          });
+        })
+        // Se procede a notificar en caso de que se presente algun error al obtener las colas
+        .catch((errorQueue) => {
+          errorTraceRaven(errorQueue);
+          errorQueue = null;
+        });
+    }
   });
   // Se realiza ejecucion del demonio [cada 5 minutos]
   nodeSchedule.scheduleJob('* */5 * * * *', () => {
-    // Se procede a realizar la llamada para obtener las colas Automaticas que se deben ejecutar
-    getQueue('Automatic', 100)
-      // Se procede en caso de obtener las colas
-      .then((responseQueue) => {
-        // Se procede a ejecutar cada cola del listado
-        responseQueue.results.forEach((queue) => {
-          // Se procede a realizar la llamada para obtener las credenciales del acceso al SII
-          getCredential(queue.user)
-            // Se procede en caso de obtener las credenciales
-            .then((responseCredential) => {
-              if (responseCredential.paging.count > 0) {
-                // Se procede a generar la estructura con los datos para el procesamiento
-                let transaction = {
-                  certificate: responseCredential.results[0].certificate,
-                  id: responseCredential.results[0]._id,
-                  password: responseCredential.results[0].password,
-                  queue: queue._id,
-                  session: responseCredential.results[0].session,
-                  synchronize: queue.synchronize,
-                  user: queue.user,
-                };
-                // Se procede a verificar si se posee el token del SII
-                if (transaction.session.token && new Date(transaction.session.expires) > new Date()) {
-                  getService(transaction);
-                  transaction = null;
-                } else {
-                  getCredentials(transaction.user, transaction.password, true)
-                    // Se procede a verificar si se realizo correctamente el ingreso al SII
-                    .then((responseSession) => {
-                      if (Object.keys(responseSession).length > 0) {
-                        transaction.session.expires = new Date(Date.now() + tokenExpires);
-                        transaction.session.token = responseSession.TOKEN;
-                        // Se procede a actualizar el token del SII
-                        tokenUpdate(transaction)
-                          // Se procede a obtener los documentos del periodo tributario correspondiente
-                          .then(() => {
-                            getService(transaction);
-                            transaction = null;
-                          })
-                          // Se procede a notificar en caso de que se presente algun error al actualizar el token
-                          .catch((errorUpdateToken) => {
-                            errorTraceRaven(errorUpdateToken);
-                            errorUpdateToken = null;
-                          });
-                      } else {
-                        // Se procede a detener la cola de ejecucion
-                        queueStop(transaction.queue)
-                          // Se procede a notificar la detencion de la cola de ejecucion
-                          .then(() => {
-                            connectAPIFacturaCredential(transaction.queue, transaction.user);
-                            transaction = null;
-                          })
-                          // Se procede a notificar en caso de que se presente algun error al notificar la detencion de la cola de ejecucion
-                          .catch((errorQueueStop) => {
-                            errorTraceRaven(errorQueueStop);
-                            errorQueueStop = null;
-                          });
-                      }
-                      responseSession = null;
-                    })
-                    // Se procede a notificar en caso de que se presente algun error al obtener el token
-                    .catch((errorSession) => {
-                      errorTraceRaven(errorSession);
-                      errorSession = null;
-                    });
+    if (daemon.synchronization) {
+      // Se procede a realizar la llamada para obtener las colas Automaticas que se deben ejecutar
+      getQueue('Automatic', 100)
+        // Se procede en caso de obtener las colas
+        .then((responseQueue) => {
+          // Se procede a ejecutar cada cola del listado
+          responseQueue.results.forEach((queue) => {
+            // Se procede a realizar la llamada para obtener las credenciales del acceso al SII
+            getCredential(queue.user)
+              // Se procede en caso de obtener las credenciales
+              .then((responseCredential) => {
+                if (responseCredential.paging.count > 0) {
+                  // Se procede a generar la estructura con los datos para el procesamiento
+                  let transaction = {
+                    certificate: responseCredential.results[0].certificate,
+                    id: responseCredential.results[0]._id,
+                    password: responseCredential.results[0].password,
+                    queue: queue._id,
+                    session: responseCredential.results[0].session,
+                    synchronize: queue.synchronize,
+                    user: queue.user,
+                  };
+                  // Se procede a verificar si se posee el token del SII
+                  if (transaction.session.token && new Date(transaction.session.expires) > new Date()) {
+                    getService(transaction);
+                    transaction = null;
+                  } else {
+                    getCredentials(transaction.user, transaction.password, true)
+                      // Se procede a verificar si se realizo correctamente el ingreso al SII
+                      .then((responseSession) => {
+                        if (Object.keys(responseSession).length > 0) {
+                          transaction.session.expires = new Date(Date.now() + tokenExpires);
+                          transaction.session.token = responseSession.TOKEN;
+                          // Se procede a actualizar el token del SII
+                          tokenUpdate(transaction)
+                            // Se procede a obtener los documentos del periodo tributario correspondiente
+                            .then(() => {
+                              getService(transaction);
+                              transaction = null;
+                            })
+                            // Se procede a notificar en caso de que se presente algun error al actualizar el token
+                            .catch((errorUpdateToken) => {
+                              errorTraceRaven(errorUpdateToken);
+                              errorUpdateToken = null;
+                            });
+                        } else {
+                          // Se procede a detener la cola de ejecucion
+                          queueStop(transaction.queue)
+                            // Se procede a notificar la detencion de la cola de ejecucion
+                            .then(() => {
+                              connectAPIFacturaCredential(transaction.queue, transaction.user);
+                              transaction = null;
+                            })
+                            // Se procede a notificar en caso de que se presente algun error al notificar la detencion de la cola de ejecucion
+                            .catch((errorQueueStop) => {
+                              errorTraceRaven(errorQueueStop);
+                              errorQueueStop = null;
+                            });
+                        }
+                        responseSession = null;
+                      })
+                      // Se procede a notificar en caso de que se presente algun error al obtener el token
+                      .catch((errorSession) => {
+                        errorTraceRaven(errorSession);
+                        errorSession = null;
+                      });
+                  }
                 }
-              }
-              responseCredential = null;
-            })
-            // Se procede a notificar en caso de que se presente algun error al obtener las credenciales
-            .catch((errorCredential) => {
-              errorTraceRaven(errorCredential);
-              errorCredential = null;
-            });
+                responseCredential = null;
+              })
+              // Se procede a notificar en caso de que se presente algun error al obtener las credenciales
+              .catch((errorCredential) => {
+                errorTraceRaven(errorCredential);
+                errorCredential = null;
+              });
+          });
+        })
+        // Se procede a notificar en caso de que se presente algun error al obtener las colas
+        .catch((errorQueue) => {
+          errorTraceRaven(errorQueue);
+          errorQueue = null;
         });
-      })
-      // Se procede a notificar en caso de que se presente algun error al obtener las colas
-      .catch((errorQueue) => {
-        errorTraceRaven(errorQueue);
-        errorQueue = null;
-      });
+    }
   });
 };
 
