@@ -2,6 +2,7 @@
 const cryptr = require('cryptr');
 const settings = require('./../../../config/settings');
 const { request } = require('../../testing');
+const { users } = require('./../../../config/sii');
 
 // Declaracion de mocks de pruebas
 const mocks = require('./sii_credential.mocks');
@@ -184,7 +185,6 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(Object.keys(response.body).length).toBeGreaterThan(0);
       } else if (response.statusCode === 400) {
         const error = errorResponse('create').response;
         expect(response.body).toBeDefined();
@@ -203,7 +203,6 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(Object.keys(response.body).length).toBeGreaterThan(0);
       } else if (response.statusCode === 400) {
         const error = errorResponse('create').response;
         expect(response.body).toBeDefined();
@@ -222,7 +221,6 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(Object.keys(response.body).length).toBeGreaterThan(0);
       } else if (response.statusCode === 400) {
         const error = errorResponse('create').response;
         expect(response.body).toBeDefined();
@@ -235,14 +233,13 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
   await request().post('/sii/credential/verify').send({
-    password: 'Nubox.2019',
+    password: Cryptr.decrypt(users[0].password),
     production: true,
-    user: '76.103.915-6',
+    user: Cryptr.decrypt(users[0].user),
   })
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(Object.keys(response.body).length).toBeGreaterThan(0);
       } else if (response.statusCode === 400) {
         const error = errorResponse('create').response;
         expect(response.body).toBeDefined();
@@ -255,14 +252,13 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCreden
 }, 10000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential/verify (VERIFY) [siiCredential.verify]`, async () => {
   await request().post('/sii/credential/verify').send({
-    password: '222422',
+    password: Cryptr.decrypt(users[2].password),
     production: true,
-    user: '17.052.424-1',
+    user: Cryptr.decrypt(users[2].user),
   })
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(Object.keys(response.body).length).toBeGreaterThan(0);
       } else if (response.statusCode === 400) {
         const error = errorResponse('create').response;
         expect(response.body).toBeDefined();

@@ -312,9 +312,9 @@ exports.verify = (req, res) => {
   }
   // Se verifican las credenciales contra el SII
   getCredentials(req.body.user, req.body.password, true)
-    .then((response) => {
+    .then(() => {
       // Se retorna la respuesta de las credenciales verificadas
-      res.status(200).json(response);
+      res.status(200).json({});
     })
     .catch((errorGetCredentials) => {
       // Se retorna la respuesta con problemas
