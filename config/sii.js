@@ -1,5 +1,11 @@
 // Export global configs
 module.exports = {
+  daemon: {
+    document: true,
+    dte: false,
+    queue: true,
+    synchronization: true,
+  },
   documents: [
     {
       key: 'COMPRA',
@@ -20,6 +26,7 @@ module.exports = {
   ],
   limitSynchronization: {
     document: 50,
+    dte: 30,
     queue: 10,
     saveMany: 20,
   },

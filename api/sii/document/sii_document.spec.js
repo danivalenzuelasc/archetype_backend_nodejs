@@ -778,6 +778,69 @@ test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, 
       }
     });
 }, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
+  await request().get('/sii/document?limit=3&page=2&order=desc&logs=d,t')
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(response.body.paging.count).toEqual(3);
+        expect(response.body.paging.limit).toEqual(3);
+        expect(response.body.paging.order).toEqual('desc');
+        expect(response.body.paging.page).toEqual(2);
+        expect(response.body.paging.total).toEqual(6);
+        expect(response.body.results).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('list').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
+  await request().get('/sii/document?limit=3&page=2&order=desc&logs')
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(response.body.paging.count).toEqual(0);
+        expect(response.body.paging.limit).toEqual(3);
+        expect(response.body.paging.order).toEqual('desc');
+        expect(response.body.paging.page).toEqual(2);
+        expect(response.body.paging.total).toEqual(0);
+        expect(response.body.results).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('list').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, async () => {
+  await request().get('/sii/document?limit=1000&page=2&order=test')
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+        expect(response.body.paging.count).toEqual(0);
+        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.order).toEqual('asc');
+        expect(response.body.paging.page).toEqual(2);
+        expect(response.body.paging.total).toEqual(0);
+        expect(response.body.results).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('list').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 10000);
 
 /**
  * Prueba del metodo Multiple
