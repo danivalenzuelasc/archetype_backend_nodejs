@@ -31,9 +31,9 @@ module.exports = {
     saveMany: 20,
   },
   synchronization: {
-    credential: 'http://10.233.32.249/apiintegracion/sii/credential',
-    document: 'http://10.233.32.249/apiintegracion/sii/document',
-    queue: 'http://10.233.32.249/apiintegracion/sii/done',
+    credential: 'http://CERPRD-CL-WCF03/FacturaMatrix.Integracion.API/sii/credential',
+    document: 'http://CERPRD-CL-WCF03/FacturaMatrix.Integracion.API/sii/document',
+    queue: 'http://CERPRD-CL-WCF03/FacturaMatrix.Integracion.API/sii/done',
   },
   tokenExpires: 900000,
   typesOfDocuments: [
