@@ -3,7 +3,7 @@ const service = require('node-windows').Service;
 const settings = require('./config/settings');
 
 // Se configura el servicio Windows que ejecuta el demonio
-var svc = new service({
+const svc = new service({
   description: 'API Restful de integraciones para Chile (NodeJS)',
   name: 'Integraciones Backend CL',
   nodeOptions: [
