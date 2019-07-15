@@ -57,6 +57,7 @@
     "lint": "eslint app.js api/*.js config/*.js public/*.js utils/*.js api/**/*.js",
     "lint:watch": "esw app.js api/*.js config/*.js public/*.js utils/*.js api/**/*.js -w",
     "message:commit": "echo 'Se comienzan ha realizar las pruebas ... script lint & script test'",
+    "posttest": "cross-env NODE_ENV=pretest node task/pretest.js",
     "preprod": "npm run lint & npm run test",
     "pretest": "cross-env NODE_ENV=pretest node task/pretest.js",
     "prod": "cross-env NODE_ENV=production node --max-old-space-size=8192 app.js",

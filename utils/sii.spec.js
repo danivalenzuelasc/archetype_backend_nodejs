@@ -2,7 +2,7 @@
 const cryptr = require('cryptr');
 const settings = require('./../config/settings');
 const {
-  getCredentials, getDocuments, getSummary, mapperDocument,
+  getCredentials, getDocuments, getDTE, getSummary, mapperDocument,
 } = require('./sii');
 const { users } = require('./../config/sii');
 
@@ -155,6 +155,150 @@ test(`Prueba ${getCounter()} - Metodo getDocuments()`, async () => {
     url: 'getDetalleVenta',
   }, '2019', '03');
   expect(response.length).toEqual(0);
+}, 10000);
+
+/**
+ * Pruebas del metodo getDTE()
+ */
+test(`Prueba ${getCounter()} - Metodo getDTE()`, async () => {
+  counter += 1;
+  const credentials = await getCredentials(Cryptr.decrypt(users[1].user), users[1].password, true);
+  const response = await getDTE({
+    session: {
+      token: credentials.TOKEN,
+    },
+    user: `${credentials.RUT_NS}-${credentials.DV_NS}`,
+  }, {
+    business: {
+      dv: '5',
+      rut: 96928180,
+    },
+    document: {
+      codes: {
+        dcv: 69831694,
+        det: 1385809345,
+      },
+      codeSII: 33,
+      operation: 'COMPRA',
+      period: 201902,
+      shippingIdentifier: 3592832691,
+    },
+  });
+  expect(response.detalleDte).toBeDefined();
+  expect(response.respEstado).toBeDefined();
+  expect(response.respEstado.codRespuesta).toEqual(0);
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo getDTE()`, async () => {
+  counter += 1;
+  const credentials = await getCredentials(Cryptr.decrypt(users[1].user), users[1].password, true);
+  const response = await getDTE({
+    session: {
+      token: credentials.TOKEN,
+    },
+    user: `${credentials.RUT_NS}-${credentials.DV_NS}`,
+  }, {
+    business: {
+      dv: '5',
+      rut: 76620415,
+    },
+    document: {
+      codes: {
+        dcv: 69831694,
+        det: 1431823068,
+      },
+      codeSII: 33,
+      operation: 'COMPRA',
+      period: 201902,
+      shippingIdentifier: 3622210278,
+    },
+  });
+  expect(response.detalleDte).toBeDefined();
+  expect(response.respEstado).toBeDefined();
+  expect(response.respEstado.codRespuesta).toEqual(0);
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo getDTE()`, async () => {
+  counter += 1;
+  const credentials = await getCredentials(Cryptr.decrypt(users[1].user), users[1].password, true);
+  const response = await getDTE({
+    session: {
+      token: credentials.TOKEN,
+    },
+    user: `${credentials.RUT_NS}-${credentials.DV_NS}`,
+  }, {
+    business: {
+      dv: '8',
+      rut: 76619657,
+    },
+    document: {
+      codes: {
+        dcv: 76081858,
+        det: 1517731221,
+      },
+      codeSII: 33,
+      operation: 'VENTA',
+      period: 201904,
+      shippingIdentifier: 3676910825,
+    },
+  });
+  expect(response.detalleDte).toBeDefined();
+  expect(response.respEstado).toBeDefined();
+  expect(response.respEstado.codRespuesta).toEqual(0);
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo getDTE()`, async () => {
+  counter += 1;
+  const credentials = await getCredentials(Cryptr.decrypt(users[1].user), users[1].password, true);
+  const response = await getDTE({
+    session: {
+      token: credentials.TOKEN,
+    },
+    user: `${credentials.RUT_NS}-${credentials.DV_NS}`,
+  }, {
+    business: {
+      dv: '8',
+      rut: 76619657,
+    },
+    document: {
+      codes: {
+        dcv: 87658113,
+        det: 1740998527,
+      },
+      codeSII: 33,
+      operation: 'VENTA',
+      period: 201907,
+      shippingIdentifier: 3821394653,
+    },
+  });
+  expect(response.detalleDte).toBeDefined();
+  expect(response.respEstado).toBeDefined();
+  expect(response.respEstado.codRespuesta).toEqual(0);
+}, 10000);
+test(`Prueba ${getCounter()} - Metodo getDTE()`, async () => {
+  counter += 1;
+  const credentials = await getCredentials(Cryptr.decrypt(users[1].user), users[1].password, true);
+  const response = await getDTE({
+    session: {
+      token: credentials.TOKEN,
+    },
+    user: `${credentials.RUT_NS}-${credentials.DV_NS}`,
+  }, {
+    business: {
+      dv: '8',
+      rut: 76619657,
+    },
+    document: {
+      codes: {
+        dcv: 87658113,
+        det: 1740998527,
+      },
+      codeSII: 33,
+      operation: 'VENTA',
+      period: 201907,
+      shippingIdentifier: 3821394658,
+    },
+  });
+  expect(response.detalleDte).toEqual(null);
+  expect(response.respEstado).toBeDefined();
+  expect(response.respEstado.codRespuesta).toEqual(3);
 }, 10000);
 
 /**
