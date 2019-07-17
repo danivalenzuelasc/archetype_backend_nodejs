@@ -1,6 +1,13 @@
 // Se exportan la configuracion de las colecciones
 module.exports = () => {
   const api = {
+    siiAudit: {
+      import: false,
+      router: {
+        path: 'audit',
+        root: 'sii',
+      },
+    },
     siiCredential: {
       import: false,
       router: {

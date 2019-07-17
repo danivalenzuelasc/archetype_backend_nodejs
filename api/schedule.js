@@ -1,5 +1,6 @@
 // Declaracion de dependencias
 const cryptr = require('cryptr');
+const executionTime = require('execution-time')();
 const nodeSchedule = require('node-schedule');
 const request = require('request-promise');
 const settings = require('./../config/settings');
@@ -154,9 +155,11 @@ exports.init = () => {
                     getService(transaction);
                     transaction = null;
                   } else {
+                    executionTime.start('getCredentials');
                     getCredentials(transaction.user, transaction.password, true)
                       // Se procede a verificar si se realizo correctamente el ingreso al SII
                       .then((responseSession) => {
+                        console.info(transaction.user, executionTime.stop('getCredentials').time);
                         if (Object.keys(responseSession).length > 0) {
                           transaction.session.expires = new Date(Date.now() + tokenExpires);
                           transaction.session.token = responseSession.TOKEN;
