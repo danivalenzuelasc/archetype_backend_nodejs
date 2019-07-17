@@ -1,7 +1,9 @@
 // Declaracion de dependencias
 const cryptr = require('cryptr');
+const executionTime = require('execution-time')();
 const nodeSchedule = require('node-schedule');
-const request = require('request-promise');
+const request = require('request');
+const requestPromise = require('request-promise');
 const settings = require('./../config/settings');
 const {
   daemon, documents, limitSynchronization, synchronization, tokenExpires,
@@ -154,9 +156,11 @@ exports.init = () => {
                     getService(transaction);
                     transaction = null;
                   } else {
+                    executionTime.start('getCredentials');
                     getCredentials(transaction.user, transaction.password, true)
                       // Se procede a verificar si se realizo correctamente el ingreso al SII
                       .then((responseSession) => {
+                        auditCreate(transaction.user, 'Credential', executionTime.stop('getCredentials').time);
                         if (Object.keys(responseSession).length > 0) {
                           transaction.session.expires = new Date(Date.now() + tokenExpires);
                           transaction.session.token = responseSession.TOKEN;
@@ -177,6 +181,7 @@ exports.init = () => {
                       })
                       // Se procede a notificar en caso de que se presente algun error al obtener el token
                       .catch((errorSession) => {
+                        auditCreate(transaction.user, 'Credential', executionTime.stop('getCredentials').time);
                         errorTraceRaven(errorSession);
                         errorSession = null;
                       });
@@ -227,9 +232,11 @@ exports.init = () => {
                     getService(transaction);
                     transaction = null;
                   } else {
+                    executionTime.start('getCredentials');
                     getCredentials(transaction.user, transaction.password, true)
                       // Se procede a verificar si se realizo correctamente el ingreso al SII
                       .then((responseSession) => {
+                        auditCreate(transaction.user, 'Credential', executionTime.stop('getCredentials').time);
                         if (Object.keys(responseSession).length > 0) {
                           transaction.session.expires = new Date(Date.now() + tokenExpires);
                           transaction.session.token = responseSession.TOKEN;
@@ -263,6 +270,7 @@ exports.init = () => {
                       })
                       // Se procede a notificar en caso de que se presente algun error al obtener el token
                       .catch((errorSession) => {
+                        auditCreate(transaction.user, 'Credential', executionTime.stop('getCredentials').time);
                         errorTraceRaven(errorSession);
                         errorSession = null;
                       });
@@ -287,6 +295,41 @@ exports.init = () => {
 };
 
 /**
+ * Function auditCreate
+ * Parametros de entrada
+ * period (opcional) => Año y mes del periodo a consultar
+ * time (requerido) => Tiempo de ejecucion en milisegundos de la consulta en el SII
+ * type (requerido) => Tipo de consulta a realizar en el SII
+ * user (requerido) => Usuario con el cual se consultan los datos en el SII
+ */
+function auditCreate(user, type, time, period = null) {
+  // Configuramos la peticion de la llamada de creacion de una auditoria
+  const options = {
+    body: {
+      period,
+      time,
+      type,
+      user,
+    },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    json: true,
+    method: 'POST',
+    resolveWithFullResponse: true,
+    uri: `${apiUrl}/sii/audit`,
+  };
+  request(options, (error) => {
+    // Se procede a notificar en caso de que se presente algun error al crear una auditoria
+    if (error) {
+      auditCreate(user, type, time, period);
+      errorTraceRaven(error);
+      error = null;
+    }
+  });
+}
+
+/**
  * Function connectAPIFacturaCredential
  * Parametros de entrada
  * queue => Identificador de la cola
@@ -307,7 +350,7 @@ function connectAPIFacturaCredential(queue, user) {
     resolveWithFullResponse: true,
     uri: synchronization.credential,
   };
-  request(options)
+  requestPromise(options)
     // Se procede a enviar la respuesta de la sincronizacion de la cola
     .then(() => {})
     // Se procede a notificar en caso de que se presente algun error al sincronizar los colas
@@ -339,7 +382,7 @@ function connectAPIFacturaDocument(document, method) {
     resolveWithFullResponse: true,
     uri: synchronization.document,
   };
-  request(options)
+  requestPromise(options)
     // Se procede a enviar la respuesta de la sincronizacion del documento
     .then(() => {
       documentSend(document._id, {
@@ -391,7 +434,7 @@ function connectAPIFacturaQueue(queue, user) {
     resolveWithFullResponse: true,
     uri: synchronization.queue,
   };
-  request(options)
+  requestPromise(options)
     // Se procede a actualizar el registro de la cola
     .then(() => {
       synchronizeUpdate({ queue }, null, null, null, true);
@@ -424,7 +467,7 @@ function documentCreate(listDocuments) {
     resolveWithFullResponse: true,
     uri: `${apiUrl}/sii/document/multiple`,
   };
-  request(options)
+  requestPromise(options)
     // Se procede a enviar la respuesta de la creacion del documento
     .then(() => {})
     // Se procede a notificar en caso de que se presente algun error al crear un documento
@@ -455,7 +498,7 @@ function documentSend(documentId, send) {
     resolveWithFullResponse: true,
     uri: `${apiUrl}/sii/document/${documentId}`,
   };
-  request(options)
+  requestPromise(options)
     // Se procede a enviar la respuesta de la actualizacion del documento
     .then(() => {})
     // Se procede a notificar en caso de que se presente algun error al actualizar un documento
@@ -484,7 +527,7 @@ function getCredential(user) {
       resolveWithFullResponse: true,
       uri: `${apiUrl}/sii/credential?user=${user}`,
     };
-    request(options)
+    requestPromise(options)
       // Se procede a enviar la respuesta de la obtencion de la credencial
       .then((response) => {
         resolve(response.body);
@@ -518,7 +561,7 @@ function getDocument(limit, user = null, send = true) {
     if (user) {
       options.uri += `&user=${user.replace(/\./g, '')}`;
     }
-    request(options)
+    requestPromise(options)
       // Se procede a enviar la respuesta de la obtencion de los documentos pendientes de sincronizacion
       .then((response) => {
         resolve(response.body);
@@ -553,7 +596,7 @@ function getQueue(type, limit, send = false) {
     if (send) {
       options.uri += '&send';
     }
-    request(options)
+    requestPromise(options)
       // Se procede a enviar la respuesta de la obtencion de la cola
       .then((response) => {
         resolve(response.body);
@@ -606,12 +649,14 @@ function getService(transaction) {
             types: [],
           };
           // Se procede a obtener la cantidad de documentos de un tipo de operacion
+          executionTime.start('getSummary');
           await getSummary(transaction, {
             operation: document.key,
             state: row,
             url: document.url,
           }, year, month < 10 ? `${0}${month}` : month)
             .then((responseGetSummary) => {
+              auditCreate(transaction.user, 'Summary', executionTime.stop('getSummary').time, execution.period);
               // Se obtienen la cantidad de documentos por cada una de las categorias consultadas
               if (Array.isArray(responseGetSummary) && responseGetSummary.length > 0) {
                 responseGetSummary.forEach((aux) => {
@@ -625,6 +670,7 @@ function getService(transaction) {
               }
               responseGetSummary.forEach((type) => {
                 // Se procede a obtener los documentos de un tipo de operacion
+                executionTime.start('getDocuments');
                 getDocuments(transaction, {
                   document: String(type.rsmnTipoDocInteger),
                   operation: document.key,
@@ -632,6 +678,7 @@ function getService(transaction) {
                   url: document.url,
                 }, year, month < 10 ? `${0}${month}` : month)
                   .then(async (responseGetDocuments) => {
+                    auditCreate(transaction.user, 'Documents', executionTime.stop('getDocuments').time, execution.period);
                     if (Array.isArray(responseGetDocuments)) {
                       const list = await responseGetDocuments.map((rowDocument) => {
                         // Se procede a procesar el documento obtenido
@@ -646,12 +693,14 @@ function getService(transaction) {
                   })
                   // Se procede a notificar en caso de que se presente algun error al obtener los documentos del periodo tributario
                   .catch((errorGetDocuments) => {
+                    auditCreate(transaction.user, 'Documents', executionTime.stop('getDocuments').time);
                     errorTraceRaven(errorGetDocuments);
                   });
               });
             })
             // Se procede a notificar en caso de que se presente algun error al obtener el resumen del periodo tributario
             .catch((errorGetSummary) => {
+              auditCreate(transaction.user, 'Summary', executionTime.stop('getSummary').time);
               errorTraceRaven(errorGetSummary);
             });
           await executions.push(execution);
@@ -685,7 +734,7 @@ function queueExecutions(queue, executions) {
     resolveWithFullResponse: true,
     uri: `${apiUrl}/sii/queue/${queue}`,
   };
-  request(options)
+  requestPromise(options)
     // Se procede a actualizar la cola
     .then(async (response) => {
       await response.body.executions.forEach(async (row, key) => {
@@ -717,7 +766,7 @@ function queueExecutions(queue, executions) {
         resolveWithFullResponse: true,
         uri: `${apiUrl}/sii/queue/${queue}`,
       };
-      request(options)
+      requestPromise(options)
         // Se procede a actualizar la cola
         .then(() => {})
         // Se procede a notificar en caso de que se presente algun error al obtener una cola
@@ -760,7 +809,7 @@ function queueStop(queueId) {
       resolveWithFullResponse: true,
       uri: `${apiUrl}/sii/queue/${queueId}`,
     };
-    request(options)
+    requestPromise(options)
       // Se procede a enviar la respuesta de la actualizacion de la sincronizacion
       .then(() => {
         resolve();
@@ -805,7 +854,7 @@ function synchronizeUpdate(transaction, year, month, type = 'Automatic', sync = 
       resolveWithFullResponse: true,
       uri: `${apiUrl}/sii/queue/${transaction.queue}`,
     };
-    request(options)
+    requestPromise(options)
       // Se procede a enviar la respuesta de la actualizacion de la sincronizacion
       .then(() => {
         resolve();
@@ -842,7 +891,7 @@ function tokenUpdate(credential) {
       resolveWithFullResponse: true,
       uri: `${apiUrl}/sii/credential/${credential.id}`,
     };
-    request(options)
+    requestPromise(options)
       // Se procede a enviar la respuesta de la actualizacion del token
       .then((response) => {
         resolve(response.body);
