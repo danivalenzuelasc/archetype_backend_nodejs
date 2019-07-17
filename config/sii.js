@@ -38,6 +38,9 @@ module.exports = {
   tokenExpires: 900000,
   typesOfDocuments: [
     {
+      key: 29,
+      name: 'Factura de inicio',
+    }, {
       key: 30,
       name: 'Factura',
     }, {
@@ -95,8 +98,17 @@ module.exports = {
       key: 61,
       name: 'Nota de crédito electrónica',
     }, {
+      key: 101,
+      name: 'Factura de exportación',
+    }, {
       key: 103,
       name: 'Liquidación',
+    }, {
+      key: 104,
+      name: 'Nota de débito de exportación',
+    }, {
+      key: 106,
+      name: 'Nota de crédito de exportación',
     }, {
       key: 110,
       name: 'Factura de exportación electrónica',
