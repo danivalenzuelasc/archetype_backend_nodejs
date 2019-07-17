@@ -1,5 +1,11 @@
 // Export global configs
 module.exports = {
+  daemon: {
+    document: true,
+    dte: false,
+    queue: true,
+    synchronization: true,
+  },
   documents: [
     {
       key: 'COMPRA',
@@ -20,17 +26,21 @@ module.exports = {
   ],
   limitSynchronization: {
     document: 50,
+    dte: 30,
     queue: 10,
     saveMany: 20,
   },
   synchronization: {
-    credential: 'http://10.233.32.249/apiintegracion/sii/credential',
-    document: 'http://10.233.32.249/apiintegracion/sii/document',
-    queue: 'http://10.233.32.249/apiintegracion/sii/done',
+    credential: 'http://CERPRD-CL-WCF03/FacturaMatrix.Integracion.API/sii/credential',
+    document: 'http://CERPRD-CL-WCF03/FacturaMatrix.Integracion.API/sii/document',
+    queue: 'http://CERPRD-CL-WCF03/FacturaMatrix.Integracion.API/sii/done',
   },
   tokenExpires: 900000,
   typesOfDocuments: [
     {
+      key: 29,
+      name: 'Factura de inicio',
+    }, {
       key: 30,
       name: 'Factura',
     }, {
@@ -88,8 +98,17 @@ module.exports = {
       key: 61,
       name: 'Nota de crédito electrónica',
     }, {
+      key: 101,
+      name: 'Factura de exportación',
+    }, {
       key: 103,
       name: 'Liquidación',
+    }, {
+      key: 104,
+      name: 'Nota de débito de exportación',
+    }, {
+      key: 106,
+      name: 'Nota de crédito de exportación',
     }, {
       key: 110,
       name: 'Factura de exportación electrónica',
