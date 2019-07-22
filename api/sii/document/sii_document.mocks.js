@@ -34,6 +34,10 @@ module.exports = [
       accountingStatement: 'State 01',
       codeOffice: 1,
       codeSII: 1,
+      codes: {
+        dcv: 1,
+        det: 1,
+      },
       containerDeposit: 1,
       foreign: {
         dni: 'Foreign DNI 01',
@@ -60,6 +64,7 @@ module.exports = [
         type: 1,
       },
       senderNote: 1,
+      shippingIdentifier: 1,
       specialCredit: 1,
       status: true,
       transaction: {
@@ -143,6 +148,10 @@ module.exports = [
       accountingStatement: 'State 02',
       codeOffice: 2,
       codeSII: 2,
+      codes: {
+        dcv: 2,
+        det: 2,
+      },
       containerDeposit: 2,
       foreign: {
         dni: 'Foreign DNI 02',
@@ -169,6 +178,7 @@ module.exports = [
         type: 2,
       },
       senderNote: 2,
+      shippingIdentifier: 2,
       specialCredit: 2,
       status: true,
       transaction: {
@@ -252,6 +262,10 @@ module.exports = [
       accountingStatement: 'State 03',
       codeOffice: 3,
       codeSII: 3,
+      codes: {
+        dcv: 3,
+        det: 3,
+      },
       containerDeposit: 3,
       foreign: {
         dni: 'Foreign DNI 03',
@@ -278,6 +292,7 @@ module.exports = [
         type: 3,
       },
       senderNote: 3,
+      shippingIdentifier: 3,
       specialCredit: 3,
       status: true,
       transaction: {
@@ -367,6 +382,10 @@ module.exports = [
       accountingStatement: 'State 04',
       codeOffice: 4,
       codeSII: 4,
+      codes: {
+        dcv: 4,
+        det: 4,
+      },
       containerDeposit: 4,
       foreign: {
         dni: 'Foreign DNI 04',
@@ -393,6 +412,7 @@ module.exports = [
         type: 4,
       },
       senderNote: 4,
+      shippingIdentifier: 4,
       specialCredit: 4,
       status: true,
       transaction: {
@@ -486,6 +506,10 @@ module.exports = [
       accountingStatement: 'State 05',
       codeOffice: 5,
       codeSII: 5,
+      codes: {
+        dcv: 5,
+        det: 5,
+      },
       containerDeposit: 5,
       foreign: {
         dni: 'Foreign DNI 05',
@@ -512,6 +536,7 @@ module.exports = [
         type: 5,
       },
       senderNote: 5,
+      shippingIdentifier: 5,
       specialCredit: 5,
       status: true,
       transaction: {
@@ -613,6 +638,10 @@ module.exports = [
       accountingStatement: 'State 06',
       codeOffice: 6,
       codeSII: 6,
+      codes: {
+        dcv: 6,
+        det: 6,
+      },
       containerDeposit: 6,
       foreign: {
         dni: 'Foreign DNI 06',
@@ -639,6 +668,7 @@ module.exports = [
         type: 6,
       },
       senderNote: 6,
+      shippingIdentifier: 6,
       specialCredit: 6,
       status: true,
       transaction: {
@@ -722,6 +752,10 @@ module.exports = [
       accountingStatement: 'State 07',
       codeOffice: 7,
       codeSII: 7,
+      codes: {
+        dcv: 7,
+        det: 7,
+      },
       containerDeposit: 7,
       foreign: {
         dni: 'Foreign DNI 07',
@@ -748,6 +782,7 @@ module.exports = [
         type: 7,
       },
       senderNote: 7,
+      shippingIdentifier: 7,
       specialCredit: 7,
       status: true,
       transaction: {
@@ -831,6 +866,10 @@ module.exports = [
       accountingStatement: 'State 08',
       codeOffice: 8,
       codeSII: null,
+      codes: {
+        dcv: 8,
+        det: 8,
+      },
       containerDeposit: 8,
       foreign: {
         dni: 'Foreign DNI 08',
@@ -857,6 +896,7 @@ module.exports = [
         type: 8,
       },
       senderNote: 8,
+      shippingIdentifier: 8,
       specialCredit: 8,
       status: true,
       transaction: {
@@ -940,6 +980,10 @@ module.exports = [
       accountingStatement: 'State 09',
       codeOffice: 9,
       codeSII: 9,
+      codes: {
+        dcv: 9,
+        det: 9,
+      },
       containerDeposit: 9,
       foreign: {
         dni: 'Foreign DNI 09',
@@ -966,6 +1010,7 @@ module.exports = [
         type: 9,
       },
       senderNote: 9,
+      shippingIdentifier: 9,
       specialCredit: 9,
       status: true,
       transaction: {
@@ -1049,6 +1094,10 @@ module.exports = [
       accountingStatement: 'State 010',
       codeOffice: 10,
       codeSII: 10,
+      codes: {
+        dcv: 10,
+        det: 10,
+      },
       containerDeposit: 10,
       foreign: {
         dni: 'Foreign DNI 010',
@@ -1075,6 +1124,7 @@ module.exports = [
         type: 10,
       },
       senderNote: 10,
+      shippingIdentifier: 10,
       specialCredit: 10,
       status: true,
       transaction: {

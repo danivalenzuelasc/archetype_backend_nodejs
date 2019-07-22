@@ -367,6 +367,10 @@ exports.outputMapperDocument = [
       accountingStatement: null,
       codeOffice: 0,
       codeSII: 1,
+      codes: {
+        dcv: 64556344,
+        det: 1298116950,
+      },
       containerDeposit: null,
       foreign: {
         dni: null,
@@ -393,6 +397,7 @@ exports.outputMapperDocument = [
         type: 0,
       },
       senderNote: 0,
+      shippingIdentifier: 3536982623,
       specialCredit: null,
       status: null,
       transaction: {
@@ -458,6 +463,10 @@ exports.outputMapperDocument = [
       accountingStatement: null,
       codeOffice: 80313898,
       codeSII: 2,
+      codes: {
+        dcv: 64556344,
+        det: 1298402297,
+      },
       containerDeposit: null,
       foreign: {
         dni: null,
@@ -484,6 +493,7 @@ exports.outputMapperDocument = [
         type: 0,
       },
       senderNote: 0,
+      shippingIdentifier: 3537154869,
       specialCredit: null,
       status: null,
       transaction: {
@@ -549,6 +559,10 @@ exports.outputMapperDocument = [
       accountingStatement: null,
       codeOffice: 80313898,
       codeSII: null,
+      codes: {
+        dcv: 64556344,
+        det: 1298531507,
+      },
       containerDeposit: null,
       foreign: {
         dni: null,
@@ -575,6 +589,7 @@ exports.outputMapperDocument = [
         type: 0,
       },
       senderNote: 0,
+      shippingIdentifier: 3537234022,
       specialCredit: null,
       status: null,
       transaction: {
@@ -640,6 +655,10 @@ exports.outputMapperDocument = [
       accountingStatement: null,
       codeOffice: 0,
       codeSII: 1,
+      codes: {
+        dcv: 64556344,
+        det: 1299876281,
+      },
       containerDeposit: null,
       foreign: {
         dni: null,
@@ -666,6 +685,7 @@ exports.outputMapperDocument = [
         type: 0,
       },
       senderNote: 0,
+      shippingIdentifier: 3538050325,
       specialCredit: null,
       status: null,
       transaction: {

@@ -18,12 +18,23 @@ env:
 # Se detallan los correos electronicos donde se enviaran las notificaciones del proceso de integracion continua
 notifications:
   email:
+    on_failure: always
+    on_success: never
     recipients:
       - cristian.rodriguez@nubox.com
       - daniel.valenzuela@nubox.com
       - gianni.gellona@nubox.com
       - lucas.mayoni@colppy.com
       - marco.bahamondes@nubox.com
+  slack:
+    on_failure: always
+    on_pull_requests: always
+    on_success: always
+    rooms:
+      - nuboxhq:JRwJ7s1vb5nmDUCFxHoMXC7u#development-ci
+    template:
+      - "%{repository_slug} (%{commit}) : %{message}"
+      - "Build details: %{build_url}"
 
 # Se configuran los servicios necesarios en el contenedor de integracion
 services:
