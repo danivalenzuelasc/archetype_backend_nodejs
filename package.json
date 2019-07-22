@@ -59,8 +59,8 @@
     "message:commit": "echo 'Se comienzan ha realizar las pruebas ... script lint & script test'",
     "preprod": "npm run lint & npm run test",
     "pretest": "cross-env NODE_ENV=pretest node task/pretest.js",
-    "prod": "cross-env NODE_ENV=production node --max-old-space-size=8192 app.js",
-    "start": "cross-env NODE_ENV=development nodemon --max-old-space-size=8192 app.js & npm run lint:watch",
+    "prod": "cross-env NODE_ENV=production node --max-old-space-size=c8192 app.js",
+    "start": "cross-env MONGO_URI=mongodb://localhost/integraciones_backend_cl NODE_ENV=development nodemon --max-old-space-size=8192 app.js & npm run lint:watch",
     "test": "cross-env NODE_ENV=testing jest --verbose --forceExit"
   },
   "pre-commit": [
@@ -83,7 +83,7 @@
     "forever": "1.0.0",
     "method-override": "3.0.0",
     "moment": "2.24.0",
-    "mongoose": "5.6.4",
+    "mongoose": "5.6.6",
     "node-schedule": "1.3.2",
     "request": "2.88.0",
     "request-promise": "4.2.4",
@@ -92,12 +92,12 @@
     "uuid": "3.3.2"
   },
   "devDependencies": {
-    "eslint": "6.0.1",
+    "eslint": "6.1.0",
     "eslint-config-airbnb": "17.1.1",
-    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.14.2",
-    "eslint-watch": "5.1.2",
+    "eslint-watch": "6.0.0",
     "jest": "24.8.0",
     "nodemon": "1.19.1",
     "parallelshell": "3.0.2",
