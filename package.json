@@ -59,8 +59,8 @@
     "message:commit": "echo 'Se comienzan ha realizar las pruebas ... script lint & script test'",
     "preprod": "npm run lint & npm run test",
     "pretest": "cross-env NODE_ENV=testing node task/pretest.js",
-    "prod": "cross-env NODE_ENV=production node --max-old-space-size=c8192 app.js",
-    "start": "cross-env MONGO_URI=mongodb://localhost/integraciones_backend_cl NODE_ENV=testing nodemon --max-old-space-size=8192 app.js & npm run lint:watch",
+    "prod": "cross-env NODE_ENV=production node --max-old-space-size=4096 app.js",
+    "start": "cross-env NODE_ENV=debugging nodemon --max-old-space-size=4096 app.js & npm run lint:watch",
     "test": "cross-env NODE_ENV=testing jest --verbose --forceExit"
   },
   "pre-commit": [
