@@ -70,7 +70,7 @@ app.use((req, res, next) => {
 app.use(morgan('combined', {
   stream: logFile,
 }));
-if (['testing', 'debugging'].indexOf(process.env.NODE_ENV) !== -1) {
+if (['debugging'].indexOf(process.env.NODE_ENV) !== -1) {
   app.use(morgan('dev'));
 }
 app.use((error, req, res, next) => {
