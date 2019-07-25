@@ -65,11 +65,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// Se habilita
-app.use(morgan({
+// Se habilita el logger para depurar el comportamiento de la arquitectura
+
+app.use(morgan('combined', {
   stream: logFile,
 }));
-app.use(morgan('dev'));
+if (['testing', 'debugging'].indexOf(process.env.NODE_ENV) !== -1) {
+  app.use(morgan('dev'));
+}
 app.use((error, req, res, next) => {
   res.locals.error = error;
   res.locals.message = error.message;

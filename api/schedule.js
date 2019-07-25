@@ -204,7 +204,7 @@ exports.init = () => {
     }
   });
   // Se realiza ejecucion del demonio [cada 5 minutos]
-  nodeSchedule.scheduleJob('* */5 * * * *', () => {
+  nodeSchedule.scheduleJob('0 */5 * * * *', () => {
     if (daemon.synchronization) {
       // Se procede a realizar la llamada para obtener las colas Automaticas que se deben ejecutar
       getQueue('Automatic', 100)
