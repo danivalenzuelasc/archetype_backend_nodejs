@@ -322,7 +322,6 @@ function auditCreate(user, type, time, period = null) {
   request(options, (error) => {
     // Se procede a notificar en caso de que se presente algun error al crear una auditoria
     if (error) {
-      auditCreate(user, type, time, period);
       errorTraceRaven(error);
       error = null;
     }

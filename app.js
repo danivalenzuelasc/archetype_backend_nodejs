@@ -3,11 +3,19 @@ const bodyParser = require('body-parser');
 const credentials = require('./config/credentials');
 const express = require('express');
 const expressPrettify = require('express-prettify');
+const fs = require('fs');
 const methodOverride = require('method-override');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
 const sentry = require('@sentry/node');
 const settings = require('./config/settings');
 mongoose.Promise = require('bluebird');
+
+// Declaracion del archivo de log de NodeJS
+const logFile = fs.createWriteStream(path.join(__dirname, '/node.log'), {
+  flags: 'a',
+});
 
 // Metodo para forzar la conexion por HTTPS (Protocolo SSL)
 const forceSsl = (req, res, next) => {
@@ -54,6 +62,18 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
+// Se habilita
+app.use(morgan({
+  stream: logFile,
+}));
+app.use(morgan('dev'));
+app.use((error, req, res, next) => {
+  res.locals.error = error;
+  res.locals.message = error.message;
+  logFile.write(error);
   next();
 });
 
