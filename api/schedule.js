@@ -555,8 +555,14 @@ function getDocument(limit, user = null, send = true) {
       json: true,
       method: 'GET',
       resolveWithFullResponse: true,
-      uri: `${apiUrl}/sii/document?limit=${limit}&page=1&order=asc&${send ? 'send' : ''}`,
+      uri: `${apiUrl}/sii/document?page=1&order=asc`,
     };
+    if (limit) {
+      options.uri += limit ? `&limit=${limit}` : '&sync';
+    }
+    if (send) {
+      options.uri += send ? '&send' : '';
+    }
     if (user) {
       options.uri += `&user=${user.replace(/\./g, '')}`;
     }
@@ -589,9 +595,12 @@ function getQueue(type, limit, send = false) {
       json: true,
       method: 'GET',
       resolveWithFullResponse: true,
-      uri: `${apiUrl}/sii/queue?limit=${limit}&page=1&order=asc&type=${type}`,
+      uri: `${apiUrl}/sii/queue?limit=${limit}&page=1&order=asc`,
     };
     // Se verifica si se necesita aplicar el filtro de solo los pendientes de notificacion de sincronizacion
+    if (type) {
+      options.uri += type ? `&type=${type}` : '';
+    }
     if (send) {
       options.uri += '&send';
     }

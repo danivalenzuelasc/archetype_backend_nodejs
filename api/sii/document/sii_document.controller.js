@@ -1,6 +1,7 @@
 // Declaracion de dependencias
 const mongoose = require('mongoose');
 const settings = require('../../../config/settings');
+const sii = require('./../../../config/sii');
 const { errorResponse } = require('../../../utils/errors');
 const { errorTraceRaven } = require('../../../utils/general');
 
@@ -40,11 +41,13 @@ exports.list = (req, res) => {
   const filters = {};
   filters.active = !Object.prototype.hasOwnProperty.call(req.query, 'notActive');
   filters.isDeleted = false;
-  filters.limit = req.query.limit && Number.isInteger(parseInt(req.query.limit, 10)) ?
-    (parseInt(req.query.limit, 10) < 1 || parseInt(req.query.limit, 10) > settings.endpoint.limit)
-      ? settings.endpoint.limit
-      : parseInt(req.query.limit, 10)
-    : settings.endpoint.limit;
+  filters.limit = Object.prototype.hasOwnProperty.call(req.query, 'sync')
+    ? parseInt(sii.limitSynchronization.document, 10)
+    : req.query.limit && Number.isInteger(parseInt(req.query.limit, 10))
+      ? (parseInt(req.query.limit, 10) < 1 || parseInt(req.query.limit, 10) > settings.endpoint.limit)
+        ? settings.endpoint.limit
+        : parseInt(req.query.limit, 10)
+      : settings.endpoint.limit;
   filters.page = req.query.page && Number.isInteger(parseInt(req.query.page, 10)) ?
     parseInt(req.query.page, 10) < 1
       ? 0
@@ -136,11 +139,11 @@ exports.list = (req, res) => {
 };
 
 /**
- * Metodo Multiple
+ * Metodo MultipleCreate
  * URI: /sii/queue/multiple
  * Method: POST
  */
-exports.multiple = (req, res) => {
+exports.multipleCreate = (req, res) => {
   // Se procede a almacenar el documento en la coleccion
   SiiDocument.insertMany(req.body)
     .then((responseMultiple) => {

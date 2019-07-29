@@ -219,7 +219,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(0);
-        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.limit).toEqual(100);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(0);
@@ -240,7 +240,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(0);
-        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.limit).toEqual(100);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(0);
@@ -282,7 +282,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(0);
-        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.limit).toEqual(100);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(0);
@@ -324,7 +324,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(6);
-        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.limit).toEqual(100);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(6);

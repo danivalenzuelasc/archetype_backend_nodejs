@@ -4,7 +4,7 @@ module.exports = {
   endpoint: {
     crypt: process.env.CRYPT || '$&mHn5qbc75J}c>',
     hashing: process.env.HASHING || 43200000,
-    limit: process.env.LIMIT || 500,
+    limit: process.env.LIMIT || 100,
   },
   mongo: {
     certification: {
