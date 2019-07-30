@@ -297,6 +297,11 @@ const SiiDocumentSchema = new mongoose.Schema({
         type: String,
       },
     },
+    pending: {
+      default: false,
+      required: true,
+      type: Boolean,
+    },
   },
   tax: {
     amount: {

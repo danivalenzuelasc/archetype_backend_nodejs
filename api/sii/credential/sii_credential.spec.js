@@ -51,7 +51,7 @@ mocks.forEach(async (row) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
 
 /**
@@ -86,7 +86,7 @@ mocks.forEach(async (row) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
 
 /**
@@ -128,7 +128,7 @@ mocks.forEach(async (row, key) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
 
 /**
@@ -168,7 +168,7 @@ mocks.forEach(async (row, key) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
 
 /**
@@ -295,7 +295,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?limit=5&page=2&order=asc&logs=c,d,t')
     .then((response) => {
@@ -316,7 +316,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?short&limit=5&order=asc&logs=a,d,t')
     .then((response) => {
@@ -337,14 +337,14 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?short&order=asc')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(0);
-        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.limit).toEqual(100);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(0);
@@ -358,14 +358,14 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?limit=-1&page=-1&order=asc&notActive')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(0);
-        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.limit).toEqual(100);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(0);
@@ -379,7 +379,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?limit=5&page=-1&order=asc&logs=d,t')
     .then((response) => {
@@ -400,14 +400,14 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?limit=-1&page=-1&order=asc&logs=d,t&notActive')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(1);
-        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.limit).toEqual(100);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(1);
@@ -421,7 +421,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?limit=3&page=-1&order=asc&logs=d,t')
     .then((response) => {
@@ -442,14 +442,14 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?limit=-2&page=-1&order=asc&logs=d,t&user=1-3')
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
         expect(response.body.paging.count).toEqual(1);
-        expect(response.body.paging.limit).toEqual(500);
+        expect(response.body.paging.limit).toEqual(100);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
         expect(response.body.paging.total).toEqual(1);
@@ -463,7 +463,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list]`, async () => {
   await request().get('/sii/credential?limit=1&page=-1&order=asc&logs=d,t&user=1-2')
     .then((response) => {
@@ -484,7 +484,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/credential (LIST) [siiCredential.list
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 
 /**
  * Prueba del metodo Remove
@@ -506,5 +506,5 @@ mocks.forEach(async (row) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
