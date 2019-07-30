@@ -56,6 +56,9 @@ exports.list = (req, res) => {
   filters.query = Object.prototype.hasOwnProperty.call(req.query, 'short')
     ? '_id business.rut document.codeSII document.id logs send'
     : '';
+  if (Object.prototype.hasOwnProperty.call(req.query, 'pending')) {
+    filters.pending = true;
+  }
   filters.send = Object.prototype.hasOwnProperty.call(req.query, 'send');
   filters.sort = req.query.order && req.query.order === 'desc'
     ? -1
@@ -86,6 +89,9 @@ exports.list = (req, res) => {
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   };
+  if (filters.pending) {
+    query['send.pending'] = false;
+  }
   if (filters.send) {
     query['send.execute'] = false;
   }
@@ -101,39 +107,47 @@ exports.list = (req, res) => {
   // Se obtiene la cantidad de documentos en la coleccion que coinciden con los filtros aplicados
   SiiDocument.countDocuments(query)
     .then((responseCount) => {
-      // Se obtienen los documentos de la coleccion que coinciden con los filtros aplicados
-      SiiDocument.find(query, filters.query, {
-        limit: filters.limit,
-        skip: filters.page,
-        sort: {
-          'transaction.user': filters.sort,
-        },
-      })
-        .then((responseList) => {
-          // Se simula un error en la obtencion de documentos de la coleccion
-          if (filters.catch) {
-            throw new Error();
-          } else {
-            // Se retorna la respuesta de los documentos obtenidos
-            res.status(200).json({
-              paging: {
-                count: responseList.length,
-                limit: filters.limit,
-                order: filters.sort === 1 ? 'asc' : 'desc',
-                page: (filters.page / filters.limit) + 1,
-                total: responseCount,
-              },
-              results: responseList,
+      // Se verifica la cantidad de documentos en estado pendiente para restarlos del listado de sincronizacion
+      const queryPending = Object.assign({}, query);
+      if (filters.pending) {
+        queryPending['send.pending'] = true;
+      }
+      SiiDocument.countDocuments(queryPending)
+        .then((responsePending) => {
+          // Se obtienen los documentos de la coleccion que coinciden con los filtros aplicados
+          SiiDocument.find(query, filters.query, {
+            limit: filters.limit - (filters.pending ? responsePending : 0),
+            skip: filters.page,
+            sort: {
+              'transaction.user': filters.sort,
+            },
+          })
+            .then((responseList) => {
+              // Se simula un error en la obtencion de documentos de la coleccion
+              if (filters.catch) {
+                throw new Error();
+              } else {
+                // Se retorna la respuesta de los documentos obtenidos
+                res.status(200).json({
+                  paging: {
+                    count: responseList.length,
+                    limit: filters.limit,
+                    order: filters.sort === 1 ? 'asc' : 'desc',
+                    page: (filters.page / filters.limit) + 1,
+                    total: responseCount,
+                  },
+                  results: responseList,
+                });
+              }
+            })
+            .catch((errorList) => {
+              // Se retorna la respuesta con problemas
+              errorTraceRaven(errorList);
+              res.status(404).json({
+                error: errorResponse('list').response,
+                errorTrace: errorList,
+              });
             });
-          }
-        })
-        .catch((errorList) => {
-          // Se retorna la respuesta con problemas
-          errorTraceRaven(errorList);
-          res.status(404).json({
-            error: errorResponse('list').response,
-            errorTrace: errorList,
-          });
         });
     });
 };

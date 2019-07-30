@@ -43,7 +43,7 @@ mocks.forEach(async (row) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
 
 /**
@@ -76,7 +76,7 @@ mocks.forEach(async (row) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
 
 /**
@@ -109,7 +109,7 @@ mocks.forEach(async (row) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
 
 /**
@@ -142,7 +142,7 @@ mocks.forEach(async (row) => {
           expect(response.body.errorTrace).toBeDefined();
         }
       });
-  }, 10000);
+  }, 30000);
 });
 
 /**
@@ -170,7 +170,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?limit=5&page=2&order=asc&logs=c,d,t')
     .then((response) => {
@@ -191,7 +191,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?short&limit=5&order=asc&logs=a,d,t')
     .then((response) => {
@@ -212,7 +212,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?short&order=asc')
     .then((response) => {
@@ -233,7 +233,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?limit=-1&page=-1&order=asc&notActive')
     .then((response) => {
@@ -254,7 +254,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?limit=5&page=-1&order=asc&logs=d,t')
     .then((response) => {
@@ -275,7 +275,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?limit=-1&page=-1&order=asc&logs=d,t&notActive')
     .then((response) => {
@@ -296,7 +296,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?limit=3&page=-1&order=asc&logs=d,t')
     .then((response) => {
@@ -317,7 +317,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?limit=-2&page=-1&order=asc&logs=d,t')
     .then((response) => {
@@ -338,7 +338,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);
 test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async () => {
   await request().get('/sii/audit?limit=1&page=-1&order=asc&logs=d,t')
     .then((response) => {
@@ -359,4 +359,4 @@ test(`Prueba ${getCounter()} - Metodo /sii/audit (LIST) [siiAudit.list]`, async 
         expect(response.body.errorTrace).toBeDefined();
       }
     });
-}, 10000);
+}, 30000);

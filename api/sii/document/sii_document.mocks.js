@@ -93,6 +93,7 @@ module.exports = [
         code: null,
         message: null,
       },
+      pending: false,
     },
     tax: {
       amount: 1,
@@ -207,6 +208,7 @@ module.exports = [
         code: null,
         message: null,
       },
+      pending: false,
     },
     tax: {
       amount: 2,
@@ -321,6 +323,7 @@ module.exports = [
         code: null,
         message: null,
       },
+      pending: false,
     },
     tax: {
       amount: 3,
@@ -441,6 +444,7 @@ module.exports = [
         code: null,
         message: null,
       },
+      pending: false,
     },
     tax: {
       amount: 4,
@@ -565,6 +569,7 @@ module.exports = [
         code: 5,
         message: 'Message 05',
       },
+      pending: true,
     },
     tax: {
       amount: 5,
@@ -697,6 +702,7 @@ module.exports = [
         code: 6,
         message: 'Message 06',
       },
+      pending: true,
     },
     tax: {
       amount: 6,
@@ -811,6 +817,7 @@ module.exports = [
         code: null,
         message: null,
       },
+      pending: false,
     },
     tax: {
       amount: 7,
@@ -925,6 +932,7 @@ module.exports = [
         code: null,
         message: null,
       },
+      pending: false,
     },
     tax: {
       amount: 8,
@@ -1039,6 +1047,7 @@ module.exports = [
         code: null,
         message: null,
       },
+      pending: false,
     },
     tax: {
       amount: 9,
@@ -1153,6 +1162,7 @@ module.exports = [
         code: null,
         message: null,
       },
+      pending: false,
     },
     tax: {
       amount: 10,
