@@ -16,6 +16,7 @@
 .env.local
 .env.production.local
 .env.test.local
+node.log
 npm-debug.log*
 package-lock.json
 yarn-debug.log*

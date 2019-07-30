@@ -1,6 +1,7 @@
 // Declaracion de dependencias
 const mongoose = require('mongoose');
 const settings = require('../../../config/settings');
+const sii = require('./../../../config/sii');
 const { errorResponse } = require('../../../utils/errors');
 const { errorTraceRaven } = require('../../../utils/general');
 
@@ -40,19 +41,24 @@ exports.list = (req, res) => {
   const filters = {};
   filters.active = !Object.prototype.hasOwnProperty.call(req.query, 'notActive');
   filters.isDeleted = false;
-  filters.limit = req.query.limit && Number.isInteger(parseInt(req.query.limit, 10)) ?
-    (parseInt(req.query.limit, 10) < 1 || parseInt(req.query.limit, 10) > settings.endpoint.limit)
-      ? settings.endpoint.limit
-      : parseInt(req.query.limit, 10)
-    : settings.endpoint.limit;
+  filters.limit = Object.prototype.hasOwnProperty.call(req.query, 'sync')
+    ? parseInt(sii.limitSynchronization.document, 10)
+    : req.query.limit && Number.isInteger(parseInt(req.query.limit, 10))
+      ? (parseInt(req.query.limit, 10) < 1 || parseInt(req.query.limit, 10) > settings.endpoint.limit)
+        ? settings.endpoint.limit
+        : parseInt(req.query.limit, 10)
+      : settings.endpoint.limit;
   filters.page = req.query.page && Number.isInteger(parseInt(req.query.page, 10)) ?
     parseInt(req.query.page, 10) < 1
       ? 0
       : filters.limit * (parseInt(req.query.page, 10) - 1)
     : 0;
   filters.query = Object.prototype.hasOwnProperty.call(req.query, 'short')
-    ? '_id business.rut document.codeSII document.id'
+    ? '_id business.rut document.codeSII document.id logs send'
     : '';
+  if (Object.prototype.hasOwnProperty.call(req.query, 'pending')) {
+    filters.pending = true;
+  }
   filters.send = Object.prototype.hasOwnProperty.call(req.query, 'send');
   filters.sort = req.query.order && req.query.order === 'desc'
     ? -1
@@ -83,64 +89,77 @@ exports.list = (req, res) => {
     'logs.isDeleted': filters.isDeleted,
     'logs.test': filters.test,
   };
-  if (filters.send) {
+  if (filters.pending) {
     query['send.execute'] = false;
-  }
-  if (filters.type === 'details') {
-    query['execute.details'] = false;
-  }
-  if (filters.type === 'xml') {
-    query['execute.xml'] = false;
-  }
-  if (filters.user) {
-    query['transaction.user'] = req.query.user;
+    query['send.pending'] = false;
+  } else {
+    if (filters.send) {
+      query['send.execute'] = false;
+    }
+    if (filters.type === 'details') {
+      query['execute.details'] = false;
+    }
+    if (filters.type === 'xml') {
+      query['execute.xml'] = false;
+    }
+    if (filters.user) {
+      query['transaction.user'] = req.query.user;
+    }
   }
   // Se obtiene la cantidad de documentos en la coleccion que coinciden con los filtros aplicados
   SiiDocument.countDocuments(query)
     .then((responseCount) => {
-      // Se obtienen los documentos de la coleccion que coinciden con los filtros aplicados
-      SiiDocument.find(query, filters.query, {
-        limit: filters.limit,
-        skip: filters.page,
-        sort: {
-          'transaction.user': filters.sort,
-        },
-      })
-        .then((responseList) => {
-          // Se simula un error en la obtencion de documentos de la coleccion
-          if (filters.catch) {
-            throw new Error();
-          } else {
-            // Se retorna la respuesta de los documentos obtenidos
-            res.status(200).json({
-              paging: {
-                count: responseList.length,
-                limit: filters.limit,
-                order: filters.sort === 1 ? 'asc' : 'desc',
-                page: (filters.page / filters.limit) + 1,
-                total: responseCount,
-              },
-              results: responseList,
+      // Se verifica la cantidad de documentos en estado pendiente para restarlos del listado de sincronizacion
+      const queryPending = Object.assign({}, query);
+      if (filters.pending) {
+        queryPending['send.pending'] = true;
+      }
+      SiiDocument.countDocuments(queryPending)
+        .then((responsePending) => {
+          // Se obtienen los documentos de la coleccion que coinciden con los filtros aplicados
+          SiiDocument.find(query, filters.query, {
+            limit: filters.limit - (filters.pending ? responsePending : 0),
+            skip: filters.page,
+            sort: {
+              'transaction.user': filters.sort,
+            },
+          })
+            .then((responseList) => {
+              // Se simula un error en la obtencion de documentos de la coleccion
+              if (filters.catch) {
+                throw new Error();
+              } else {
+                // Se retorna la respuesta de los documentos obtenidos
+                res.status(200).json({
+                  paging: {
+                    count: responseList.length,
+                    limit: filters.limit,
+                    order: filters.sort === 1 ? 'asc' : 'desc',
+                    page: (filters.page / filters.limit) + 1,
+                    total: responseCount,
+                  },
+                  results: responseList,
+                });
+              }
+            })
+            .catch((errorList) => {
+              // Se retorna la respuesta con problemas
+              errorTraceRaven(errorList);
+              res.status(404).json({
+                error: errorResponse('list').response,
+                errorTrace: errorList,
+              });
             });
-          }
-        })
-        .catch((errorList) => {
-          // Se retorna la respuesta con problemas
-          errorTraceRaven(errorList);
-          res.status(404).json({
-            error: errorResponse('list').response,
-            errorTrace: errorList,
-          });
         });
     });
 };
 
 /**
- * Metodo Multiple
+ * Metodo MultipleCreate
  * URI: /sii/queue/multiple
  * Method: POST
  */
-exports.multiple = (req, res) => {
+exports.multipleCreate = (req, res) => {
   // Se procede a almacenar el documento en la coleccion
   SiiDocument.insertMany(req.body)
     .then((responseMultiple) => {
@@ -155,6 +174,39 @@ exports.multiple = (req, res) => {
         errorTrace: errorMultiple,
       });
     });
+};
+
+/**
+ * Metodo MultiplePending
+ * URI: /sii/queue/pending
+ * Method: PUT
+ */
+exports.multiplePending = (req, res) => {
+  // Se verifica que el documento no presente fallas, en caso de contar con fallas se retorna un error
+  if (req.body.listPending && Array.isArray(req.body.listPending) && !Object.prototype.hasOwnProperty.call(req.query, 'catch')) {
+    // Se procede a almacenar el documento en la coleccion
+    SiiDocument.updateMany({
+      _id: {
+        $in: req.body.listPending,
+      },
+    }, {
+      $set: {
+        'send.pending': true,
+      },
+    }, {
+      multi: true,
+    })
+      .then((responsePending) => {
+        // Se retorna la respuesta de los documentos actualizados
+        res.status(200).json(responsePending);
+      });
+  } else {
+    // Se retorna la respuesta con problemas
+    res.status(400).json({
+      error: errorResponse('update').response,
+      errorTrace: {},
+    });
+  }
 };
 
 /**

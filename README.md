@@ -1,6 +1,6 @@
 # API Restful de integraciones para Chile (NodeJS)
 
-[![Travis branch](https://img.shields.io/travis/nubox-spa/integraciones_backend_cl/master.svg?style=for-the-badge)](https://travis-ci.org/nubox-spa/integraciones_backend_cl)
+[![Build Status](https://travis-ci.com/nubox-spa/integraciones_backend_cl.svg?token=yJpqgisYnP5EnEQmLwWx&branch=master)](https://travis-ci.com/nubox-spa/integraciones_backend_cl)
 [![David](https://img.shields.io/david/nubox-spa/integraciones_backend_cl.svg?style=for-the-badge)](http://david-dm.org/nubox-spa/integraciones_backend_cl)
 [![David](https://img.shields.io/david/dev/nubox-spa/integraciones_backend_cl.svg?style=for-the-badge)](http://david-dm.org/nubox-spa/integraciones_backend_cl?type=dev)
 [![Codecov branch](https://img.shields.io/codecov/c/github/nubox-spa/integraciones_backend_cl/master.svg?style=for-the-badge)](https://codecov.io/github/nubox-spa/integraciones_backend_cl?branch=master)
