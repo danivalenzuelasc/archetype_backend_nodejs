@@ -25,7 +25,7 @@ module.exports = {
     },
   ],
   limitSynchronization: {
-    document: 50,
+    document: 150,
     dte: 30,
     queue: 10,
     saveMany: 20,
