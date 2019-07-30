@@ -49,9 +49,16 @@ exports.init = () => {
     }
     // Se procede a realizar la llamada para obtener los documentos pendientes de sincronizacion
     if (daemon.document) {
-      getDocument(limitSynchronization.document)
-        .then((responseGetDocument) => {
+      getDocument()
+        .then(async (responseGetDocument) => {
+          const listPending = [];
           // Se envia una solicitud de sincronizacion del documento
+          await responseGetDocument.results.forEach((document) => {
+            listPending.push(document._id);
+          });
+          if (listPending.length > 0) {
+            await documentPending(listPending);
+          }
           responseGetDocument.results.forEach((document) => {
             connectAPIFacturaDocument(document, 'POST');
           });
@@ -203,11 +210,11 @@ exports.init = () => {
         });
     }
   });
-  // Se realiza ejecucion del demonio [cada 5 minutos]
-  nodeSchedule.scheduleJob('0 */5 * * * *', () => {
+  // Se realiza ejecucion del demonio [cada 2 minutos y 30 segundos]
+  nodeSchedule.scheduleJob('30 */2 * * * *', () => {
     if (daemon.synchronization) {
       // Se procede a realizar la llamada para obtener las colas Automaticas que se deben ejecutar
-      getQueue('Automatic', 100)
+      getQueue('Automatic', 50)
         // Se procede en caso de obtener las colas
         .then((responseQueue) => {
           // Se procede a ejecutar cada cola del listado
@@ -320,10 +327,14 @@ function auditCreate(user, type, time, period = null) {
     uri: `${apiUrl}/sii/audit`,
   };
   request(options, (error) => {
-    // Se procede a notificar en caso de que se presente algun error al crear una auditoria
     if (error) {
+      // Se procede a notificar en caso de que se presente algun error al crear una auditoria
       errorTraceRaven(error);
+      auditCreate(user, type, time, period);
       error = null;
+    } else {
+      // Se eliminan las variables que ya no se ocupan en el metodo
+      period = time = type = user = null;
     }
   });
 }
@@ -390,6 +401,7 @@ function connectAPIFacturaDocument(document, method) {
           code: null,
           message: null,
         },
+        pending: false,
       });
     })
     // Se procede a notificar en caso de que se presente algun error al sincronizar los documentos
@@ -400,6 +412,7 @@ function connectAPIFacturaDocument(document, method) {
           code: error.status || 0,
           message: error.type || 'Generic Response Error',
         },
+        pending: false,
       });
       errorTraceRaven(error);
       error = null;
@@ -456,7 +469,7 @@ function connectAPIFacturaQueue(queue, user) {
  */
 function documentCreate(listDocuments) {
   // Configuramos la peticion de la llamada de creacion de un documento
-  const options = {
+  let options = {
     body: listDocuments,
     headers: {
       'Content-Type': 'application/json',
@@ -466,15 +479,47 @@ function documentCreate(listDocuments) {
     resolveWithFullResponse: true,
     uri: `${apiUrl}/sii/document/multiple`,
   };
-  requestPromise(options)
-    // Se procede a enviar la respuesta de la creacion del documento
-    .then(() => {})
-    // Se procede a notificar en caso de que se presente algun error al crear un documento
-    .catch((error) => {
-      documentCreate(listDocuments);
+  request(options, (error) => {
+    if (error) {
+      // Se procede a notificar en caso de que se presente algun error al crear un documento
       errorTraceRaven(error);
-      error = null;
-    });
+      documentCreate(listDocuments);
+    } else {
+      // Se eliminan las variables que ya no se ocupan en el metodo
+      error = listDocuments = options = null;
+    }
+  });
+}
+
+/**
+ * Function documentPending
+ * Parametros de entrada
+ * listPending => Listado de identificadores de documentos
+ */
+function documentPending(listPending) {
+  // Configuramos la peticion de la llamada de actualizacion de un documento
+  let options = {
+    body: {
+      listPending,
+    },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    json: true,
+    method: 'PUT',
+    resolveWithFullResponse: true,
+    uri: `${apiUrl}/sii/document/pending`,
+  };
+  request(options, (error) => {
+    if (error) {
+      // Se procede a notificar en caso de que se presente algun error al actualizar los documentos
+      errorTraceRaven(error);
+      documentPending(listPending);
+    } else {
+      // Se eliminan las variables que ya no se ocupan en el metodo
+      error = listPending = options = null;
+    }
+  });
 }
 
 /**
@@ -485,7 +530,7 @@ function documentCreate(listDocuments) {
  */
 function documentSend(documentId, send) {
   // Configuramos la peticion de la llamada de actualizacion de un documento
-  const options = {
+  let options = {
     body: {
       send,
     },
@@ -497,15 +542,16 @@ function documentSend(documentId, send) {
     resolveWithFullResponse: true,
     uri: `${apiUrl}/sii/document/${documentId}`,
   };
-  requestPromise(options)
-    // Se procede a enviar la respuesta de la actualizacion del documento
-    .then(() => {})
-    // Se procede a notificar en caso de que se presente algun error al actualizar un documento
-    .catch((error) => {
+  request(options, (error) => {
+    if (error) {
+      // Se procede a notificar en caso de que se presente algun error al actualizar un documento
       errorTraceRaven(error);
       documentSend(documentId, send);
-      error = null;
-    });
+    } else {
+      // Se eliminan las variables que ya no se ocupan en el metodo
+      documentId = error = options = send = null;
+    }
+  });
 }
 
 /**
@@ -558,7 +604,7 @@ function getDocument(limit, user = null, send = true) {
       uri: `${apiUrl}/sii/document?page=1&order=asc`,
     };
     if (limit) {
-      options.uri += limit ? `&limit=${limit}` : '&sync';
+      options.uri += limit ? `&limit=${limit}` : '&sync&pending';
     }
     if (send) {
       options.uri += send ? '&send' : '';

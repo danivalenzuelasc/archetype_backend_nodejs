@@ -90,19 +90,21 @@ exports.list = (req, res) => {
     'logs.test': filters.test,
   };
   if (filters.pending) {
-    query['send.pending'] = false;
-  }
-  if (filters.send) {
     query['send.execute'] = false;
-  }
-  if (filters.type === 'details') {
-    query['execute.details'] = false;
-  }
-  if (filters.type === 'xml') {
-    query['execute.xml'] = false;
-  }
-  if (filters.user) {
-    query['transaction.user'] = req.query.user;
+    query['send.pending'] = false;
+  } else {
+    if (filters.send) {
+      query['send.execute'] = false;
+    }
+    if (filters.type === 'details') {
+      query['execute.details'] = false;
+    }
+    if (filters.type === 'xml') {
+      query['execute.xml'] = false;
+    }
+    if (filters.user) {
+      query['transaction.user'] = req.query.user;
+    }
   }
   // Se obtiene la cantidad de documentos en la coleccion que coinciden con los filtros aplicados
   SiiDocument.countDocuments(query)
@@ -172,6 +174,39 @@ exports.multipleCreate = (req, res) => {
         errorTrace: errorMultiple,
       });
     });
+};
+
+/**
+ * Metodo MultiplePending
+ * URI: /sii/queue/pending
+ * Method: PUT
+ */
+exports.multiplePending = (req, res) => {
+  // Se verifica que el documento no presente fallas, en caso de contar con fallas se retorna un error
+  if (req.body.listPending && Array.isArray(req.body.listPending) && !Object.prototype.hasOwnProperty.call(req.query, 'catch')) {
+    // Se procede a almacenar el documento en la coleccion
+    SiiDocument.updateMany({
+      _id: {
+        $in: req.body.listPending,
+      },
+    }, {
+      $set: {
+        'send.pending': true,
+      },
+    }, {
+      multi: true,
+    })
+      .then((responsePending) => {
+        // Se retorna la respuesta de los documentos actualizados
+        res.status(200).json(responsePending);
+      });
+  } else {
+    // Se retorna la respuesta con problemas
+    res.status(400).json({
+      error: errorResponse('update').response,
+      errorTrace: {},
+    });
+  }
 };
 
 /**

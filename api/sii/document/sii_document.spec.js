@@ -829,11 +829,11 @@ test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, 
     .then((response) => {
       if (response.statusCode === 200) {
         expect(response.body).toBeDefined();
-        expect(response.body.paging.count).toEqual(4);
+        expect(response.body.paging.count).toEqual(2);
         expect(response.body.paging.limit).toEqual(150);
         expect(response.body.paging.order).toEqual('asc');
         expect(response.body.paging.page).toEqual(1);
-        expect(response.body.paging.total).toEqual(4);
+        expect(response.body.paging.total).toEqual(2);
         expect(response.body.results).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('list').response;
@@ -847,11 +847,11 @@ test(`Prueba ${getCounter()} - Metodo /sii/document (LIST) [siiDocument.list]`, 
 }, 30000);
 
 /**
- * Prueba del metodo Multiple
+ * Prueba del metodo MultipleCreate
  * URI: /sii/document
  * Method: POST
  */
-test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multipleCreate]`, async () => {
   counter += 1;
   const list = [mocks[0], mocks[1]];
   list[0]._id = mongoose.Types.ObjectId();
@@ -876,7 +876,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument
       }
     });
 }, 30000);
-test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multipleCreate]`, async () => {
   counter += 1;
   const list = [mocks[2], mocks[3]];
   list[0]._id = mongoose.Types.ObjectId();
@@ -901,7 +901,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument
       }
     });
 }, 30000);
-test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multipleCreate]`, async () => {
   counter += 1;
   const list = [mocks[4], mocks[5]];
   list[0]._id = mongoose.Types.ObjectId();
@@ -926,7 +926,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument
       }
     });
 }, 30000);
-test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multipleCreate]`, async () => {
   counter += 1;
   const list = [mocks[6], mocks[7]];
   list[0]._id = mongoose.Types.ObjectId();
@@ -951,7 +951,7 @@ test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument
       }
     });
 }, 30000);
-test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multiple]`, async () => {
+test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument.multipleCreate]`, async () => {
   counter += 1;
   const list = [mocks[8], mocks[9]];
   list[0]._id = mongoose.Types.ObjectId();
@@ -968,6 +968,114 @@ test(`Prueba ${getCounter()} - Metodo /sii/document/multiple (POST) [siiDocument
         expect(response.body).toBeDefined();
       } else if (response.statusCode === 400) {
         const error = errorResponse('create').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 30000);
+
+/**
+ * Prueba del metodo MultiplePending
+ * URI: /sii/document/pending
+ * Method: PUT
+ */
+test(`Prueba ${getCounter()} - Metodo /sii/document/pending (PUT) [siiDocument.multiplePending]`, async () => {
+  counter += 1;
+  const body = {
+    listPending: [
+      mongoose.Types.ObjectId(),
+      mongoose.Types.ObjectId(),
+      mongoose.Types.ObjectId(),
+    ],
+  };
+  await request().put('/sii/document/pending').send(body)
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('update').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 30000);
+test(`Prueba ${getCounter()} - Metodo /sii/document/pending (PUT) [siiDocument.multiplePending]`, async () => {
+  counter += 1;
+  const body = {
+    listPending: [
+      mongoose.Types.ObjectId(),
+    ],
+  };
+  await request().put('/sii/document/pending').send(body)
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('update').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 30000);
+test(`Prueba ${getCounter()} - Metodo /sii/document/pending (PUT) [siiDocument.multiplePending]`, async () => {
+  counter += 1;
+  const body = {
+    listPending: [],
+  };
+  await request().put('/sii/document/pending').send(body)
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('update').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 30000);
+test(`Prueba ${getCounter()} - Metodo /sii/document/pending (PUT) [siiDocument.multiplePending]`, async () => {
+  counter += 1;
+  const body = {
+    listPending: {},
+  };
+  await request().put('/sii/document/pending').send(body)
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('update').response;
+        expect(response.body).toBeDefined();
+        expect(response.body.error).toBeDefined();
+        expect(response.body.error.message).toEqual(error.message);
+        expect(response.body.error.status).toEqual(error.status);
+        expect(response.body.errorTrace).toBeDefined();
+      }
+    });
+}, 30000);
+test(`Prueba ${getCounter()} - Metodo /sii/document/pending (PUT) [siiDocument.multiplePending]`, async () => {
+  counter += 1;
+  const body = {
+    catch: true,
+    listPending: {},
+  };
+  await request().put('/sii/document/pending').send(body)
+    .then((response) => {
+      if (response.statusCode === 200) {
+        expect(response.body).toBeDefined();
+      } else if (response.statusCode === 400) {
+        const error = errorResponse('update').response;
         expect(response.body).toBeDefined();
         expect(response.body.error).toBeDefined();
         expect(response.body.error.message).toEqual(error.message);
